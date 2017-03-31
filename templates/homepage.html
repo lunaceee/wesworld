@@ -1,52 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Wes World</title>
-	<!-- Import Bootstrap. -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block body %}
+
 	<!-- Display movie dropdown menu. -->
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Moonrise Kingdom">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="The Grand Budapest Hotel">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="The Royal Tenenbaums">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Castello Cavalcanti">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Hotel Chevalier">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="The Life Aquatic with Steve Zissou">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Fantastic Mr. Fox">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Rushmore">
-	</form>
-	<form action="/search" method="GET">
-		<input class="btn btn-primary" type="submit" name="movie_name" value="Bottle Rocket">
+	<form action="/">
+		<select class="custom-select" name="movie_name">
+			<option selected>Open this select menu</option>
+    		<option value="Moonrise Kingdom">Moonrise Kingdom</option>
+		    <option value="The Grand Budapest Hotel">The Grand Budapest Hotel</option>
+		    <option value="The Royal Tenenbaums">The Royal Tenenbaums</option>
+		    <option value="Castello Cavalcanti">Castello Cavalcanti</option>
+		    <option value="Hotel Chevalier">Hotel Chevalier</option>
+		    <option value="The Life Aquatic with Steve Zissou">The Life Aquatic with Steve Zissou</option>
+		    <option value="Fantastic Mr. Fox">Fantastic Mr. Fox</option>
+		    <option value="Rushmore">Rushmore</option>
+		    <option value="Bottle Rocket">Bottle Rocket</option>
+  		</select>
+  		<input class="btn btn-primary" type="submit">
 	</form>
 	
 	<br>
 	<!-- Display ensemble. -->
+	<div class='container'>
+		<div class="card-columns col-lg-10">
+			<div class="card">
+				<a href="{{ top_listing }}"><img class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
+				<div class="card-block">
+	      			<h4 class="card-title">Card title</h4>
+	      			<p class="card-text">card description</p>
+	    		</div>
+			</div>
 
-	<div id="ensemble_display">
-		<a href="{{ top_listing }}"><img src="{{ top_img_url }}" alt="accessory"></a>
-		<a href="{{ bottom_listing }}"><img src="{{ bottom_img_url }}" alt="top"></a>
-		<a href="{{ accessory_listing }}"><img src="{{ shoe_img_url }}" alt="bottom"></a>
-		<a href="{{ shoe_listing }}"><img src="{{ accessory_img_url }}" alt="shoe"></a>
-		<a href="{{ bag_listing }}"><img src="{{ bag_img_url }}" alt="bag"></a>
+			<div class="card">
+				<a href="{{ bottom_listing }}"><img class="img-fluid" src="{{ bo_img_url }}" alt="top"></a>
+				<div class="card-block">
+	      			<h4 class="card-title">Card title</h4>
+	      			<p class="card-text">card description</p>
+	    		</div>
+			</div>
+
+			<div class="card">
+				<a href="{{ accessory_listing }}"><img class="img-fluid" src="{{ a_img_url }}" alt="accessory"></a>
+				<div class="card-block">
+	      			<h4 class="card-title">Card title</h4>
+	      			<p class="card-text">card description</p>
+	    		</div>
+			</div>
+
+			<div class="card">
+				<a href="{{ shoe_listing }}"><img class="img-fluid" src="{{ s_img_url }}" alt="shoe"></a>
+				<div class="card-block">
+	      			<h4 class="card-title">Card title</h4>
+	      			<p class="card-text">card description</p>
+	    		</div>
+			</div>
+
+			<div class="card">
+				<a href="{{ bag_listing }}"><img class="img-fluid" src="{{ b_img_url }}" alt="bag"></a>
+				<div class="card-block">
+	      			<h4 class="card-title">Card title</h4>
+	      			<p class="card-text">card description</p>
+	    		</div>
+			</div>
+			
+		</div>
 	</div>
 	<br>
 	<!-- Display change set button and save to wishlist button. -->
@@ -56,5 +72,7 @@
 			<button>Save</button>
 		</form>
 	</div>
-</body>
-</html>
+
+{% endblock %}
+
+

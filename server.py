@@ -25,44 +25,71 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
-def index():
-	"""Show homepage."""
-
-	return render_template('homepage.html')
-
-
-@app.route('/search')
 def search():
-	"""Search for list items matching with movie colors from Etsy."""
+    """Search for list items matching with movie colors from Etsy."""
 
-	movie_name = request.args.get("movie_name")
+    movie_name = request.args.get("movie_name")
 
-	movie = Movie.query.filter_by(Movie.name == movie_name).one()
+    movie = Movie.query.filter(Movie.name == movie_name).one()
 
-	colors = Color.query.filter_by(Color.movie_id == movie.id).all()
+    colors = Color.query.filter(Color.movie_id == movie.id).all()
 
-	color_list = []
+    color_list = []
 
-	for color in colors:
-		color_list.append(colors.hexcode)
+    for color in colors:
+        color_list.append(color.hexcode)
 
-	top_dict, bottom_dict, shoe_dict, accessory_dict, bag_dict = etsy.get_listing_items(color_list)
-	top_img_url, bottom_img_url, shoe_img_url, accessory_img_url, bag_img_url = etsy.get_image_urls(top_dict, bottom_dict, shoe_dict, accessory_dict, bag_dict)
-	top_listing, bottom_listing, accessory_listing, shoe_listing, bag_listing = etsy.get_listing_urls(top_dict, bottom_dict, shoe_dict, accessory_dict, bag_dict)
+    (shirt_dict,
+        jacket_dict,
+        sweatshirt_dict,
+        tank_dict,
+        pants_dict,
+        skirt_dict,
+        shorts_dict,
+        shoe_dict,
+        socks_dict,
+        accessory_dict,
+        bag_dict) = etsy.get_listing_items(color_list)
+    
+    t_img_url, bo_img_url, s_img_url, a_img_url, b_img_url = etsy.get_image_urls(
+                    shirt_dict,
+                    jacket_dict,
+                    sweatshirt_dict,
+                    tank_dict,
+                    pants_dict,
+                    skirt_dict,
+                    shorts_dict,
+                    shoe_dict,
+                    socks_dict,
+                    accessory_dict,
+                    bag_dict)
+    
+    top_listing, bottom_listing, accessory_listing, shoe_listing, bag_listing = etsy.get_listing_urls(
+                    shirt_dict,
+                    jacket_dict,
+                    sweatshirt_dict,
+                    tank_dict,
+                    pants_dict,
+                    skirt_dict,
+                    shorts_dict,
+                    shoe_dict,
+                    socks_dict,
+                    accessory_dict,
+                    bag_dict)
 
 
-	return render_template('homepage.html',
-							top_img_url=top_img_url,
-							bottom_img_url=bottom_img_url,
-							shoe_img_url=shoe_img_url,
-							accessory_img_url=accessory_img_url,
-							bag_img_url=bag_img_url,
-							top_listing=top_listing,
-							bottom_listing=bottom_listing,
-							accessory_listing=accessory_listing,
-							shoe_listing=shoe_listing,
-							bag_listing=bag_listing
-							)
+    return render_template('homepage.html',
+                                t_img_url=t_img_url,
+                                bo_img_url=bo_img_url,
+                                s_img_url=s_img_url,
+                                a_img_url=a_img_url,
+                                b_img_url=b_img_url,
+                                top_listing=top_listing,
+                                bottom_listing=bottom_listing,
+                                accessory_listing=accessory_listing,
+                                shoe_listing=shoe_listing,
+                                bag_listing=bag_listing
+                            )
 
 
 
