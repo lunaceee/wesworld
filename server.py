@@ -6,12 +6,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Movie, Color, Ensemble, connect_to_db, db
 
-from random import shuffle
+from wtforms import Form, BooleanField, TextField, PasswordField, validators
 
-import requests
+from passlib.hash import sha256_crypt
 
 import etsy
 
+import random
 
 app = Flask(__name__)
 
@@ -24,14 +25,118 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
-@app.route('/')
+# @app.route('/')
+# def show_home_page():
+#     """Show an ensemble when user land in the homepage."""
+
+#     return render_template("homepage.html")
+
+
+class RegistrationForm(Form):
+    username = TextField('Username', [validators.Length(min=4, max=20)])
+    email = TextField('Email Address', [validators.Length(min=6, max=50)])
+    password = PasswordField('New Password', [
+        validators.Required(),
+        validators.EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    accept_tos = BooleanField('I accept the <a href="">Terms of Service</a> and Privacy Notice (Last updated Apr 1st, 2017)', [validators.Required()])
+
+
+@app.route('/register/', methods=["GET", "POST"])
+def register_page():
+    try:
+        form = RegistrationForm(request.form)
+
+        if request.method == "POST" and form.validate():
+            username = request.form.get("username")
+            email = request.form.get("email")
+            password = sha256_crypt.encrypt((str(request.form.get("password"))))
+            # c, conn = connection()
+
+            # x = c.execute("SELECT * FROM users WHERE username = (%s)",
+            #               (thwart(username)))
+
+            if User.query.filter(User.username == username).first():
+                flash("That username is already taken, please choose another.")
+                return render_template('register.html', form=form)
+
+            else:
+                # c.execute("INSERT INTO users (username, password, email, tracking) VALUES (%s, %s, %s, %s)",
+                #           (thwart(username), thwart(password), thwart(email), thwart("/introduction-to-python-programming/")))
+                
+                # conn.commit()
+                flash("Thanks for registering!")
+                # c.close()
+                # conn.close()
+                # gc.collect()
+
+                new_user = User(username=username, email=email, password=password)
+                db.session.add(new_user)
+                db.session.commit()
+                
+                session['logged_in'] = True
+                session['username'] = username
+
+                return redirect('/')
+
+        return render_template("register.html", form=form)
+
+    except Exception as e:
+        return(str(e))
+
+
+
+# @app.route('/login', methods=['POST'])
+# def process_form():
+#     """Validate user login info."""
+
+#     login = request.form.get('login')
+#     password = request.form.get('password')
+
+#     user = User.query.filter(User.email == login, User.username == login).first()
+
+#     # if not user or if user is None:
+#     if not user:
+#         flash('Username or email not recognized, create your account right now.')
+#         return render_template('register.html')
+
+#     elif user.password != password:
+#         flash('Password is wrong, please log in again')
+#         return render_template('login_form.html')
+#     else:
+#         session['logged_in'] = user.user_id
+#         flash('Log in successful!')
+#         return redirect('users/' + str(user.user_id))
+#     return render_template("homepage.html")
+
+
+# @app.route('logout')
+# def logout():
+#     """Log out user."""
+#     del session['logged_in']
+#     flash("You have been logged out.", "success")
+
+#     return redirect("/")
+
+
+# @app.route('/user_profile/<username>')
+# def show_user_profile(username):
+#     """Show user profile page."""
+#     return redirect('user_profile' + username)
+
+
+@app.route('/search')
 def search():
     """Search for list items matching with movie colors from Etsy."""
 
-    movie_name = request.args.get("movie_name")
+    if request.args.get("movie_name"):
+        movie_name = request.args.get("movie_name")
+        movie = Movie.query.filter(Movie.name == movie_name).one()
 
-    movie = Movie.query.filter(Movie.name == movie_name).one()
-
+    else:
+        movie = random.choice(Movie.query.all())
+    
     colors = Color.query.filter(Color.movie_id == movie.id).all()
 
     color_list = []
@@ -39,43 +144,13 @@ def search():
     for color in colors:
         color_list.append(color.hexcode)
 
-    (shirt_dict,
-        jacket_dict,
-        sweatshirt_dict,
-        tank_dict,
-        pants_dict,
-        skirt_dict,
-        shorts_dict,
-        shoe_dict,
-        socks_dict,
-        accessory_dict,
-        bag_dict) = etsy.get_listing_items(color_list)
+    result_dict = etsy.get_listing_items(color_list)
     
-    t_img_url, bo_img_url, s_img_url, a_img_url, b_img_url = etsy.get_image_urls(
-                    shirt_dict,
-                    jacket_dict,
-                    sweatshirt_dict,
-                    tank_dict,
-                    pants_dict,
-                    skirt_dict,
-                    shorts_dict,
-                    shoe_dict,
-                    socks_dict,
-                    accessory_dict,
-                    bag_dict)
+    (t_img_url, bo_img_url, s_img_url, a_img_url, 
+        b_img_url) = etsy.get_image_urls(result_dict)
     
-    top_listing, bottom_listing, accessory_listing, shoe_listing, bag_listing = etsy.get_listing_urls(
-                    shirt_dict,
-                    jacket_dict,
-                    sweatshirt_dict,
-                    tank_dict,
-                    pants_dict,
-                    skirt_dict,
-                    shorts_dict,
-                    shoe_dict,
-                    socks_dict,
-                    accessory_dict,
-                    bag_dict)
+    (top_listing, bottom_listing, accessory_listing, 
+        shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
 
 
     return render_template('homepage.html',
@@ -90,6 +165,7 @@ def search():
                                 shoe_listing=shoe_listing,
                                 bag_listing=bag_listing
                             )
+
 
 
 
