@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<!-- <div>
+    <div>
+        <h2>Welcome to Wesworld</h2>
+        <form action="" method="">
+            <input name="username" type="text" required="" placeholder="username">
+            <input name="email" type="text" required="" placeholder="Email">
+            <input name="password" type="password" required="" placeholder="Create a password">
+            <button></button>
+        </form>
+    </div>
+</div> -->
+
+<div class="container">
+    <h2>Welcome to Wesworld</h2>
+    <br>
+    {% from "_formhelpers.html" import render_field %}
+    <form method=post action="/register/">
+        <dl>
+            {{render_field(form.username)}}
+            {{render_field(form.email)}}
+            {{render_field(form.password)}}
+            {{render_field(form.confirm)}}
+            {{render_field(form.accept_tos)}}
+        </dl>
+        <p><input type=submit value=Register></p>
+    </form>
+    
+    {% if error %}
+        <p class="error"><strong>Error:</strong>{{error}}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
