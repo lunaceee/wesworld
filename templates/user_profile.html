@@ -3,11 +3,14 @@
 
 <div>
     <div>
-        <h2>Your Name: {{ username }}</h2>
+        <p>Your Name: {{ username }}</p>
         <p>Your Email: {{ email }}</p>
     </div>
     <div>
         <h2>Your Saved Ensemble</h2>
+        {% for ensemble in ensembles %}
+        {{ ensemble }}
+        {% endfor %}
     </div>
 
 </div>

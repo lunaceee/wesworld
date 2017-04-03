@@ -76,6 +76,9 @@ class Ensemble(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
+    # Define relationship to user
+    users = db.relationship("User", secondary=ensemble_user, backref=db.backref("ensembles"))
+
     def __repr__(self):
         """Show info about Ensemble."""
 
@@ -89,9 +92,7 @@ class Ensemble(db.Model):
                                                                                     )
 
 
-    # Define relationship to user
-    users = db.relationship("User", secondary=ensemble_user, backref=db.backref("ensembles"))
-
+    
 
 ##############################################################################
 # Helper functions

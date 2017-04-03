@@ -28,7 +28,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/register', methods=["GET", "POST"])
 def register_page():
     """Register user."""
-    
+
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
@@ -93,17 +93,22 @@ def logout():
     return redirect("/")
 
 
-@app.route('/users/<id>')
-def show_user_profile(id):
+@app.route('/users/<user_id>')
+def show_user_profile(user_id):
     """Show user profile page."""
 
-    user = User.query.filter(User.id == id).one()
+    user = User.query.filter(User.id == user_id).one()
     email = user.email
     username = user.username
 
+    ensembles = user.ensembles
+
+
+
     return render_template('user_profile.html',
                             email=email,
-                            username=username)
+                            username=username,
+                            ensembles=ensembles)
 
 
 @app.route('/search')
