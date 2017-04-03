@@ -1,8 +1,41 @@
 {% extends 'base.html' %}
 {% block body %}
 
-	<!-- Display movie dropdown menu. -->
-	<form action="/">
+	<!-- Nav bar. -->
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Brand</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+	        <li><a href="#">Link</a></li>
+	      </ul>
+	      <form action="/login" class="navbar-form navbar-left">
+	        <div class="form-group">
+	          <input type="text" class="form-control" name="login" placeholder="Username or e-mail">
+	          <input name="password" placeholder="Password" title="" type="password" required="">
+	        </div>
+	        <input type="submit" class="btn btn-default" value="Submit">
+	      </form>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+
+
+	<!-- Display all movie names via dropdown menu. -->
+	<form action="/search">
 		<select class="custom-select" name="movie_name">
 			<option selected>Open this select menu</option>
     		<option value="Moonrise Kingdom">Moonrise Kingdom</option>
@@ -25,15 +58,15 @@
 			<div class="card">
 				<a href="{{ top_listing }}"><img class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
 				<div class="card-block">
-	      			<h4 class="card-title">Card title</h4>
+	      			<h4 class="card-title">Top</h4>
 	      			<p class="card-text">card description</p>
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a href="{{ bottom_listing }}"><img class="img-fluid" src="{{ bo_img_url }}" alt="top"></a>
+				<a href="{{ bottom_listing }}"><img class="img-fluid" src="{{ bo_img_url }}" alt="bottom"></a>
 				<div class="card-block">
-	      			<h4 class="card-title">Card title</h4>
+	      			<h4 class="card-title">Bottom</h4>
 	      			<p class="card-text">card description</p>
 	    		</div>
 			</div>
@@ -41,7 +74,7 @@
 			<div class="card">
 				<a href="{{ accessory_listing }}"><img class="img-fluid" src="{{ a_img_url }}" alt="accessory"></a>
 				<div class="card-block">
-	      			<h4 class="card-title">Card title</h4>
+	      			<h4 class="card-title">Accessory</h4>
 	      			<p class="card-text">card description</p>
 	    		</div>
 			</div>
@@ -49,7 +82,7 @@
 			<div class="card">
 				<a href="{{ shoe_listing }}"><img class="img-fluid" src="{{ s_img_url }}" alt="shoe"></a>
 				<div class="card-block">
-	      			<h4 class="card-title">Card title</h4>
+	      			<h4 class="card-title">Shoe</h4>
 	      			<p class="card-text">card description</p>
 	    		</div>
 			</div>
@@ -57,7 +90,7 @@
 			<div class="card">
 				<a href="{{ bag_listing }}"><img class="img-fluid" src="{{ b_img_url }}" alt="bag"></a>
 				<div class="card-block">
-	      			<h4 class="card-title">Card title</h4>
+	      			<h4 class="card-title">Bag</h4>
 	      			<p class="card-text">card description</p>
 	    		</div>
 			</div>

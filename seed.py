@@ -149,10 +149,10 @@ def load_users():
     # Read user_data file and insert data
     for row in open("seed_data/user_data.txt"):
         row = row.rstrip()
-        user_id, name, email, password = row.split("|")
+        user_id, username, email, password = row.split("|")
 
         user = User(
-                    name=name,
+                    username=username,
                     email=email,
                     password=password
                     )
