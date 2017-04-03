@@ -21,6 +21,7 @@ movies = [
         'FD6467'
     ],
   },
+  
   {
     'name': 'Bottle Rocket',
     'colors': [
@@ -38,6 +39,7 @@ movies = [
 		'FAD510'
     ],
   },
+
   {
     'name': 'Castello Cavalcanti',
     'colors': [
@@ -48,6 +50,7 @@ movies = [
 		'D8B70A',
     ],
   },
+
   {
     'name': 'Fantastic Mr. Fox',
     'colors': [
@@ -58,15 +61,7 @@ movies = [
 		'E58601',
     ],
   },
-  {
-    'name': 'Hotel Chevalier',
-    'colors': [
-		'446455',
-		'C7B19C',
-		'D3DDDC',
-		'FDD262'
-    ],
-  },
+
   {
     'name': 'Moonrise Kingdom',
     'colors': [
@@ -85,6 +80,7 @@ movies = [
 		'FAD77B'
     ],
   },
+
   {
     'name': 'Rushmore',
     'colors': [
@@ -95,6 +91,7 @@ movies = [
 		'F2300F'
     ],
   },
+
   {
     'name': 'The Darjeeling Limited',
     'colors': [
@@ -110,6 +107,7 @@ movies = [
 		'FF0000'
     ],
   },
+
   {
     'name': 'The Life Aquatic with Steve Zissou',
     'colors': [
@@ -120,6 +118,7 @@ movies = [
 		'F21A00'
     ],
   },
+
   {
     'name': 'The Royal Tenenbaums',
     'colors': [

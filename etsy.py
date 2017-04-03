@@ -50,7 +50,8 @@ def get_listing_items(color_list):
 		socks_results = get_results(shoe_color, "clothing/socks"),
 
 		accessory_results = get_results(accessory_color, "accessories"),
-		bag_results = get_results(bag_color, "bags_and_purses")
+		bag_results = get_results(bag_color, "bags_and_purses"),
+		dress_results = get_results(top_color, "clothing/dresses")
 	)
 
 
@@ -69,6 +70,8 @@ def get_one_image_url(listing_id):
 def get_image_urls(result_dict):
 	
 	try:
+		dress_results = result_dict['dress_results']
+
 		bottom_results = (result_dict['pants_results'] + 
 						  result_dict['skirt_results'] + 
 						  result_dict['shorts_results'])
@@ -78,7 +81,10 @@ def get_image_urls(result_dict):
 					   result_dict['tank_results'] + 
 					   result_dict['jacket_results'])
 
+		
 		shoe_results = result_dict['shoe_results'] + result_dict['socks_results']
+
+		d_img_url = get_one_image_url(dress_results[0]["listing_id"])
 
 		t_img_url = get_one_image_url(top_results[0]["listing_id"])
 
@@ -94,11 +100,13 @@ def get_image_urls(result_dict):
 		print e
 		
 
-	return t_img_url, bo_img_url, s_img_url, a_img_url, b_img_url
+	return t_img_url, bo_img_url, s_img_url, a_img_url, b_img_url, d_img_url
 
 
 def get_listing_urls(result_dict):
 	# Getting listing URLs
+	dress_results = result_dict['dress_results']
+
 	bottom_results = (result_dict['pants_results'] + 
 						  result_dict['skirt_results'] + 
 						  result_dict['shorts_results'])
@@ -111,6 +119,8 @@ def get_listing_urls(result_dict):
 	shoe_results = result_dict['shoe_results'] + result_dict['socks_results']
 
 	# Generate listing URLs.
+	dress_listing = dress_results[0]["url"]
+
 	top_listing = top_results[0]["url"]
 
 	bottom_listing = bottom_results[0]["url"]
@@ -121,7 +131,8 @@ def get_listing_urls(result_dict):
 
 	bag_listing = result_dict["bag_results"][0]["url"]
 
-	return top_listing, bottom_listing, accessory_listing, shoe_listing, bag_listing
+	return (top_listing, bottom_listing, accessory_listing, 
+			dress_listing, shoe_listing, bag_listing)
 
 
 if __name__ == '__main__':

@@ -140,6 +140,7 @@ def save_ensemble():
                             bag_url=bag_listing,
                             movie_id=movie_id
                             )
+
         new_ensemble.users.append(user)
         db.session.add(new_ensemble)
         db.session.commit()
