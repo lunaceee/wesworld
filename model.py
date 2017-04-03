@@ -24,7 +24,7 @@ class User(db.Model):
     """User info"""
     __tablename__ = "users"
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String)
+    username = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String)
     created_at = db.Column(db.DateTime)
@@ -33,7 +33,10 @@ class User(db.Model):
     def __repr__(self):
         """Show info about user."""
 
-        return "<User id={} name={} email={} password={}>".format(self.id, self.name, self.email, self.password)
+        return "<User id={} name={} email={} password={}>".format(self.id, 
+                                                                  self.username, 
+                                                                  self.email, 
+                                                                  self.password)
 
 
 class Color(db.Model):

@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 
-from flask import (Flask, render_template, redirect, request, flash,
-                   session)
+from flask import (Flask, render_template, redirect, request, flash, session)
+
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Movie, Color, Ensemble, connect_to_db, db
@@ -25,105 +25,85 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
-# @app.route('/')
-# def show_home_page():
-#     """Show an ensemble when user land in the homepage."""
-
-#     return render_template("homepage.html")
-
-
-class RegistrationForm(Form):
-    username = TextField('Username', [validators.Length(min=4, max=20)])
-    email = TextField('Email Address', [validators.Length(min=6, max=50)])
-    password = PasswordField('New Password', [
-        validators.Required(),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
-    confirm = PasswordField('Repeat Password')
-    accept_tos = BooleanField('I accept the <a href="">Terms of Service</a> and Privacy Notice (Last updated Apr 1st, 2017)', [validators.Required()])
-
-
-@app.route('/register/', methods=["GET", "POST"])
+@app.route('/register', methods=["GET", "POST"])
 def register_page():
-    try:
-        form = RegistrationForm(request.form)
+    """Register user."""
+    
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = sha256_crypt.encrypt((str(request.form.get("password"))))
+    
 
-        if request.method == "POST" and form.validate():
-            username = request.form.get("username")
-            email = request.form.get("email")
-            password = sha256_crypt.encrypt((str(request.form.get("password"))))
-            # c, conn = connection()
+        if User.query.filter(User.username == username).first():
+            flash("That username is already taken, please choose another.")
+            return render_template('register.html')
 
-            # x = c.execute("SELECT * FROM users WHERE username = (%s)",
-            #               (thwart(username)))
+        else:
+            
+            flash("Thanks for registering!")
 
-            if User.query.filter(User.username == username).first():
-                flash("That username is already taken, please choose another.")
-                return render_template('register.html', form=form)
+            new_user = User(username=username, email=email, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            
+            session['logged_in'] = new_user.id
 
-            else:
-                # c.execute("INSERT INTO users (username, password, email, tracking) VALUES (%s, %s, %s, %s)",
-                #           (thwart(username), thwart(password), thwart(email), thwart("/introduction-to-python-programming/")))
-                
-                # conn.commit()
-                flash("Thanks for registering!")
-                # c.close()
-                # conn.close()
-                # gc.collect()
+            return redirect('/search')
 
-                new_user = User(username=username, email=email, password=password)
-                db.session.add(new_user)
-                db.session.commit()
-                
-                session['logged_in'] = True
-                session['username'] = username
-
-                return redirect('/')
-
-        return render_template("register.html", form=form)
-
-    except Exception as e:
-        return(str(e))
+    else:
+        return render_template("register.html")
 
 
-
-# @app.route('/login', methods=['POST'])
-# def process_form():
-#     """Validate user login info."""
-
-#     login = request.form.get('login')
-#     password = request.form.get('password')
-
-#     user = User.query.filter(User.email == login, User.username == login).first()
-
-#     # if not user or if user is None:
-#     if not user:
-#         flash('Username or email not recognized, create your account right now.')
-#         return render_template('register.html')
-
-#     elif user.password != password:
-#         flash('Password is wrong, please log in again')
-#         return render_template('login_form.html')
-#     else:
-#         session['logged_in'] = user.user_id
-#         flash('Log in successful!')
-#         return redirect('users/' + str(user.user_id))
-#     return render_template("homepage.html")
+@app.route('/login')
+def show_login_form():
+    """Show login form."""
+    return render_template('log_in.html')
 
 
-# @app.route('logout')
-# def logout():
-#     """Log out user."""
-#     del session['logged_in']
-#     flash("You have been logged out.", "success")
+@app.route('/login', methods=['POST'])
+def process_form():
+    """Validate user login info."""
 
-#     return redirect("/")
+    login = request.form.get('login')
+    password = request.form.get('password')
+
+    user = User.query.filter(User.email == login, User.username == login).first()
+
+    # if not user or if user is None:
+    if not user:
+        flash('Username or email not recognized, create your account right now.')
+        return render_template('register.html')
+
+    elif user.password != password:
+        flash('Password is wrong, please log in again')
+        return render_template('log_in.html')
+    else:
+        session['logged_in'] = user.id
+        flash('Log in successful!')
+        return redirect('users/' + str(user.id))
 
 
-# @app.route('/user_profile/<username>')
-# def show_user_profile(username):
-#     """Show user profile page."""
-#     return redirect('user_profile' + username)
+@app.route('/logout')
+def logout():
+    """Log out user."""
+    del session['logged_in']
+    flash("You have been logged out.", "success")
+
+    return redirect("/")
+
+
+@app.route('/users/<id>')
+def show_user_profile(id):
+    """Show user profile page."""
+
+    user = User.query.filter(User.id == id).one()
+    email = user.email
+    username = user.username
+
+    return render_template('user_profile.html',
+                            email=email,
+                            username=username)
 
 
 @app.route('/search')
