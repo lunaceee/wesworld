@@ -81,7 +81,7 @@ def process_form():
     else:
         session['logged_in'] = user.id
         flash('Log in successful!')
-        return redirect('users/' + str(user.id))
+        return redirect('/users/' + str(user.id))
 
 
 @app.route('/logout')
@@ -103,12 +103,48 @@ def show_user_profile(user_id):
 
     ensembles = user.ensembles
 
-
-
     return render_template('user_profile.html',
                             email=email,
                             username=username,
                             ensembles=ensembles)
+
+
+@app.route('/ensembles', methods=['POST'])
+def save_ensemble():
+    """User save ensembles."""
+    top_listing = request.form.get("top_listing")
+    bottom_listing = request.form.get("bottom_listing")
+    accessory_listing = request.form.get("accessory_listing")
+    shoe_listing = request.form.get('shoe_listing')
+    bag_listing = request.form.get('bag_listing')
+    movie_id = request.form.get('movie_id')
+
+    user_id = session['logged_in']
+    user = User.query.filter(User.id == user_id).one()
+
+    ensemble = Ensemble.query.filter(Ensemble.top_url == top_listing,
+                                     Ensemble.bottom_url == bottom_listing,
+                                     Ensemble.accessory_url == accessory_listing,
+                                     Ensemble.shoe_url == shoe_listing,
+                                     Ensemble.bag_url == bag_listing).first()
+
+    if ensemble:
+        ensemble.users.append(user)
+        db.session.add(ensemble)
+        db.session.commit()
+    else:
+        new_ensemble = Ensemble(top_url=top_listing,
+                            bottom_url=bottom_listing,
+                            accessory_url=accessory_listing,
+                            shoe_url=shoe_listing,
+                            bag_url=bag_listing,
+                            movie_id=movie_id
+                            )
+        new_ensemble.users.append(user)
+        db.session.add(new_ensemble)
+        db.session.commit()
+
+    return redirect('/users/' + str(user_id))
 
 
 @app.route('/search')
@@ -148,7 +184,8 @@ def search():
                                 bottom_listing=bottom_listing,
                                 accessory_listing=accessory_listing,
                                 shoe_listing=shoe_listing,
-                                bag_listing=bag_listing
+                                bag_listing=bag_listing,
+                                movie_id=movie.id
                             )
 
 

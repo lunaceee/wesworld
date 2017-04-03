@@ -102,7 +102,15 @@
 	<div>
 		<form>
 			<button>Change</button>
-			<button>Save</button>
+		</form>
+		<form action="/ensembles" method="post">
+			<input type="submit" value="save">
+			<input type="hidden" name="movie_id" value="{{ movie_id }}" >
+			<input type="hidden" name="top_listing" value="{{ top_listing }}">
+			<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
+			<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
+			<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
+			<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
 		</form>
 	</div>
 
