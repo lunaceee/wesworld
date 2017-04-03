@@ -72,6 +72,7 @@ class Ensemble(db.Model):
     top_url = db.Column(db.String)
     bottom_url = db.Column(db.String)
     bag_url = db.Column(db.String)
+    dress_url = db.Column(db.String)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
@@ -88,7 +89,8 @@ class Ensemble(db.Model):
                                                                                     self.shoe_url,
                                                                                     self.top_url,
                                                                                     self.bottom_url,
-                                                                                    self.bag_url
+                                                                                    self.bag_url,
+                                                                                    self.dress_url
                                                                                     )
 
 

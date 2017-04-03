@@ -169,10 +169,10 @@ def search():
     result_dict = etsy.get_listing_items(color_list)
     
     (t_img_url, bo_img_url, s_img_url, a_img_url, 
-        b_img_url) = etsy.get_image_urls(result_dict)
+        b_img_url, d_img_url) = etsy.get_image_urls(result_dict)
     
     (top_listing, bottom_listing, accessory_listing, 
-        shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
+        shoe_listing, bag_listing, dress_listing) = etsy.get_listing_urls(result_dict)
 
 
     return render_template('homepage.html',
@@ -181,11 +181,13 @@ def search():
                                 s_img_url=s_img_url,
                                 a_img_url=a_img_url,
                                 b_img_url=b_img_url,
+                                d_img_url=d_img_url,
                                 top_listing=top_listing,
                                 bottom_listing=bottom_listing,
                                 accessory_listing=accessory_listing,
                                 shoe_listing=shoe_listing,
                                 bag_listing=bag_listing,
+                                dress_listing=dress_listing,
                                 movie_id=movie.id
                             )
 
