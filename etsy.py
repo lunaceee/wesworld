@@ -65,24 +65,35 @@ def get_listing_items(color_list):
 def get_search_results(result_dict):
 	"""Create search results by categories."""
 	
-	accessory_results = (result_dict['accessory_results'] 
-						+ result_dict['jewelry_results'])
+	accessory_results = (result_dict['accessory_results'][:10] 
+						+ result_dict['jewelry_results'][:10])
 
-	bag_results = result_dict['bag_results']
+	shuffle(accessory_results)
 
-	dress_results = result_dict['dress_results']
+	bag_results = result_dict['bag_results'][:20]
+	shuffle(bag_results)
 
-	bottom_results = (result_dict['pants_results'] + 
-					  result_dict['skirt_results'] + 
-					  result_dict['shorts_results'])
+	dress_results = result_dict['dress_results'][:20]
+	shuffle(dress_results)
 
-	top_results = (result_dict['shirt_results'] + 
-				   result_dict['sweatshirt_results'] + 
-				   result_dict['tank_results'] + 
-				   result_dict['jacket_results'])
+	bottom_results = (result_dict['pants_results'][:6] + 
+					  result_dict['skirt_results'][:6] + 
+					  result_dict['shorts_results'][:6])
+	shuffle(bottom_results)
+
+
+	top_results = (result_dict['shirt_results'][:5] + 
+				   result_dict['sweatshirt_results'][:5] + 
+				   result_dict['tank_results'][:5] + 
+				   result_dict['jacket_results'][:5])
+
+	shuffle(top_results)
 
 		
-	shoe_results = result_dict['shoe_results'] + result_dict['socks_results']
+	shoe_results = (result_dict['shoe_results'][:10] +
+	                result_dict['socks_results'][:10]
+	                )
+	shuffle(shoe_results)
 
 	return (accessory_results,
 			bag_results,
@@ -90,6 +101,26 @@ def get_search_results(result_dict):
 			bottom_results,
 			top_results,
 			shoe_results)
+
+
+def get_best_result(results, color=None):
+
+	for result in results:
+		listing_id = result["listing_id"]
+		image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
+		url = image_url_template.format(listing_id)
+		url_response = requests.get(url)
+		url_dict = url_response.json()
+		num_imgs = len(url_dict['results'])
+
+		if num_imgs > 1:
+			return result, url_dict['results'][0]["url_570xN"]
+		else:
+			print "rejecting bad images.", url
+
+	return result, url_dict['results'][0]["url_570xN"]
+
+
 
 
 def get_one_image_url(listing_id):
@@ -101,7 +132,6 @@ def get_one_image_url(listing_id):
 	img_url = url_dict["results"][0]["url_570xN"]
 
 	return img_url
-	print "image url", img_url
 
 
 def get_image_urls(result_dict):
@@ -114,18 +144,17 @@ def get_image_urls(result_dict):
 			top_results,
 			shoe_results) = get_search_results(result_dict)
 
+		result, d_img_url = get_best_result(dress_results)
 
-		d_img_url = get_one_image_url(dress_results[0]["listing_id"])
+		result, t_img_url = get_best_result(top_results)
 
-		t_img_url = get_one_image_url(top_results[0]["listing_id"])
+		result, bo_img_url = get_best_result(bottom_results)
 
-		bo_img_url = get_one_image_url(bottom_results[0]['listing_id'])
+		result, s_img_url = get_best_result(shoe_results)
 
-		s_img_url = get_one_image_url(shoe_results[0]['listing_id'])
+		result, a_img_url = get_best_result(accessory_results)
 
-		a_img_url = get_one_image_url(accessory_results[0]["listing_id"])
-
-		b_img_url = get_one_image_url(bag_results[0]["listing_id"])
+		result, b_img_url = get_best_result(bag_results)
 
 	except IndexError as e:
 		print e
@@ -134,6 +163,7 @@ def get_image_urls(result_dict):
 
 
 def get_listing_urls(result_dict):
+	"""Get listing urls."""
 
 	(accessory_results,
 	 bag_results,

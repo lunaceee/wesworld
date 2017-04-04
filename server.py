@@ -178,12 +178,15 @@ def search():
         color_list.append(color.hexcode)
 
     result_dict = etsy.get_listing_items(color_list)
+
+    
     
     (t_img_url, bo_img_url, s_img_url, a_img_url, 
         b_img_url, d_img_url) = etsy.get_image_urls(result_dict)
     
     (top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
+
     print etsy.get_listing_urls(result_dict)
 
     return render_template('homepage.html',
