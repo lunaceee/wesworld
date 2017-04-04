@@ -14,6 +14,8 @@ import etsy
 
 import random
 
+import re
+
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -33,20 +35,26 @@ def register_page():
         username = request.form.get("username")
         email = request.form.get("email")
         password = sha256_crypt.encrypt((str(request.form.get("password"))))
-    
+        # email_re = re.search(r"/(\w+)\@(\w+\.com)/", email)  # email validation
+        # username_re = re.search(r"/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/", username)
+
+        # if not username_re:
+        #     flash("User name needs to be composed of uppercase, lowercase alphabets and integers")
+        #     return render_template('register.html')
+
+        # if not email_re:
+        #     flash("Please use legal email format.")
+        #     return render_template('register.html')
 
         if User.query.filter(User.username == username).first():
             flash("That username is already taken, please choose another.")
             return render_template('register.html')
 
         else:
-            
             flash("Thanks for registering!")
-
             new_user = User(username=username, email=email, password=password)
             db.session.add(new_user)
             db.session.commit()
-            
             session['logged_in'] = new_user.id
 
             return redirect('/search')
@@ -171,9 +179,9 @@ def search():
     (t_img_url, bo_img_url, s_img_url, a_img_url, 
         b_img_url, d_img_url) = etsy.get_image_urls(result_dict)
     
-    (top_listing, bottom_listing, accessory_listing, 
-        shoe_listing, bag_listing, dress_listing) = etsy.get_listing_urls(result_dict)
-
+    (top_listing, bottom_listing, accessory_listing, dress_listing,
+        shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
+    print etsy.get_listing_urls(result_dict)
 
     return render_template('homepage.html',
                                 t_img_url=t_img_url,
@@ -190,7 +198,6 @@ def search():
                                 dress_listing=dress_listing,
                                 movie_id=movie.id
                             )
-
 
 
 
