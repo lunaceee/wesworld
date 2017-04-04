@@ -35,29 +35,28 @@ def register_page():
         username = request.form.get("username")
         email = request.form.get("email")
         password = sha256_crypt.encrypt((str(request.form.get("password"))))
-        # email_re = re.search(r"/(\w+)\@(\w+\.com)/", email)  # email validation
-        # username_re = re.search(r"/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/", username)
+        email_re = re.search(r".+@.+\..+", email)  # email validation
+        username_re = re.search(r"[^@]+", username)
 
-        # if not username_re:
-        #     flash("User name needs to be composed of uppercase, lowercase alphabets and integers")
-        #     return render_template('register.html')
+        if not username_re:
+            flash("Username can not contain '@' sign.")
+            return render_template('register.html')
 
-        # if not email_re:
-        #     flash("Please use legal email format.")
-        #     return render_template('register.html')
+        if not email_re:
+            flash("Please use legal email format.")
+            return render_template('register.html')
 
         if User.query.filter(User.username == username).first():
             flash("That username is already taken, please choose another.")
             return render_template('register.html')
+   
+        flash("Thanks for registering!")
+        new_user = User(username=username, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        session['logged_in'] = new_user.id
 
-        else:
-            flash("Thanks for registering!")
-            new_user = User(username=username, email=email, password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            session['logged_in'] = new_user.id
-
-            return redirect('/search')
+        return redirect('/search')
 
     else:
         return render_template("register.html")
