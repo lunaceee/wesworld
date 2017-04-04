@@ -9,7 +9,7 @@ def get_results(color, etsy_category, accuracy=10):
 	item_url_template = (
 		'https://openapi.etsy.com/v2/listings/active?color={}&color_accuracy=' +
 	    str(accuracy) +
-	    '&limit=50&category={}&api_key=' +
+	    '&limit=10&sort_on=score&category={}&api_key=' +
 	    etsy_api_key
 	)
 

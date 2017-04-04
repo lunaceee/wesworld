@@ -76,16 +76,17 @@ def process_form():
     login = request.form.get('login')
     password = request.form.get('password')
 
-    user = User.query.filter(User.email == login, User.username == login).first()
+    user = User.query.filter((User.email == login) | (User.username == login)).first()
 
     # if not user or if user is None:
     if not user:
-        flash('Username or email not recognized, create your account right now.')
-        return render_template('register.html')
+        flash('Username or email not recognized, try again.')
+        return render_template('log_in.html')
 
     elif user.password != password:
         flash('Password is wrong, please log in again')
         return render_template('log_in.html')
+
     else:
         session['logged_in'] = user.id
         flash('Log in successful!')
@@ -125,6 +126,7 @@ def save_ensemble():
     accessory_listing = request.form.get("accessory_listing")
     shoe_listing = request.form.get('shoe_listing')
     bag_listing = request.form.get('bag_listing')
+    dress_listing = request.form.get('dress_listing')
     movie_id = request.form.get('movie_id')
 
     user_id = session['logged_in']
@@ -134,7 +136,8 @@ def save_ensemble():
                                      Ensemble.bottom_url == bottom_listing,
                                      Ensemble.accessory_url == accessory_listing,
                                      Ensemble.shoe_url == shoe_listing,
-                                     Ensemble.bag_url == bag_listing).first()
+                                     Ensemble.bag_url == bag_listing,
+                                     Ensemble.dress_url == dress_listing).first()
 
     if ensemble:
         ensemble.users.append(user)
@@ -146,6 +149,7 @@ def save_ensemble():
                             accessory_url=accessory_listing,
                             shoe_url=shoe_listing,
                             bag_url=bag_listing,
+                            dress_url=dress_listing,
                             movie_id=movie_id
                             )
 
