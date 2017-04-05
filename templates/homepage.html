@@ -23,15 +23,14 @@
 		<div class="col-md-auto">
 			<form action="/search">
 				<select class="custom-select" name="movie_name">
-					<option selected>Open this select menu</option>
-		    		<option value="Moonrise Kingdom">Moonrise Kingdom</option>
-				    <option value="The Grand Budapest Hotel">The Grand Budapest Hotel</option>
-				    <option value="The Royal Tenenbaums">The Royal Tenenbaums</option>
-				    <option value="Castello Cavalcanti">Castello Cavalcanti</option>
-				    <option value="The Life Aquatic with Steve Zissou">The Life Aquatic with Steve Zissou</option>
-				    <option value="Fantastic Mr. Fox">Fantastic Mr. Fox</option>
-				    <option value="Rushmore">Rushmore</option>
-				    <option value="Bottle Rocket">Bottle Rocket</option>
+					<option>Choose a movie</option>
+					{% for movie_name in movie_names %}
+                       <option value="{{ movie_name }}"
+                       	{% if chosen_movie == movie_name %}
+                     		selected
+		    			{% endif %}
+                       >{{ movie_name }}</option>
+		    		{% endfor %}
 		  		</select>
 		  		<input class="btn btn-secondary" type="submit">
 			</form>

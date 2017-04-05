@@ -96,6 +96,7 @@ def process_form():
 def logout():
     """Log out user."""
     del session['logged_in']
+    del session['movie']
     flash("You have been logged out.", "success")
 
     return redirect("/search")
@@ -165,6 +166,9 @@ def save_ensemble():
 @app.route('/search')
 def search():
     """Search for list items matching with movie colors from Etsy."""
+    movie_list = Movie.query.all()
+
+    movie_names = [m.name for m in movie_list]
 
     if request.args.get("movie_name"):
         movie_name = request.args.get("movie_name")
@@ -191,10 +195,10 @@ def search():
     (top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
 
-    print etsy.get_listing_urls(result_dict)
-
     return render_template('homepage.html',
                                 logged_in=bool(session.get('logged_in')),
+                                chosen_movie=session.get('movie'),
+                                movie_names=movie_names,
                                 t_img_url=t_img_url,
                                 bo_img_url=bo_img_url,
                                 s_img_url=s_img_url,
