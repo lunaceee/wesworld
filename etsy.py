@@ -1,10 +1,56 @@
 from random import shuffle
 
+from sqlalchemy import desc
+
 import requests
+
+import json
+
+from model import User, Movie, Color, Ensemble, Cache, connect_to_db, db
 
 etsy_api_key = "w4kl15san4n93vl9sc0b01m8"
 
+def get_from_cache(key):
+
+	# deleting 5 cache results
+	old_results = Cache.query.order_by(desc(Cache.created_at)).limit(5).all()
+	# db.session.delete(old_results)
+	# db.session.commit()
+
+
+	cache_result = Cache.query.filter(Cache.key == key).first()
+
+	if cache_result == None:
+		return None
+	return cache_result.value
+
+
+def cache(key, value):
+	"""Instantiating new cached results."""
+	new_cache_result = Cache(key=key, value=value)
+	db.session.add(new_cache_result)
+	db.session.commit()
+
+
+def cached_get(url):
+	"""Get cached results."""
+	value = get_from_cache(url)
+
+	if value:
+		return json.loads(value), 200
+
+	response = requests.get(url)
+
+	if response.status_code != 200:
+		return None, response.status_code
+		
+	response_json = response.json()	
+	cache(url, response.text)
+	return response_json, response.status_code
+
 def get_results(color, etsy_category, accuracy=10):
+	"""Getting the search results from Etsy."""
+	
 	# Create template url for all list item urls.
 	item_url_template = (
 		'https://openapi.etsy.com/v2/listings/active?color={}&color_accuracy=' +
@@ -15,11 +61,10 @@ def get_results(color, etsy_category, accuracy=10):
 
 	url = item_url_template.format(color, etsy_category)
 	print 'Requesting', url
-	response = requests.get(url)
-	if response.status_code != 200:
+	j, status_code = cached_get(url)
+	if status_code != 200:
 		print 'Problem fetching', url
 		return []
-	j = response.json()
 	if 'results' not in j or len(j['results']) == 0:
 		print 'Problem - no results in ', url
 		return get_results(color, etsy_category, accuracy + 20)
@@ -27,7 +72,8 @@ def get_results(color, etsy_category, accuracy=10):
 
 
 def get_listing_items(color_list):
-	
+	"""Getting search results from Wes Anderson color palettes."""
+
 	# Shuffle the color list.
 	shuffle(color_list)
 	print "color list", color_list
@@ -104,13 +150,13 @@ def get_search_results(result_dict):
 
 
 def get_best_result(results, color=None):
+	"""Ruling out irrelevant listing images."""
 
 	for result in results:
 		listing_id = result["listing_id"]
 		image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
 		url = image_url_template.format(listing_id)
-		url_response = requests.get(url)
-		url_dict = url_response.json()
+		url_dict, status_code = cached_get(url)
 		num_imgs = len(url_dict['results'])
 
 		if num_imgs > 1:
@@ -122,19 +168,20 @@ def get_best_result(results, color=None):
 
 
 
-
 def get_one_image_url(listing_id):
+	"""Getting the listing image."""
+	
 	# create template url for listing image
 	image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
 	url = image_url_template.format(listing_id)
-	url_response = requests.get(url)
-	url_dict = url_response.json()
+	url_dict, status_code = cached_get(url)
 	img_url = url_dict["results"][0]["url_570xN"]
 
 	return img_url
 
 
 def get_image_urls(result_dict):
+	"""Creating image urls for the ensemble."""
 	
 	try:
 		(accessory_results,

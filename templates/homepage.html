@@ -5,54 +5,42 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
 	      <a class="navbar-brand" href="#">Brand</a>
-	    </div>
 
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Link</a></li>
-	      </ul>
-	      <form action="/login" class="navbar-form navbar-left">
-	        <div class="form-group">
-	          <input type="text" class="form-control" name="login" placeholder="Username or e-mail">
-	          <input name="password" placeholder="Password" title="" type="password" required="">
-	        </div>
-	        <input type="submit" class="btn btn-default" value="Submit">
-	      </form>
-	    </div><!-- /.navbar-collapse -->
+		{% if logged_in %}
+			<a class="btn btn-secondary" href="/logout">Log out</a>
+		{% else %}
+			<a class="btn btn-secondary" href="/login">Log in</a>
+	      	<a class="btn btn-secondary" href="/register">Register</a>
+		{% endif %}	  
+	      
 	  </div><!-- /.container-fluid -->
 	</nav>
 
 
-
 	<!-- Display all movie names via dropdown menu. -->
-	<form action="/search">
-		<select class="custom-select" name="movie_name">
-			<option selected>Open this select menu</option>
-    		<option value="Moonrise Kingdom">Moonrise Kingdom</option>
-		    <option value="The Grand Budapest Hotel">The Grand Budapest Hotel</option>
-		    <option value="The Royal Tenenbaums">The Royal Tenenbaums</option>
-		    <option value="Castello Cavalcanti">Castello Cavalcanti</option>
-		    <option value="The Life Aquatic with Steve Zissou">The Life Aquatic with Steve Zissou</option>
-		    <option value="Fantastic Mr. Fox">Fantastic Mr. Fox</option>
-		    <option value="Rushmore">Rushmore</option>
-		    <option value="Bottle Rocket">Bottle Rocket</option>
-  		</select>
-  		<input class="btn btn-primary" type="submit">
-	</form>
+	<div class="row justify-content-center">
+		<div class="col-md-auto">
+			<form action="/search">
+				<select class="custom-select" name="movie_name">
+					<option selected>Open this select menu</option>
+		    		<option value="Moonrise Kingdom">Moonrise Kingdom</option>
+				    <option value="The Grand Budapest Hotel">The Grand Budapest Hotel</option>
+				    <option value="The Royal Tenenbaums">The Royal Tenenbaums</option>
+				    <option value="Castello Cavalcanti">Castello Cavalcanti</option>
+				    <option value="The Life Aquatic with Steve Zissou">The Life Aquatic with Steve Zissou</option>
+				    <option value="Fantastic Mr. Fox">Fantastic Mr. Fox</option>
+				    <option value="Rushmore">Rushmore</option>
+				    <option value="Bottle Rocket">Bottle Rocket</option>
+		  		</select>
+		  		<input class="btn btn-secondary" type="submit">
+			</form>
+		</div>
+	</div>
 	
 	<br>
 	<!-- Display ensemble. -->
-	<div class='container'>
+	<div class='row justify-content-center'>
 		<div class="card-columns col-lg-10">
 			<div class="card">
 				<a href="{{ top_listing }}"><img class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
@@ -106,21 +94,33 @@
 	</div>
 	<br>
 	<!-- Display change set button and save to wishlist button. -->
-	<div>
-		<form>
-			<button>Change</button>
-		</form>
-		<form action="/ensembles" method="post">
-			<input type="submit" value="save">
-			<input type="hidden" name="movie_id" value="{{ movie_id }}" >
-			<input type="hidden" name="top_listing" value="{{ top_listing }}">
-			<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
-			<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
-			<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
-			<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
-			<input type="hidden" name="dress_listing" value="{{ dress_listing }}">			
-		</form>
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2"></div>
+			<div class="col-12 col-md-auto">
+				<form action="" method="post">
+					<button type="button" class="btn btn-secondary">Change</button>
+				</form>
+			</div>
+			<div class="col-12 col-md-auto">
+				<form id="save_ensemble" action="/ensembles" method="post">
+					{% if logged_in %}
+						<input class="btn btn-secondary" type="submit" value="Save">
+					{% else %}
+						<input class="btn btn-secondary" type="submit" value="Save" disabled title="log in to save.">
+					{% endif %}
+					<input type="hidden" name="movie_id" value="{{ movie_id }}" >
+					<input type="hidden" name="top_listing" value="{{ top_listing }}">
+					<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
+					<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
+					<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
+					<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
+					<input type="hidden" name="dress_listing" value="{{ dress_listing }}">			
+				</form>
+			</div>
+		<div class="col col-lg-2"></div>
 	</div>
+	<br>
+	<br>
 
 {% endblock %}
 

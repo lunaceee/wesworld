@@ -1,6 +1,7 @@
 """Models and database functions for Wes World project"""
 
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import pprint
 
 db = SQLAlchemy()
@@ -27,7 +28,7 @@ class User(db.Model):
     username = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String)
-    created_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime)
 
     def __repr__(self):
@@ -74,7 +75,7 @@ class Ensemble(db.Model):
     bag_url = db.Column(db.String)
     dress_url = db.Column(db.String)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
-    created_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime)
 
     # Define relationship to user
@@ -93,6 +94,18 @@ class Ensemble(db.Model):
                                                                                     self.dress_url
                                                                                     )
 
+class Cache(db.Model):
+    """Cache objects."""
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    key = db.Column(db.String, index=True)
+    value = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        """Show info about Ensemble."""
+
+        return "<Cache key={}>".format(self.key)
 
     
 

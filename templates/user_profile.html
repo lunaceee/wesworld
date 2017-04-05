@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div>
-    <div>
+<div class="container-fluid">
+    <div class="">
         <p>Your Name: {{ username }}</p>
         <p>Your Email: {{ email }}</p>
     </div>
-    <div>
-        <h2>Your Saved Ensemble</h2>
-        {% for ensemble in ensembles %}
-        {{ ensemble }}
-        {% endfor %}
+    <div class="">
+        <div id="saved_ensemble">
+            <h2>Your Saved Ensemble</h2>
+            {% for ensemble in ensembles %}
+            {{ ensemble }}
+            {% endfor %}
+        </div>
+
+        <form action="/logout">
+            <button type="submit">Log Out</button>
+        </form>
+
+        <form action="/search">
+            <button type="submit">Homepage</button>
+        </form>
+       
     </div>
 
 </div>

@@ -98,7 +98,7 @@ def logout():
     del session['logged_in']
     flash("You have been logged out.", "success")
 
-    return redirect("/")
+    return redirect("/search")
 
 
 @app.route('/users/<user_id>')
@@ -139,9 +139,11 @@ def save_ensemble():
                                      Ensemble.dress_url == dress_listing).first()
 
     if ensemble:
+
         ensemble.users.append(user)
         db.session.add(ensemble)
         db.session.commit()
+        print "added new User-Ensemble relationship"
     else:
         new_ensemble = Ensemble(top_url=top_listing,
                             bottom_url=bottom_listing,
@@ -155,8 +157,9 @@ def save_ensemble():
         new_ensemble.users.append(user)
         db.session.add(new_ensemble)
         db.session.commit()
+        print "added new ensemble to the database"
 
-    return redirect('/users/' + str(user_id))
+    return "successfully saved your ensemble"
 
 
 @app.route('/search')
@@ -166,6 +169,7 @@ def search():
     if request.args.get("movie_name"):
         movie_name = request.args.get("movie_name")
         movie = Movie.query.filter(Movie.name == movie_name).one()
+        session['movie'] = movie.name
 
     else:
         movie = random.choice(Movie.query.all())
@@ -190,6 +194,7 @@ def search():
     print etsy.get_listing_urls(result_dict)
 
     return render_template('homepage.html',
+                                logged_in=bool(session.get('logged_in')),
                                 t_img_url=t_img_url,
                                 bo_img_url=bo_img_url,
                                 s_img_url=s_img_url,
