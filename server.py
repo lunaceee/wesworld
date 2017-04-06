@@ -160,6 +160,7 @@ def save_ensemble():
 
     return "successfully saved your ensemble"
 
+
 def search_helper():
     """Search for list items matching with movie colors from Etsy."""
 
@@ -250,7 +251,5 @@ if __name__ == "__main__":
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
-
-
     
     app.run(port=5000, host='0.0.0.0')

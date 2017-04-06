@@ -8,7 +8,11 @@ import json
 
 import re
 
+from flask import Flask
+
 from model import User, Movie, Color, Ensemble, Cache, connect_to_db, db
+
+app = Flask(__name__)
 
 etsy_api_key = "w4kl15san4n93vl9sc0b01m8"
 
@@ -21,7 +25,7 @@ def get_from_cache(key):
 
     cache_result = Cache.query.filter(Cache.key == key).first()
 
-    if cache_result == None:
+    if cache_result is None:
         return None
     return cache_result.value
 
@@ -49,8 +53,9 @@ def cached_get(url):
     cache(url, response.text)
     return response_json, response.status_code
 
+
 def get_results(color, etsy_category, accuracy=10):
-    """Getting the search results from Etsy."""
+    """Get results either from cached records or live queries."""
     
     # Create template url for all list item urls.
     item_url_template = (
@@ -154,7 +159,7 @@ def get_best_result(results, color=None):
     """Ruling out irrelevant listing images."""
 
     for result in results:
-        print "inside for loop\n\n\n"
+        print "inside for loop\n"
         listing_id = result["listing_id"]
         image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
         url = image_url_template.format(listing_id)
@@ -167,6 +172,39 @@ def get_best_result(results, color=None):
             print "rejecting bad images.", url
 
     return result, url_dict['results'][0]["url_570xN"]
+    print "image url?", url_dict['results'][0]["url_570xN"]
+
+
+# def fix_missing_listings(result, img_url, url, results, movie_id):
+#     """Helper function to replenish missing results via Etsy API calls with
+#     db records.
+#     """
+
+#     if results:
+#         result, img_url = get_best_result(results)
+#     else:
+#         # query the ensemble table for Ensemble.movie_id == movie_id
+#         # return the dress url
+#         # put it into dress_results
+#         # call get_best_result(dress_results)
+#         ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
+
+#         listing_url = ensemble.url
+
+#         m = re.search(r"listing/(\d+)/", url)
+        
+#         listing_id = m.groups()[0]
+
+#         print "it's working!!!!\n"
+
+#         listing_dict = {
+#             'listing_id' : listing_id,
+#             'url': listing_url,
+#         }
+
+#         result, img_url = get_best_result([listing_dict])
+
+#     return 
 
 
 def get_image_urls(result_dict, movie_id):
@@ -206,9 +244,8 @@ def get_image_urls(result_dict, movie_id):
 
             d_result, d_img_url = get_best_result([listing_dict])
 
-
-
         best_results_and_img_urls['dress'] = (d_result, d_img_url)
+
 
         t_result, t_img_url = get_best_result(top_results)
         best_results_and_img_urls['top'] = (t_result, t_img_url)
@@ -267,6 +304,8 @@ def get_listing_urls(best_dict):
 
 if __name__ == '__main__':
 
+    connect_to_db(app)
+
     result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
         "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
@@ -275,3 +314,5 @@ if __name__ == '__main__':
 
     tl, bol, sl, al, bl, dl = get_listing_urls(result_dict)
     print "\n".join([tl, bol, sl, al, bl, dl])
+
+    app.run(port=5000, host='0.0.0.0')
