@@ -9,9 +9,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <!-- Import jQuery. -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" 
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+
 </head>
 
 <body>
@@ -25,13 +25,15 @@
     {% endif %}
 {% endwith %}
 
-{% block body %}
+{% block content %}
       BODY OF PAGE GOES HERE VIA INHERITANCE
 {% endblock %}
 
-<script src="static/main.js"></script>
-
 </body>
+
+ <!-- Import javascript. -->
+<script src="../static/main.js"></script>
+
 
 
 </html>

@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 
-from flask import (Flask, render_template, redirect, request, flash, session)
+from flask import (Flask, render_template, redirect, request, flash, session, jsonify)
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -162,13 +162,8 @@ def save_ensemble():
 
     return "successfully saved your ensemble"
 
-
-@app.route('/search')
-def search():
+def search_helper():
     """Search for list items matching with movie colors from Etsy."""
-    movie_list = Movie.query.all()
-
-    movie_names = [m.name for m in movie_list]
 
     if request.args.get("movie_name"):
         movie_name = request.args.get("movie_name")
@@ -186,25 +181,56 @@ def search():
         color_list.append(color.hexcode)
 
     result_dict = etsy.get_listing_items(color_list)
-
     
-    
-    (t_img_url, bo_img_url, s_img_url, a_img_url, 
-        b_img_url, d_img_url) = etsy.get_image_urls(result_dict)
+    best_dict = etsy.get_image_urls(result_dict)
     
     (top_listing, bottom_listing, accessory_listing, dress_listing,
-        shoe_listing, bag_listing) = etsy.get_listing_urls(result_dict)
+        shoe_listing, bag_listing) = etsy.get_listing_urls(best_dict)
+
+    return (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+        shoe_listing, bag_listing)
+
+
+@app.route('/search_json')
+def search_json():
+    (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+        shoe_listing, bag_listing) = search_helper()
+
+    # return JSON
+    return jsonify(dict(t_img_url=best_dict['top'][1],
+            bo_img_url=best_dict['bottom'][1],
+            s_img_url=best_dict['shoe'][1],
+            a_img_url=best_dict['accessory'][1],
+            b_img_url=best_dict['bag'][1],
+            d_img_url=best_dict['dress'][1],
+            top_listing=top_listing,
+            bottom_listing=bottom_listing,
+            accessory_listing=accessory_listing,
+            shoe_listing=shoe_listing,
+            bag_listing=bag_listing,
+            dress_listing=dress_listing))
+
+
+@app.route('/search')
+def search():
+
+    movie_list = Movie.query.all()
+
+    movie_names = [m.name for m in movie_list]
+
+    (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+        shoe_listing, bag_listing) = search_helper()
 
     return render_template('homepage.html',
                                 logged_in=bool(session.get('logged_in')),
                                 chosen_movie=session.get('movie'),
                                 movie_names=movie_names,
-                                t_img_url=t_img_url,
-                                bo_img_url=bo_img_url,
-                                s_img_url=s_img_url,
-                                a_img_url=a_img_url,
-                                b_img_url=b_img_url,
-                                d_img_url=d_img_url,
+                                t_img_url=best_dict['top'][1],
+                                bo_img_url=best_dict['bottom'][1],
+                                s_img_url=best_dict['shoe'][1],
+                                a_img_url=best_dict['accessory'][1],
+                                b_img_url=best_dict['bag'][1],
+                                d_img_url=best_dict['dress'][1],
                                 top_listing=top_listing,
                                 bottom_listing=bottom_listing,
                                 accessory_listing=accessory_listing,

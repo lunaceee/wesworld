@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block body %}
+{% block content %}
 
 	<!-- Nav bar. -->
 	<nav class="navbar navbar-default">
@@ -22,27 +22,27 @@
 	<div class="row justify-content-center">
 		<div class="col-md-auto">
 			<form action="/search">
-				<select class="custom-select" name="movie_name">
+				<select id="selected_movie" class="custom-select" name="movie_name">
 					<option>Choose a movie</option>
 					{% for movie_name in movie_names %}
                        <option value="{{ movie_name }}"
                        	{% if chosen_movie == movie_name %}
-                     		selected
+                     		selected="selected"
 		    			{% endif %}
                        >{{ movie_name }}</option>
 		    		{% endfor %}
 		  		</select>
-		  		<input class="btn btn-secondary" type="submit">
+		  		<input class="btn btn-secondary" type="submit" value="Change">
 			</form>
 		</div>
 	</div>
 	
 	<br>
 	<!-- Display ensemble. -->
-	<div class='row justify-content-center'>
+	<div id="ensemble" class='row justify-content-center'>
 		<div class="card-columns col-lg-10">
 			<div class="card">
-				<a href="{{ top_listing }}"><img class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
+				<a href="{{ top_listing }}"><img id="t_img" class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Top</h4>
 	      			<p class="card-text">card description</p>
@@ -50,7 +50,7 @@
 			</div>
 
 			<div class="card">
-				<a href="{{ bottom_listing }}"><img class="img-fluid" src="{{ bo_img_url }}" alt="bottom"></a>
+				<a href="{{ bottom_listing }}"><img id="bo_img" class="img-fluid" src="{{ bo_img_url }}" alt="bottom"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Bottom</h4>
 	      			<p class="card-text">card description</p>
@@ -58,7 +58,7 @@
 			</div>
 
 			<div class="card">
-				<a href="{{ accessory_listing }}"><img class="img-fluid" src="{{ a_img_url }}" alt="accessory"></a>
+				<a id="a_listing" href="{{ accessory_listing }}"><img id="a_img" class="img-fluid" src="{{ a_img_url }}" alt="accessory"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Accessory</h4>
 	      			<p class="card-text">card description</p>
@@ -66,7 +66,7 @@
 			</div>
 
 			<div class="card">
-				<a href="{{ shoe_listing }}"><img class="img-fluid" src="{{ s_img_url }}" alt="shoe"></a>
+				<a id="s_listing" href="{{ shoe_listing }}"><img id="s_img" class="img-fluid" src="{{ s_img_url }}" alt="shoe"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Shoe</h4>
 	      			<p class="card-text">card description</p>
@@ -74,7 +74,7 @@
 			</div>
 
 			<div class="card">
-				<a href="{{ bag_listing }}"><img class="img-fluid" src="{{ b_img_url }}" alt="bag"></a>
+				<a id="b_listing" href="{{ bag_listing }}"><img id="b_img" class="img-fluid" src="{{ b_img_url }}" alt="bag"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Bag</h4>
 	      			<p class="card-text">card description</p>
@@ -82,7 +82,7 @@
 			</div>
 
 			<div class="card">
-				<a href="{{ dress_listing }}"><img class="img-fluid" src="{{ d_img_url }}" alt="dress"></a>
+				<a id="d_listing" href="{{ dress_listing }}"><img id="d_img" class="img-fluid" src="{{ d_img_url }}" alt="dress"></a>
 				<div class="card-block">
 	      			<h4 class="card-title">Dress</h4>
 	      			<p class="card-text">card description</p>
