@@ -6,8 +6,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Movie, Color, Ensemble, connect_to_db, db
 
-from wtforms import Form, BooleanField, TextField, PasswordField, validators
-
 from passlib.hash import sha256_crypt
 
 import etsy
@@ -182,7 +180,7 @@ def search_helper():
 
     result_dict = etsy.get_listing_items(color_list)
     
-    best_dict = etsy.get_image_urls(result_dict)
+    best_dict = etsy.get_image_urls(result_dict, movie.id)
     
     (top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = etsy.get_listing_urls(best_dict)

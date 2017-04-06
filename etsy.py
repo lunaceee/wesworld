@@ -6,6 +6,8 @@ import requests
 
 import json
 
+import re
+
 from model import User, Movie, Color, Ensemble, Cache, connect_to_db, db
 
 etsy_api_key = "w4kl15san4n93vl9sc0b01m8"
@@ -152,6 +154,7 @@ def get_best_result(results, color=None):
     """Ruling out irrelevant listing images."""
 
     for result in results:
+        print "inside for loop\n\n\n"
         listing_id = result["listing_id"]
         image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
         url = image_url_template.format(listing_id)
@@ -166,7 +169,7 @@ def get_best_result(results, color=None):
     return result, url_dict['results'][0]["url_570xN"]
 
 
-def get_image_urls(result_dict):
+def get_image_urls(result_dict, movie_id):
     """Creating image urls for the ensemble."""
     
     try:
@@ -179,7 +182,32 @@ def get_image_urls(result_dict):
 
         best_results_and_img_urls = {}
 
-        d_result, d_img_url = get_best_result(dress_results)
+        if dress_results:
+            d_result, d_img_url = get_best_result(dress_results)
+        else:
+            # query the ensemble table for Ensemble.movie_id == movie_id
+            # return the dress url
+            # put it into dress_results
+            # call get_best_result(dress_results)
+            ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
+
+            dress_url = ensemble.dress_url
+
+            m = re.search(r"listing/(\d+)/", dress_url)
+            
+            dress_listing_id = m.groups()[0]
+
+            print "it's working!!!!\n"
+
+            listing_dict = {
+                'listing_id' : dress_listing_id,
+                'url': dress_url,
+            }
+
+            d_result, d_img_url = get_best_result([listing_dict])
+
+
+
         best_results_and_img_urls['dress'] = (d_result, d_img_url)
 
         t_result, t_img_url = get_best_result(top_results)
@@ -242,7 +270,7 @@ if __name__ == '__main__':
     result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
         "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
-    ti, boi, si, ai, bi, di = get_image_urls(result_dict)
+    ti, boi, si, ai, bi, di = get_image_urls(result_dict, 1)
     print "\n".join([ti, boi, si, ai, bi, di])
 
     tl, bol, sl, al, bl, dl = get_listing_urls(result_dict)
