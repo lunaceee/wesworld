@@ -249,48 +249,6 @@ def get_image_urls(result_dict, movie_id):
         best_results_and_img_urls['shoe'] = (s_result, s_img_url)
 
 
-        # if dress_results:
-        #     d_result, d_img_url = get_best_result(dress_results)
-        # else:
-        #     # query the ensemble table for Ensemble.movie_id == movie_id
-        #     # return the dress url
-        #     # put it into dress_results
-        #     # call get_best_result(dress_results)
-        #     ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
-
-        #     dress_url = ensemble.dress_url
-
-        #     m = re.search(r"listing/(\d+)/", dress_url)
-            
-        #     dress_listing_id = m.groups()[0]
-
-        #     print "it's working!!!!\n"
-
-        #     listing_dict = {
-        #         'listing_id' : dress_listing_id,
-        #         'url': dress_url,
-        #     }
-
-        #     d_result, d_img_url = get_best_result([listing_dict])
-
-        # best_results_and_img_urls['dress'] = (d_result, d_img_url)
-
-
-        # t_result, t_img_url = get_best_result(top_results)
-        # best_results_and_img_urls['top'] = (t_result, t_img_url)
-
-        # bo_result, bo_img_url = get_best_result(bottom_results)
-        # best_results_and_img_urls['bottom'] = (bo_result, bo_img_url)
-
-        # s_result, s_img_url = get_best_result(shoe_results)
-        # best_results_and_img_urls['shoe'] = (s_result, s_img_url)
-
-        # a_result, a_img_url = get_best_result(accessory_results)
-        # best_results_and_img_urls['accessory'] = (a_result, a_img_url)
-
-        # b_result, b_img_url = get_best_result(bag_results)
-        # best_results_and_img_urls['bag'] = (b_result, b_img_url)
-
     except IndexError as e:
         print e
         
@@ -307,27 +265,6 @@ def get_listing_urls(best_dict):
     best_shoe = best_dict['shoe'][0]
     best_dress = best_dict['dress'][0]
     best_bag = best_dict['bag'][0]
-
-    # best_accessory = dict(best_dict['accessory_results'][0], **best_dict['jewelry_results'][0])
-    
-    # best_top = {}
-    # best_top.update(best_dict['tank_results'][0])
-    # best_top.update(best_dict['shirt_results'][0])
-    # best_top.update(best_dict['jacket_results'][0])
-    # best_top.update(best_dict['sweatshirt_results'][0])
-
-    # best_bottom = {}
-    # best_bottom.update(best_dict['pants_results'][0])
-    # best_bottom.update(best_dict['shorts_results'][0])
-    # best_bottom.update(best_dict['skirt_results'][0])
-
-    # best_shoe = {}
-    # best_shoe.update(best_dict['shoe_results'][0])
-    # best_shoe.update(best_dict['socks_results'][0])
-
-    # best_bag = best_dict.get('bag_results')[0]
-    # best_dress = best_dict.get('dress_results')[0]
-
 
     dress_listing = best_dress["url"]
     # print "dress url", dress_listing
@@ -351,15 +288,15 @@ def get_listing_urls(best_dict):
             dress_listing, shoe_listing, bag_listing)
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-connect_to_db(app)
+    connect_to_db(app)
 
-result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
-    "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
+    result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
+        "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
-x = get_image_urls(result_dict, 5)
-print "\n".join(x.keys())
+    x = get_image_urls(result_dict, 5)
+    print "\n".join(x.keys())
 
-y = get_listing_urls(x)
-print "\n".join(y)
+    y = get_listing_urls(x)
+    print "\n".join(y)
