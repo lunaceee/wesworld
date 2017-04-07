@@ -16,12 +16,8 @@ app = Flask(__name__)
 
 etsy_api_key = "w4kl15san4n93vl9sc0b01m8"
 
-def get_from_cache(key):
 
-    # deleting 5 cache results
-    #old_results = Cache.query.filter(Cache.created_at ).order_by(asc(Cache.created_at)).limit(5).all()
-    #db.session.delete(old_results)
-    #db.session.commit()
+def get_from_cache(key):
 
     cache_result = Cache.query.filter(Cache.key == key).first()
 
@@ -66,7 +62,7 @@ def get_results(color, etsy_category, accuracy=10):
     )
 
     url = item_url_template.format(color, etsy_category)
-    print 'Requesting', url
+    # print 'Requesting', url
     j, status_code = cached_get(url)
     if status_code != 200:
         print 'Problem fetching', url
@@ -159,7 +155,7 @@ def get_best_result(results, color=None):
     """Ruling out irrelevant listing images."""
 
     for result in results:
-        print "inside for loop\n"
+        # print "inside for loop\n"
         listing_id = result["listing_id"]
         image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
         url = image_url_template.format(listing_id)
@@ -172,39 +168,53 @@ def get_best_result(results, color=None):
             print "rejecting bad images.", url
 
     return result, url_dict['results'][0]["url_570xN"]
+    # print "result", result
     print "image url?", url_dict['results'][0]["url_570xN"]
 
 
-# def fix_missing_listings(result, img_url, url, results, movie_id):
-#     """Helper function to replenish missing results via Etsy API calls with
-#     db records.
-#     """
+def fix_missing_listings(url_type, results, movie_id):
+    """Helper function to replenish missing results via Etsy API calls with
+    db records.
+    """
+    if results:
+        result, img_url = get_best_result(results)
+        # print "got results", result
+    else:
+        '''
+        query the ensemble table for Ensemble.movie_id == movie_id
+        return the dress url
+        put it into dress_results
+        call get_best_result(dress_results)
+        '''
+        ensemble = Ensemble.query.filter(Ensemble.movie_id == 5).first()
 
-#     if results:
-#         result, img_url = get_best_result(results)
-#     else:
-#         # query the ensemble table for Ensemble.movie_id == movie_id
-#         # return the dress url
-#         # put it into dress_results
-#         # call get_best_result(dress_results)
-#         ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
+        url = ''
+        if (url_type == 'accessory_url'):
+            url = ensemble.accessory_url
+        elif (url_type == 'top_url'):
+            url = ensemble.top_url
+        elif (url_type == 'bottom_url'):
+            url = ensemble.bottom_url
+        elif (url_type == 'shoe_url'):
+            url = ensemble.shoe_url
+        elif (url_type == 'bag_url'):
+            url = ensemble.bag_url
+        elif (url_type == 'dress_url'):
+            url = ensemble.dress_url
 
-#         listing_url = ensemble.url
-
-#         m = re.search(r"listing/(\d+)/", url)
+        m = re.search(r"listing/(\d+)/", url)
+        print "fixing url type", url_type, url
         
-#         listing_id = m.groups()[0]
+        listing_id = m.groups()[0]
 
-#         print "it's working!!!!\n"
+        listing_dict = {
+            'listing_id' : listing_id,
+            'url': url,
+        }
 
-#         listing_dict = {
-#             'listing_id' : listing_id,
-#             'url': listing_url,
-#         }
+        result, img_url = get_best_result([listing_dict])
 
-#         result, img_url = get_best_result([listing_dict])
-
-#     return 
+    return result, img_url
 
 
 def get_image_urls(result_dict, movie_id):
@@ -220,47 +230,66 @@ def get_image_urls(result_dict, movie_id):
 
         best_results_and_img_urls = {}
 
-        if dress_results:
-            d_result, d_img_url = get_best_result(dress_results)
-        else:
-            # query the ensemble table for Ensemble.movie_id == movie_id
-            # return the dress url
-            # put it into dress_results
-            # call get_best_result(dress_results)
-            ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
-
-            dress_url = ensemble.dress_url
-
-            m = re.search(r"listing/(\d+)/", dress_url)
-            
-            dress_listing_id = m.groups()[0]
-
-            print "it's working!!!!\n"
-
-            listing_dict = {
-                'listing_id' : dress_listing_id,
-                'url': dress_url,
-            }
-
-            d_result, d_img_url = get_best_result([listing_dict])
-
+        a_result, a_img_url = fix_missing_listings('accessory_url', accessory_results, movie_id)
+        best_results_and_img_urls['accessory'] = (a_result, a_img_url)
+        
+        d_result, d_img_url = fix_missing_listings('dress_url', dress_results, movie_id)
         best_results_and_img_urls['dress'] = (d_result, d_img_url)
 
-
-        t_result, t_img_url = get_best_result(top_results)
+        t_result, t_img_url = fix_missing_listings('top_url', top_results, movie_id)
         best_results_and_img_urls['top'] = (t_result, t_img_url)
 
-        bo_result, bo_img_url = get_best_result(bottom_results)
+        bo_result, bo_img_url = fix_missing_listings('bottom_url', bottom_results, movie_id)
         best_results_and_img_urls['bottom'] = (bo_result, bo_img_url)
 
-        s_result, s_img_url = get_best_result(shoe_results)
+        b_result, b_img_url = fix_missing_listings('bag_url', bag_results, movie_id)
+        best_results_and_img_urls['bag'] = (b_result, b_img_url)
+
+        s_result, s_img_url = fix_missing_listings('shoe_url', shoe_results, movie_id)
         best_results_and_img_urls['shoe'] = (s_result, s_img_url)
 
-        a_result, a_img_url = get_best_result(accessory_results)
-        best_results_and_img_urls['accessory'] = (a_result, a_img_url)
 
-        b_result, b_img_url = get_best_result(bag_results)
-        best_results_and_img_urls['bag'] = (b_result, b_img_url)
+        # if dress_results:
+        #     d_result, d_img_url = get_best_result(dress_results)
+        # else:
+        #     # query the ensemble table for Ensemble.movie_id == movie_id
+        #     # return the dress url
+        #     # put it into dress_results
+        #     # call get_best_result(dress_results)
+        #     ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
+
+        #     dress_url = ensemble.dress_url
+
+        #     m = re.search(r"listing/(\d+)/", dress_url)
+            
+        #     dress_listing_id = m.groups()[0]
+
+        #     print "it's working!!!!\n"
+
+        #     listing_dict = {
+        #         'listing_id' : dress_listing_id,
+        #         'url': dress_url,
+        #     }
+
+        #     d_result, d_img_url = get_best_result([listing_dict])
+
+        # best_results_and_img_urls['dress'] = (d_result, d_img_url)
+
+
+        # t_result, t_img_url = get_best_result(top_results)
+        # best_results_and_img_urls['top'] = (t_result, t_img_url)
+
+        # bo_result, bo_img_url = get_best_result(bottom_results)
+        # best_results_and_img_urls['bottom'] = (bo_result, bo_img_url)
+
+        # s_result, s_img_url = get_best_result(shoe_results)
+        # best_results_and_img_urls['shoe'] = (s_result, s_img_url)
+
+        # a_result, a_img_url = get_best_result(accessory_results)
+        # best_results_and_img_urls['accessory'] = (a_result, a_img_url)
+
+        # b_result, b_img_url = get_best_result(bag_results)
+        # best_results_and_img_urls['bag'] = (b_result, b_img_url)
 
     except IndexError as e:
         print e
@@ -271,48 +300,66 @@ def get_image_urls(result_dict, movie_id):
 def get_listing_urls(best_dict):
     """Get listing urls."""
 
-    best_accessory = best_dict.get('accessory')[0]
-    best_top = best_dict.get('top')[0]
-    best_bottom = best_dict.get('bottom')[0]
-    best_shoe = best_dict.get('shoe')[0]
-    best_bag = best_dict.get('bag')[0]
-    best_dress = best_dict.get('dress')[0]
+    # print "best dict keys", best_dict.keys()
+    best_top = best_dict['top'][0]
+    best_bottom = best_dict['bottom'][0]
+    best_accessory = best_dict['accessory'][0]
+    best_shoe = best_dict['shoe'][0]
+    best_dress = best_dict['dress'][0]
+    best_bag = best_dict['bag'][0]
 
-    # Generate listing URLs.
+    # best_accessory = dict(best_dict['accessory_results'][0], **best_dict['jewelry_results'][0])
+    
+    # best_top = {}
+    # best_top.update(best_dict['tank_results'][0])
+    # best_top.update(best_dict['shirt_results'][0])
+    # best_top.update(best_dict['jacket_results'][0])
+    # best_top.update(best_dict['sweatshirt_results'][0])
+
+    # best_bottom = {}
+    # best_bottom.update(best_dict['pants_results'][0])
+    # best_bottom.update(best_dict['shorts_results'][0])
+    # best_bottom.update(best_dict['skirt_results'][0])
+
+    # best_shoe = {}
+    # best_shoe.update(best_dict['shoe_results'][0])
+    # best_shoe.update(best_dict['socks_results'][0])
+
+    # best_bag = best_dict.get('bag_results')[0]
+    # best_dress = best_dict.get('dress_results')[0]
+
 
     dress_listing = best_dress["url"]
-    print "dress url", dress_listing
+    # print "dress url", dress_listing
 
     top_listing = best_top["url"]
-    print "top url", top_listing
+    # print "top url", top_listing
 
     bottom_listing = best_bottom["url"]
-    print "bottom url", bottom_listing
+    # print "bottom url", bottom_listing
     
     shoe_listing = best_shoe["url"]
-    print "shoe url", shoe_listing
+    # print "shoe url", shoe_listing
 
     accessory_listing = best_accessory["url"]
-    print "accessory url", accessory_listing
+    # print "accessory url", accessory_listing
 
     bag_listing = best_bag["url"]
-    print "bag url", bag_listing
+    # print "bag url", bag_listing
 
     return (top_listing, bottom_listing, accessory_listing, 
             dress_listing, shoe_listing, bag_listing)
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    connect_to_db(app)
+connect_to_db(app)
 
-    result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
-        "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
+result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
+    "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
-    ti, boi, si, ai, bi, di = get_image_urls(result_dict, 1)
-    print "\n".join([ti, boi, si, ai, bi, di])
+x = get_image_urls(result_dict, 5)
+print "\n".join(x.keys())
 
-    tl, bol, sl, al, bl, dl = get_listing_urls(result_dict)
-    print "\n".join([tl, bol, sl, al, bl, dl])
-
-    app.run(port=5000, host='0.0.0.0')
+y = get_listing_urls(x)
+print "\n".join(y)
