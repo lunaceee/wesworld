@@ -3,6 +3,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pprint
+import os
 
 db = SQLAlchemy()
 
@@ -58,8 +59,8 @@ class Color(db.Model):
 
 
 ensemble_user = db.Table('ensemble_user',
-    db.Column('ensemble_id', db.Integer, db.ForeignKey('ensembles.id')),
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+    db.Column('ensemble_id', db.Integer, db.ForeignKey('ensembles.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
 )
 
 
@@ -74,6 +75,12 @@ class Ensemble(db.Model):
     bottom_url = db.Column(db.String)
     bag_url = db.Column(db.String)
     dress_url = db.Column(db.String)
+    accessory_img_url = db.Column(db.String)
+    top_img_url = db.Column(db.String)
+    bottom_img_url = db.Column(db.String)
+    shoe_img_url = db.Column(db.String)
+    bag_img_url = db.Column(db.String)
+    dress_img_url = db.Column(db.String)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime)
@@ -84,14 +91,20 @@ class Ensemble(db.Model):
     def __repr__(self):
         """Show info about Ensemble."""
 
-        return "<Color id={} accessory={} shoe={} top={} bottom={} bag={}>".format(
+        return "<Color id={} accessory={} shoe={} top={} bottom={} bag={} dress={} accessory_img={} shoe_img={} top_img={} bottom_img={} bag_img={} dress_img={}>".format(
                                                                                     self.id, 
                                                                                     self.accessory_url,
                                                                                     self.shoe_url,
                                                                                     self.top_url,
                                                                                     self.bottom_url,
                                                                                     self.bag_url,
-                                                                                    self.dress_url
+                                                                                    self.dress_url,
+                                                                                    self.accessory_img_url,
+                                                                                    self.shoe_img_url,
+                                                                                    self.top_img_url,
+                                                                                    self.bottom_img_url,
+                                                                                    self.bag_img_url,
+                                                                                    self.dress_img_url
                                                                                     )
 
 class Cache(db.Model):
