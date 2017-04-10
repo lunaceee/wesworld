@@ -110,15 +110,49 @@ def show_user_profile(user_id):
 
     ensembles = user.ensembles
 
+    ensemble_dict = {} 
+    for ensemble in ensembles:
+        accessory = "{}".format(ensemble.accessory_url)
+        top = "{}".format(ensemble.top_url)
+        shoe = "{}".format(ensemble.shoe_url)
+        bottom = "{}".format(ensemble.bottom_url)
+        dress = "{}".format(ensemble.dress_url)
+        bag = "{}".format(ensemble.bag_url)
+        a_img = "{}".format(ensemble.accessory_img_url)
+        t_img = "{}".format(ensemble.top_img_url)
+        bo_img = "{}".format(ensemble.bottom_img_url)
+        b_img = "{}".format(ensemble.bag_img_url)
+        d_img = "{}".format(ensemble.dress_img_url)
+        s_img = "{}".format(ensemble.shoe_img_url)
+        ensemble_dict[accessory] = a_img
+        ensemble_dict[top] = t_img
+        ensemble_dict[shoe] = s_img
+        ensemble_dict[bottom] = bo_img
+        ensemble_dict[dress] = d_img
+        ensemble_dict[bag] = b_img
+
     return render_template('user_profile.html',
                             email=email,
                             username=username,
-                            ensembles=ensembles)
+                            ensembles=ensembles,
+                            accessory=accessory,
+                            top=top,
+                            bottom=bottom,
+                            shoe=shoe,
+                            dress=dress,
+                            bag=bag,
+                            a_img=a_img,
+                            t_img=t_img,
+                            bo_img=bo_img,
+                            d_img=d_img,
+                            s_img=s_img,
+                            b_img=b_img
+                            )
 
 
 @app.route('/ensembles', methods=['POST'])
 def save_ensemble():
-    """User save ensembles."""
+    """User saved ensembles."""
     top_listing = request.form.get("top_listing")
     bottom_listing = request.form.get("bottom_listing")
     accessory_listing = request.form.get("accessory_listing")
@@ -126,6 +160,14 @@ def save_ensemble():
     bag_listing = request.form.get('bag_listing')
     dress_listing = request.form.get('dress_listing')
     movie_id = request.form.get('movie_id')
+    
+    accessory_img_url = request.form.get('a_img_url')
+    print "accessory image\n", accessory_img_url
+    top_img_url = request.form.get('t_img_url')
+    bottom_img_url = request.form.get('bo_img_url')
+    shoe_img_url = request.form.get('s_img_url')
+    bag_img_url = request.form.get('b_img_url')
+    dress_img_url = request.form.get('d_img_url')
 
     user_id = session['logged_in']
     user = User.query.filter(User.id == user_id).one()
@@ -135,10 +177,16 @@ def save_ensemble():
                                      Ensemble.accessory_url == accessory_listing,
                                      Ensemble.shoe_url == shoe_listing,
                                      Ensemble.bag_url == bag_listing,
-                                     Ensemble.dress_url == dress_listing).first()
+                                     Ensemble.dress_url == dress_listing,
+                                     Ensemble.accessory_img_url == accessory_img_url,
+                                     Ensemble.top_img_url == top_img_url,
+                                     Ensemble.bottom_img_url == bottom_img_url,
+                                     Ensemble.bag_img_url == bag_img_url,
+                                     Ensemble.shoe_img_url == shoe_img_url,
+                                     Ensemble.dress_img_url == dress_img_url
+                                     ).first()
 
     if ensemble:
-
         ensemble.users.append(user)
         db.session.add(ensemble)
         db.session.commit()
@@ -150,15 +198,23 @@ def save_ensemble():
                             shoe_url=shoe_listing,
                             bag_url=bag_listing,
                             dress_url=dress_listing,
-                            movie_id=movie_id
+                            movie_id=movie_id,
+                            accessory_img_url=accessory_img_url,
+                            top_img_url=top_img_url,
+                            bottom_img_url=bottom_img_url,
+                            bag_img_url=bag_img_url,
+                            shoe_img_url=shoe_img_url,
+                            dress_img_url=dress_img_url
                             )
 
         new_ensemble.users.append(user)
         db.session.add(new_ensemble)
         db.session.commit()
-        print "added new ensemble to the database"
 
-    return "successfully saved your ensemble"
+
+    flash('Ensemble saved!')
+
+    return redirect('/search')
 
 
 def search_helper():
