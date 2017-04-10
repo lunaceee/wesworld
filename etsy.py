@@ -12,9 +12,11 @@ from flask import Flask
 
 from model import User, Movie, Color, Ensemble, Cache, connect_to_db, db
 
-app = Flask(__name__)
+import os
+# print sorted(os.environ.keys())
+etsy_api_key = os.environ["API_KEY"]
 
-etsy_api_key = "w4kl15san4n93vl9sc0b01m8"
+app = Flask(__name__)
 
 
 def get_from_cache(key):
@@ -163,7 +165,7 @@ def get_best_result(results, color=None):
         num_imgs = len(url_dict['results'])
 
         if num_imgs > 1:
-            return result, url_dict['results'][0]["url_570xN"]
+            return result, url_dict['results'][0]["url_570xN"] # TypeError: list indices must be integers, not str
         else:
             print "rejecting bad images.", url
 
@@ -208,7 +210,7 @@ def fix_missing_listings(url_type, results, movie_id):
         listing_id = m.groups()[0]
 
         listing_dict = {
-            'listing_id' : listing_id,
+            'listing_id': listing_id,
             'url': url,
         }
 
@@ -289,6 +291,10 @@ def get_listing_urls(best_dict):
 
 
 if __name__ == '__main__':
+
+    def close():
+        db.session.close()
+        #db.dispose()
 
     connect_to_db(app)
 
