@@ -6,22 +6,39 @@
         <p>Your Name: {{ username }}</p>
         <p>Your Email: {{ email }}</p>
     </div>
-    <div class="">
-        <div id="saved_ensemble">
-            <h2>Your Saved Ensemble</h2>
-            {% for ensemble in ensembles %}
-            {{ ensemble }}
-            {% endfor %}
-        </div>
+    <h2>Your Saved Ensemble</h2>
 
-        <form action="/logout">
+    <form action="/logout">
             <button type="submit">Log Out</button>
         </form>
 
         <form action="/search">
             <button type="submit">Homepage</button>
         </form>
-       
+
+    <div class="card-columns col-lg-6">
+        <div id="saved_ensemble">
+            {% for ensemble in ensembles %}
+                <div class="card">
+                    <a href="{{ accessory }}"><img class="img-fluid img-rounded" src="{{ a_img }}"></a>
+                </div>
+                <div class="card">
+                    <a href="{{ top }}"><img class="img-fluid img-rounded" src="{{ t_img }}"></a>
+                </div>
+                <div class="card">
+                    <a href="{{ bottom }}"><img class="img-fluid img-rounded" src="{{ bo_img }}"></a>
+                </div>
+                <div class="card">
+                    <a href="{{ shoe }}"><img class="img-fluid img-rounded" src="{{ s_img }}"></a>
+                </div>
+                <div class="card">
+                    <a href="{{ bag }}"><img class="img-fluid img-rounded" src="{{ b_img }}"></a>
+                </div>
+                <div class="card">
+                    <a href="{{ dress }}"><img class="img-fluid img-rounded" src="{{ d_img }}"></a>
+                </div>
+            {% endfor %}    
+        </div>
     </div>
 
 </div>
