@@ -110,43 +110,10 @@ def show_user_profile(user_id):
 
     ensembles = user.ensembles
 
-    ensemble_dict = {} 
-    for ensemble in ensembles:
-        accessory = "{}".format(ensemble.accessory_url)
-        top = "{}".format(ensemble.top_url)
-        shoe = "{}".format(ensemble.shoe_url)
-        bottom = "{}".format(ensemble.bottom_url)
-        dress = "{}".format(ensemble.dress_url)
-        bag = "{}".format(ensemble.bag_url)
-        a_img = "{}".format(ensemble.accessory_img_url)
-        t_img = "{}".format(ensemble.top_img_url)
-        bo_img = "{}".format(ensemble.bottom_img_url)
-        b_img = "{}".format(ensemble.bag_img_url)
-        d_img = "{}".format(ensemble.dress_img_url)
-        s_img = "{}".format(ensemble.shoe_img_url)
-        ensemble_dict[accessory] = a_img
-        ensemble_dict[top] = t_img
-        ensemble_dict[shoe] = s_img
-        ensemble_dict[bottom] = bo_img
-        ensemble_dict[dress] = d_img
-        ensemble_dict[bag] = b_img
-
     return render_template('user_profile.html',
                             email=email,
                             username=username,
                             ensembles=ensembles,
-                            accessory=accessory,
-                            top=top,
-                            bottom=bottom,
-                            shoe=shoe,
-                            dress=dress,
-                            bag=bag,
-                            a_img=a_img,
-                            t_img=t_img,
-                            bo_img=bo_img,
-                            d_img=d_img,
-                            s_img=s_img,
-                            b_img=b_img
                             )
 
 

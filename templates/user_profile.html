@@ -20,22 +20,22 @@
         <div id="saved_ensemble">
             {% for ensemble in ensembles %}
                 <div class="card">
-                    <a href="{{ accessory }}"><img class="img-fluid img-rounded" src="{{ a_img }}"></a>
+                    <a href="{{ ensemble.accessory_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.accessory_img_url }}"></a>
                 </div>
                 <div class="card">
-                    <a href="{{ top }}"><img class="img-fluid img-rounded" src="{{ t_img }}"></a>
+                    <a href="{{ ensemble.top_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.top_img_url }}"></a>
                 </div>
                 <div class="card">
-                    <a href="{{ bottom }}"><img class="img-fluid img-rounded" src="{{ bo_img }}"></a>
+                    <a href="{{ ensemble.bottom_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bottom_img_url }}"></a>
                 </div>
                 <div class="card">
-                    <a href="{{ shoe }}"><img class="img-fluid img-rounded" src="{{ s_img }}"></a>
+                    <a href="{{ ensemble.shoe_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.shoe_img_url }}"></a>
                 </div>
                 <div class="card">
-                    <a href="{{ bag }}"><img class="img-fluid img-rounded" src="{{ b_img }}"></a>
+                    <a href="{{ ensemble.dress_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.dress_img_url }}"></a>
                 </div>
                 <div class="card">
-                    <a href="{{ dress }}"><img class="img-fluid img-rounded" src="{{ d_img }}"></a>
+                    <a href="{{ ensemble.bag_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bag_img_url }}"></a>
                 </div>
             {% endfor %}    
         </div>
