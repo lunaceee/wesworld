@@ -29,7 +29,7 @@ $(document).ready(function(){
   }
 
   $(document).on("change", "#selected_movie", function(){
-    console.log("to change movie")
+    // console.log("to change movie")
     
     var selectedMovie = {
       "movie_name": $("#selected_movie").val()
@@ -58,17 +58,29 @@ $(document).ready(function(){
         $("#t_img").attr('src', results['t_img_url']);
         $("#t_listing").attr('href', results['top_listing']);
 
-        // $("#a_img").attr('src', results['a_img_url']);
-        // $("#a_img").attr('src', results['a_img_url']);
-        // $("#a_img").attr('src', results['a_img_url']);
-        // $("#a_img").attr('src', results['a_img_url']);
-        // $("#a_img").attr('src', results['a_img_url']);
-
-        console.log("changed movie", results);
+        // console.log("changed movie", results);
       }
     });
 
   });
+
+
+// function openCity(evt, ensemble) {
+//     var i, x, tablinks;
+//     x = document.getElementsByClassName("city");
+//     for (i = 0; i < x.length; i++) {
+//         x[i].style.display = "none";
+//     }
+//     tablinks = document.getElementsByClassName("tablink");
+//     for (i = 0; i < x.length; i++) {
+//         tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+//     }
+//     document.getElementById(cityName).style.display = "block";
+//     evt.currentTarget.className += " w3-red";
+// }
+
+
+
 
 });
 
