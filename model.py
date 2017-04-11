@@ -57,11 +57,16 @@ class Color(db.Model):
     # Define relationship to Movie
     movie = db.relationship("Movie", backref=db.backref("colors"))
 
+class EnsembleUser(db.Model):
+    """Association table"""
+    __tablename__ = "ensemble_user"
 
-ensemble_user = db.Table('ensemble_user',
-    db.Column('ensemble_id', db.Integer, db.ForeignKey('ensembles.id'), primary_key=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
-)
+    #id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    ensemble_id = db.Column(db.Integer, db.ForeignKey('ensembles.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    points = db.Column(db.Integer, default=0)
+
+    user = db.relationship("User", backref=db.backref("ensemble_associations"))
 
 
 class Ensemble(db.Model):
@@ -86,7 +91,7 @@ class Ensemble(db.Model):
     modified_at = db.Column(db.DateTime)
 
     # Define relationship to user
-    users = db.relationship("User", secondary=ensemble_user, backref=db.backref("ensembles"))
+    users = db.relationship("User", secondary='ensemble_user', backref=db.backref("ensembles"))
 
     def __repr__(self):
         """Show info about Ensemble."""

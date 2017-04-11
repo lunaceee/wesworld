@@ -15,27 +15,34 @@
         <form action="/search">
             <button type="submit">Homepage</button>
         </form>
+        <br>
 
-    <div class="card-columns col-lg-6">
+    <div class="card-columns col-lg-8">
+        <div>points  {{ points }}</div>
         <div id="saved_ensemble">
-            {% for ensemble in ensembles %}
-                <div class="card">
-                    <a href="{{ ensemble.accessory_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.accessory_img_url }}"></a>
-                </div>
-                <div class="card">
-                    <a href="{{ ensemble.top_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.top_img_url }}"></a>
-                </div>
-                <div class="card">
-                    <a href="{{ ensemble.bottom_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bottom_img_url }}"></a>
-                </div>
-                <div class="card">
-                    <a href="{{ ensemble.shoe_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.shoe_img_url }}"></a>
-                </div>
-                <div class="card">
-                    <a href="{{ ensemble.dress_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.dress_img_url }}"></a>
-                </div>
-                <div class="card">
-                    <a href="{{ ensemble.bag_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bag_img_url }}"></a>
+            {% for movie, ensembles in movie_ensemble.items() %}
+                <div>
+                    {{ movie }}
+                    {% for ensemble in ensembles %}
+                        <div class="card w-75">
+                            <a href="{{ ensemble.accessory_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.accessory_img_url }}"></a>
+                        </div>
+                        <div class="card w-75">
+                            <a href="{{ ensemble.top_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.top_img_url }}"></a>
+                        </div>
+                        <div class="card w-75">
+                            <a href="{{ ensemble.bottom_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bottom_img_url }}"></a>
+                        </div>
+                        <div class="card w-75">
+                            <a href="{{ ensemble.shoe_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.shoe_img_url }}"></a>
+                        </div>
+                        <div class="card w-75">
+                            <a href="{{ ensemble.dress_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.dress_img_url }}"></a>
+                        </div>
+                        <div class="card w-75">
+                            <a href="{{ ensemble.bag_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bag_img_url }}"></a>
+                        </div>
+                    {% endfor %}
                 </div>
             {% endfor %}    
         </div>

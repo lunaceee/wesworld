@@ -109,11 +109,24 @@ def show_user_profile(user_id):
     username = user.username
 
     ensembles = user.ensembles
+    points = 0
+
+    for ea in user.ensemble_associations:
+        points += ea.points
+
+    movie_ensemble = {}
+    for ensemble in ensembles:
+        if ensemble.movie.name not in movie_ensemble: 
+            movie_ensemble[ensemble.movie.name] = [ensemble]
+        else:
+            movie_ensemble[ensemble.movie.name].append(ensemble)
 
     return render_template('user_profile.html',
                             email=email,
                             username=username,
                             ensembles=ensembles,
+                            movie_ensemble=movie_ensemble,
+                            points=points,
                             )
 
 
@@ -129,7 +142,6 @@ def save_ensemble():
     movie_id = request.form.get('movie_id')
     
     accessory_img_url = request.form.get('a_img_url')
-    print "accessory image\n", accessory_img_url
     top_img_url = request.form.get('t_img_url')
     bottom_img_url = request.form.get('bo_img_url')
     shoe_img_url = request.form.get('s_img_url')
@@ -154,6 +166,13 @@ def save_ensemble():
                                      ).first()
 
     if ensemble:
+        #add points for previous users
+        for u in ensemble.users:
+            for ea in u.ensemble_associations:
+                # if the ensemble user A saved is the same one user B saved
+                if ea.ensemble_id == ensemble.id:
+                    ea.points += 1
+
         ensemble.users.append(user)
         db.session.add(ensemble)
         db.session.commit()

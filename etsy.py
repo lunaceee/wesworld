@@ -163,6 +163,7 @@ def get_best_result(results, color=None):
         url = image_url_template.format(listing_id)
         url_dict, status_code = cached_get(url)
         num_imgs = len(url_dict['results'])
+        print "bad images!!!\n", num_imgs
 
         if num_imgs > 1:
             return result, url_dict['results'][0]["url_570xN"] # TypeError: list indices must be integers, not str
@@ -170,8 +171,6 @@ def get_best_result(results, color=None):
             print "rejecting bad images.", url
 
     return result, url_dict['results'][0]["url_570xN"]
-    # print "result", result
-    print "image url?", url_dict['results'][0]["url_570xN"]
 
 
 def fix_missing_listings(url_type, results, movie_id):
@@ -298,6 +297,7 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
+    '''
     result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
         "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
@@ -306,3 +306,6 @@ if __name__ == '__main__':
 
     y = get_listing_urls(x)
     print "\n".join(y)
+'''
+    foo = get_best_result([{'listing_id': '519437959'}])
+    print "bad imgs", foo
