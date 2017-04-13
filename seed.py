@@ -135,6 +135,33 @@ movies = [
   }
 ]
 
+def load_ensembles():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_accessories():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_top():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_bottom():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_shoe():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_bag():
+    """Load ensembles to ensemble table."""
+    pass
+
+def load_dress():
+    """Load ensembles to ensemble table."""
+    pass
 
 def load_users():
     """Load users from u.user into database."""
