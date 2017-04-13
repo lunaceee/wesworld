@@ -57,8 +57,9 @@ class Color(db.Model):
     # Define relationship to Movie
     movie = db.relationship("Movie", backref=db.backref("colors"))
 
+
 class EnsembleUser(db.Model):
-    """Association table"""
+    """Association table for ensembles and users."""
     __tablename__ = "ensemble_user"
 
     #id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -74,43 +75,169 @@ class Ensemble(db.Model):
     __tablename__ = "ensembles"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    accessory_url = db.Column(db.String)
-    shoe_url = db.Column(db.String)
-    top_url = db.Column(db.String)
-    bottom_url = db.Column(db.String)
-    bag_url = db.Column(db.String)
-    dress_url = db.Column(db.String)
-    accessory_img_url = db.Column(db.String)
-    top_img_url = db.Column(db.String)
-    bottom_img_url = db.Column(db.String)
-    shoe_img_url = db.Column(db.String)
-    bag_img_url = db.Column(db.String)
-    dress_img_url = db.Column(db.String)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
+    top_id = db.Column(db.Integer, db.ForeignKey('tops.id'))
+    bottom_id = db.Column(db.Integer, db.ForeignKey('bottoms.id'))
+    accesssory_id = db.Column(db.Integer, db.ForeignKey('accessories.id'))
+    shoe_id = db.Column(db.Integer, db.ForeignKey('shoes.id'))
+    bag_id = db.Column(db.Integer, db.ForeignKey('bags.id'))
+    dress_id = db.Column(db.Integer, db.ForeignKey('dresses.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime)
 
     # Define relationship to user
     users = db.relationship("User", secondary='ensemble_user', backref=db.backref("ensembles"))
+    accessory = db.relationship("Accessory", backref=db.backref("ensembles"))
+    top = db.relationship("Top", backref=db.backref("ensembles"))
+    bottom = db.relationship("Bottom", backref=db.backref("ensembles"))
+    dress = db.relationship("Dress", backref=db.backref("ensembles"))
+    bag = db.relationship("Bag", backref=db.backref("ensembles"))
+    shoe = db.relationship("Shoe", backref=db.backref("ensembles"))
 
     def __repr__(self):
         """Show info about Ensemble."""
 
-        return "<Color id={} accessory={} shoe={} top={} bottom={} bag={} dress={} accessory_img={} shoe_img={} top_img={} bottom_img={} bag_img={} dress_img={}>".format(
-                                                                                    self.id, 
-                                                                                    self.accessory_url,
-                                                                                    self.shoe_url,
-                                                                                    self.top_url,
-                                                                                    self.bottom_url,
-                                                                                    self.bag_url,
-                                                                                    self.dress_url,
-                                                                                    self.accessory_img_url,
-                                                                                    self.shoe_img_url,
-                                                                                    self.top_img_url,
-                                                                                    self.bottom_img_url,
-                                                                                    self.bag_img_url,
-                                                                                    self.dress_img_url
-                                                                                    )
+        return "<Ensemble id={}>".format(self.id)
+                                                                          
+
+class Accessory(db.Model):
+    """Accessory info"""
+    __tablename__ = "accessories"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+    color = db.Column(db.Integer, db.ForeignKey('colors.id'))
+
+    def __repr__(self):
+        """Show info about accessories."""
+        return "<Accessory id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+
+
+class UserAccessory(db.Model):
+    """Association table for accessories and users."""
+    __tablename__ = "user_accessory"
+
+    accesssory_id = db.Column(db.Integer, db.ForeignKey('accessories.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+
+class Top(db.Model):
+    """Top info"""
+    __tablename__ = "tops"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+
+    def __repr__(self):
+        """Show info about tops."""
+        return "<Top id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+class UserTop(db.Model):
+    """Association table for tops and users."""
+    __tablename__ = "user_top"
+
+    top_id = db.Column(db.Integer, db.ForeignKey('tops.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+class Bottom(db.Model):
+    """Bottom info"""
+    __tablename__ = "bottoms"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+
+    def __repr__(self):
+        """Show info about bottoms."""
+        return "<Bottom id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+class UserBottom(db.Model):
+    """Association table for bottoms and users."""
+    __tablename__ = "user_bottom"
+
+    bottom_id = db.Column(db.Integer, db.ForeignKey('bottoms.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+class Bag(db.Model):
+    """Bag info"""
+    __tablename__ = "bags"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+
+    def __repr__(self):
+        """Show info about bags."""
+        return "<Bag id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+class UserBag(db.Model):
+    """Association table for bags and users."""
+    __tablename__ = "user_bag"
+
+    bag_id = db.Column(db.Integer, db.ForeignKey('bags.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+class Dress(db.Model):
+    """Accessory info"""
+
+    __tablename__ = "dresses"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+
+    def __repr__(self):
+        """Show info about dresses."""
+        return "<Dress id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+class UserDress(db.Model):
+    """Association table for dresses and users."""
+    __tablename__ = "user_dress"
+
+    dress_id = db.Column(db.Integer, db.ForeignKey('dresses.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+class Shoe(db.Model):
+    """Shoe info"""
+    __tablename__ = "shoes"
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    listing_url = db.Column(db.String)
+    img_url = db.Column(db.String)
+
+    def __repr__(self):
+        """Show info about shoes."""
+        return "<Shoe id={} listing={} image={}>".format(
+            self.id,
+            self.listing_url,
+            self.img_url
+            )
+
+
+class UserShoe(db.Model):
+    """Association table for shoes and users."""
+    __tablename__ = "user_shoe"
+
+    shoe_id = db.Column(db.Integer, db.ForeignKey('shoes.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
 
 class Cache(db.Model):
     """Cache objects."""
