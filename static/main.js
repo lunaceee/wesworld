@@ -61,8 +61,151 @@ $(document).ready(function(){
         // console.log("changed movie", results);
       }
     });
-
   });
+
+
+    $("#top_category").click(function(){
+      // console.log("to change movie")
+        debugger;
+        var selectedCategory = {
+          "category_name": $("#top_category").val()
+        };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#t_img").attr('src', results['t_img_url']);
+          $("#top_listing").attr('href', results['top_listing']);
+          $("#top_color").css('background-color', '#'+results['top_color']);
+          $("#top_color").text(results['top_color']);
+          
+          console.log(results['top_color']);
+          console.log("change top listing");
+
+        }
+      });
+    });
+
+    $("#bottom_category").click(function(){
+    // console.log("to change movie")
+      debugger;
+      var selectedCategory = {
+        "category_name": $("#bottom_category").val()
+      };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#bo_img").attr('src', results['bo_img_url']);
+          $("#bottom_listing").attr('href', results['bottom_listing']);
+          $("#bottom_color").css('background-color', '#'+results['bottom_color']);
+          $("#bottom_color").text(results['bottom_color']);
+
+          console.log(results['bottom_color']);
+          console.log("change bottom listing");
+        }
+      });
+    });
+
+    $("#accessory_category").click(function(){
+    // console.log("to change movie")
+      debugger;
+      console.log("shuffle top item");
+      var selectedCategory = {
+        "category_name": $("#accessory_category").val()
+      };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#a_img").attr('src', results['a_img_url']);
+          $("#accessory_listing").attr('href', results['accessory_listing']);
+          $("#accessory_color").css('background-color', '#'+results['accessory_color']);
+          $("#accessory_color").text(results['accessory_color']);
+
+          console.log(results['accessory_color']);
+          console.log("change accessory listing");
+        }
+      });
+    });
+
+    $("#bag_category").click(function(){
+    // console.log("to change movie")
+      debugger;
+      console.log("shuffle top item");
+      var selectedCategory = {
+        "category_name": $("#bag_category").val()
+      };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#b_img").attr('src', results['b_img_url']);
+          $("#bag_listing").attr('href', results['bag_listing']);
+          $("#bag_color").css('background-color', '#'+results['bag_color']);
+          $("#bag_color").text(results['bag_color']);
+
+          console.log(results['bag_color']);
+          console.log("change bag listing");
+        }
+      });
+    });
+
+    $("#dress_category").click(function(){
+    // console.log("to change movie")
+      debugger;
+      console.log("shuffle top item");
+      var selectedCategory = {
+        "category_name": $("#dress_category").val()
+      };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#d_img").attr('src', results['d_img_url']);
+          $("#dress_listing").attr('href', results['dress_listing']);
+          $("#dress_color").css('background-color', '#'+results['dress_color']);
+          $("#dress_color").text(results['dress_color']);
+
+          console.log(results['dress_color']);
+          console.log("change dress listing");
+        }
+      });
+    });
+
+    $("#shoe_category").click(function(){
+    // console.log("to change movie")
+    debugger;
+    console.log("shuffle top item");
+    var selectedCategory = {
+      "category_name": $("#shoe_category").val()
+    };
+
+      $.ajax({
+        type: 'get',
+        url: '/shuffle_item',
+        data: selectedCategory,
+        success:function(results){
+          $("#s_img").attr('src', results['s_img_url']);
+          $("#shoe_listing").attr('href', results['shoe_listing']);
+          $("#shoe_color").css('background-color', '#'+results['shoe_color']);
+          $("#shoe_color").text(results['shoe_color']);
+
+          console.log(results['shoe_color']);
+          console.log("change shoe listing");
+        }
+      });
+    });
 
 
 // function openCity(evt, ensemble) {
