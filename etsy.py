@@ -87,6 +87,8 @@ def get_listing_items(color_list):
 
     # Getting dict results from Etsy urls.
     return dict(
+        colors=[top_color, bottom_color, shoe_color, accessory_color, bag_color],
+
         # top color results
         shirt_results=get_results(top_color, "clothing/shirt"),
         jacket_results=get_results(top_color, "clothing/jacket"),
@@ -187,21 +189,22 @@ def fix_missing_listings(url_type, results, movie_id):
         put it into dress_results
         call get_best_result(dress_results)
         '''
-        ensemble = Ensemble.query.filter(Ensemble.movie_id == 5).first()
+        ensemble = Ensemble.query.filter(Ensemble.movie_id == movie_id).first()
 
         url = ''
         if (url_type == 'accessory_url'):
-            url = ensemble.accessory_url
+            url = ensemble.accessory.listing_url
+            print "accessory URL", url
         elif (url_type == 'top_url'):
-            url = ensemble.top_url
+            url = ensemble.top.listing_url
         elif (url_type == 'bottom_url'):
-            url = ensemble.bottom_url
+            url = ensemble.bottom.listing_url
         elif (url_type == 'shoe_url'):
-            url = ensemble.shoe_url
+            url = ensemble.shoe.listing_url
         elif (url_type == 'bag_url'):
-            url = ensemble.bag_url
+            url = ensemble.bag.listing_url
         elif (url_type == 'dress_url'):
-            url = ensemble.dress_url
+            url = ensemble.dress.listing_url
 
         m = re.search(r"listing/(\d+)/", url)
         print "fixing url type", url_type, url
@@ -307,5 +310,4 @@ if __name__ == '__main__':
     y = get_listing_urls(x)
     print "\n".join(y)
 '''
-    foo = get_best_result([{'listing_id': '519437959'}])
-    print "bad imgs", foo
+
