@@ -40,52 +40,77 @@
 	<br>
 	<!-- Display ensemble. -->
 	<div id="ensemble" class='row justify-content-center'>
-		<div class="card-columns col-lg-10">
+		<div class="card-columns col-lg-12">
 			<div class="card">
-				<a href="{{ top_listing }}"><img id="t_img" class="img-fluid" src="{{ t_img_url }}" alt="top"></a>
+				<a id="top_listing" href="{{ top_listing }}">
+					<img id="t_img" class="img-fluid" src="{{ t_img_url }}" alt="top">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Top</h4>
 	      			<p class="card-text">card description</p>
+	      			<button id="top_category">shuffle</button>
+	      			<div id="top_color" style="width:60px;height:20px;background-color: #{{ top_color }};"> {{ top_color }} </div>
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a href="{{ bottom_listing }}"><img id="bo_img" class="img-fluid" src="{{ bo_img_url }}" alt="bottom"></a>
+				<a id="bottom_listing" href="{{ bottom_listing }}">
+					<img id="bo_img" class="img-fluid" src="{{ bo_img_url }}" alt="bottom">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Bottom</h4>
 	      			<p class="card-text">card description</p>
+					<button id="bottom_category">shuffle</button>
+	      			<div style="width:60px;height:20px;background-color: #{{ bottom_color }};"> {{ bottom_color }} </div>
+
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a id="a_listing" href="{{ accessory_listing }}"><img id="a_img" class="img-fluid" src="{{ a_img_url }}" alt="accessory"></a>
+				<a id="accessory_listing" href="{{ accessory_listing }}">
+					<img id="a_img" class="img-fluid" src="{{ a_img_url }}" alt="accessory">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Accessory</h4>
 	      			<p class="card-text">card description</p>
+	      			<button id="accessory_category">shuffle</button>
+	      			<div id="accessory_color" style="width:60px;height:20px;background-color: #{{ accessory_color }};"> {{ accessory_color }} </div>
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a id="s_listing" href="{{ shoe_listing }}"><img id="s_img" class="img-fluid" src="{{ s_img_url }}" alt="shoe"></a>
+				<a id="shoe_listing" href="{{ shoe_listing }}">
+					<img id="s_img" class="img-fluid" src="{{ s_img_url }}" alt="shoe">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Shoe</h4>
 	      			<p class="card-text">card description</p>
+	      			<button id="shoe_category">shuffle</button>
+	      			<div style="width:60px;height:20px;background-color: #{{ shoe_color }};"> {{ shoe_color }} </div>
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a id="b_listing" href="{{ bag_listing }}"><img id="b_img" class="img-fluid" src="{{ b_img_url }}" alt="bag"></a>
+				<a id="bag_listing" href="{{ bag_listing }}">
+					<img id="b_img" class="img-fluid" src="{{ b_img_url }}" alt="bag">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Bag</h4>
 	      			<p class="card-text">card description</p>
+	      			<button id="bag_category">shuffle</button>
+	      			<div style="width:60px;height:20px;background-color: #{{ bag_color }};"> {{ bag_color }} </div>
 	    		</div>
 			</div>
 
 			<div class="card">
-				<a id="d_listing" href="{{ dress_listing }}"><img id="d_img" class="img-fluid" src="{{ d_img_url }}" alt="dress"></a>
+				<a id="dress_listing" href="{{ dress_listing }}">
+					<img id="d_img" class="img-fluid" src="{{ d_img_url }}" alt="dress">
+				</a>
 				<div class="card-block">
 	      			<h4 class="card-title">Dress</h4>
 	      			<p class="card-text">card description</p>
+	      			<button id="dress_category">shuffle</button>
+	      			<div style="width:60px;height:20px;background-color: #{{ dress_color }};"> {{ dress_color }} </div>
 	    		</div>
 			</div>
 			

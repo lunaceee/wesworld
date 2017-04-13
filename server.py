@@ -114,6 +114,10 @@ def show_user_profile(user_id):
     for ea in user.ensemble_associations:
         points += ea.points
 
+    if points:
+        flash("You got a point!")
+
+
     movie_ensemble = {}
     for ensemble in ensembles:
         if ensemble.movie.name not in movie_ensemble: 
@@ -202,6 +206,71 @@ def save_ensemble():
 
     return redirect('/search')
 
+def get_colors_from_movie(movie):
+    """Get all colors from movies."""
+    
+    colors = Color.query.filter(Color.movie_id == movie.id).all()
+
+    color_list = []
+
+    for color in colors:
+        color_list.append(color.hexcode)
+
+    return color_list
+
+
+@app.route('/shuffle_item')
+def shuffle_item():
+    """Shuffle individual category."""
+
+    result = search_helper()
+
+    # Get listing url of each category.
+    top_listing = result[3]
+    bottom_listing = result[4]
+    accessory_listing = result[5]
+    dress_listing = result[6]
+    shoe_listing = result[7]
+    bag_listing = result[8]
+
+    # Get image url of each category.
+    t_img_url = result[2]['top'][1]
+    bo_img_url = result[2]['top'][1]
+    a_img_url = result[2]['top'][1]
+    b_img_url = result[2]['top'][1]
+    s_img_url = result[2]['top'][1]
+    d_img_url = result[2]['top'][1]
+
+    #Colors
+    colors = result[0]
+    print "COLORS", colors
+    top_color = colors[0]
+    bottom_color = colors[1]
+    accessory_color = colors[3]
+    shoe_color = colors[2]
+    dress_color = colors[0]
+    bag_color = colors[4]
+
+    # print "shuffle single top listing", t_img_url
+    return jsonify(dict( top_color=top_color,
+                        top_listing=top_listing,
+                        t_img_url=t_img_url,
+                        bottom_color=bottom_color,
+                        bottom_listing=bottom_listing,
+                        bo_img_url=bo_img_url,
+                        accessory_color=accessory_color,
+                        accessory_listing=accessory_listing,
+                        a_img_url=a_img_url,
+                        bag_color=bag_color,
+                        bag_listing=bag_listing,
+                        b_img_url=b_img_url,
+                        dress_color=dress_color,
+                        dress_listing=dress_listing,
+                        d_img_url=d_img_url,
+                        shoe_color=shoe_color,
+                        shoe_listing=shoe_listing,
+                        s_img_url=s_img_url))
+
 
 def search_helper():
     """Search for list items matching with movie colors from Etsy."""
@@ -213,13 +282,8 @@ def search_helper():
 
     else:
         movie = random.choice(Movie.query.all())
-    
-    colors = Color.query.filter(Color.movie_id == movie.id).all()
 
-    color_list = []
-
-    for color in colors:
-        color_list.append(color.hexcode)
+    color_list = get_colors_from_movie(movie)
 
     result_dict = etsy.get_listing_items(color_list)
     
@@ -228,13 +292,13 @@ def search_helper():
     (top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = etsy.get_listing_urls(best_dict)
 
-    return (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+    return (result_dict['colors'], movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing)
 
 
 @app.route('/search_json')
 def search_json():
-    (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+    (colors, movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = search_helper()
 
     # return JSON
@@ -259,7 +323,7 @@ def search():
 
     movie_names = [m.name for m in movie_list]
 
-    (movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
+    (colors, movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = search_helper()
 
     return render_template('homepage.html',
@@ -278,7 +342,13 @@ def search():
                                 shoe_listing=shoe_listing,
                                 bag_listing=bag_listing,
                                 dress_listing=dress_listing,
-                                movie_id=movie.id
+                                movie_id=movie.id,
+                                top_color=colors[0],
+                                dress_color=colors[0],
+                                bottom_color=colors[1],
+                                accessory_color=colors[2],
+                                shoe_color=colors[3],
+                                bag_color=colors[4]
                             )
 
 
