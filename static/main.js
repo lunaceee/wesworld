@@ -30,7 +30,7 @@ $(document).ready(function(){
 
   $(document).on("change", "#selected_movie", function(){
     // console.log("to change movie")
-    
+    debugger;
     var selectedMovie = {
       "movie_name": $("#selected_movie").val()
     };
@@ -58,7 +58,7 @@ $(document).ready(function(){
         $("#t_img").attr('src', results['t_img_url']);
         $("#t_listing").attr('href', results['top_listing']);
 
-        // console.log("changed movie", results);
+        console.log("changed movie", results);
       }
     });
   });
@@ -91,15 +91,18 @@ $(document).ready(function(){
     $("#bottom_category").click(function(){
     // console.log("to change movie")
       debugger;
-      var selectedCategory = {
-        "category_name": $("#bottom_category").val()
+      console.log('shuffle bottom item');
+      var postData = {
+        "category_name": 'bottom',
+        "movie_name": $("#selected_movie").val(),
       };
 
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
-        data: selectedCategory,
+        data: postData,
         success:function(results){
+          console.log('results', results);
           $("#bo_img").attr('src', results['bo_img_url']);
           $("#bottom_listing").attr('href', results['bottom_listing']);
           $("#bottom_color").css('background-color', '#'+results['bottom_color']);
@@ -114,16 +117,18 @@ $(document).ready(function(){
     $("#accessory_category").click(function(){
     // console.log("to change movie")
       debugger;
-      console.log("shuffle top item");
-      var selectedCategory = {
-        "category_name": $("#accessory_category").val()
+      console.log("shuffle accessory item");
+      var postData = {
+        "category_name": 'accessory',
+        "movie_name": $("#selected_movie").val(),
       };
 
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
-        data: selectedCategory,
+        data: postData,
         success:function(results){
+          console.log('results', results);
           $("#a_img").attr('src', results['a_img_url']);
           $("#accessory_listing").attr('href', results['accessory_listing']);
           $("#accessory_color").css('background-color', '#'+results['accessory_color']);
@@ -139,14 +144,15 @@ $(document).ready(function(){
     // console.log("to change movie")
       debugger;
       console.log("shuffle top item");
-      var selectedCategory = {
-        "category_name": $("#bag_category").val()
+      var postData = {
+        "category_name": 'bag',
+        "movie_name": $("#selected_movie").val(),
       };
 
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
-        data: selectedCategory,
+        data: postData,
         success:function(results){
           $("#b_img").attr('src', results['b_img_url']);
           $("#bag_listing").attr('href', results['bag_listing']);
@@ -163,14 +169,15 @@ $(document).ready(function(){
     // console.log("to change movie")
       debugger;
       console.log("shuffle top item");
-      var selectedCategory = {
-        "category_name": $("#dress_category").val()
+      var postData = {
+        "category_name": 'dress',
+        "movie_name": $("#selected_movie").val(),
       };
 
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
-        data: selectedCategory,
+        data: postData,
         success:function(results){
           $("#d_img").attr('src', results['d_img_url']);
           $("#dress_listing").attr('href', results['dress_listing']);
@@ -187,14 +194,15 @@ $(document).ready(function(){
     // console.log("to change movie")
     debugger;
     console.log("shuffle top item");
-    var selectedCategory = {
-      "category_name": $("#shoe_category").val()
+    var postData = {
+        "category_name": 'shoe',
+        "movie_name": $("#selected_movie").val(),
     };
 
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
-        data: selectedCategory,
+        data: postData,
         success:function(results){
           $("#s_img").attr('src', results['s_img_url']);
           $("#shoe_listing").attr('href', results['shoe_listing']);

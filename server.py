@@ -155,18 +155,12 @@ def save_ensemble():
     user_id = session['logged_in']
     user = User.query.filter(User.id == user_id).one()
 
-    ensemble = Ensemble.query.filter(Ensemble.top_url == top_listing,
-                                     Ensemble.bottom_url == bottom_listing,
-                                     Ensemble.accessory_url == accessory_listing,
-                                     Ensemble.shoe_url == shoe_listing,
-                                     Ensemble.bag_url == bag_listing,
-                                     Ensemble.dress_url == dress_listing,
-                                     Ensemble.accessory_img_url == accessory_img_url,
-                                     Ensemble.top_img_url == top_img_url,
-                                     Ensemble.bottom_img_url == bottom_img_url,
-                                     Ensemble.bag_img_url == bag_img_url,
-                                     Ensemble.shoe_img_url == shoe_img_url,
-                                     Ensemble.dress_img_url == dress_img_url
+    ensemble = Ensemble.query.filter(Ensemble.top.listing_url == top_listing,
+                                     Ensemble.bottom.listing_url == bottom_listing,
+                                     Ensemble.accessory.listing_url == accessory_listing,
+                                     Ensemble.shoe.listing_url == shoe_listing,
+                                     Ensemble.bag.listing_url == bag_listing,
+                                     Ensemble.dress.listing_url == dress_listing,
                                      ).first()
 
     if ensemble:
@@ -182,19 +176,32 @@ def save_ensemble():
         db.session.commit()
         print "added new User-Ensemble relationship"
     else:
-        new_ensemble = Ensemble(top_url=top_listing,
-                            bottom_url=bottom_listing,
-                            accessory_url=accessory_listing,
-                            shoe_url=shoe_listing,
-                            bag_url=bag_listing,
-                            dress_url=dress_listing,
+
+        def find_or_add(itemClass, l_url, img_url):
+            item = itemClass.query.filter(itemClass.listing_url == l_url).first()
+            if not item:
+                item = itemClass(listing_url=l_url,
+                        img_url=img_url)
+                db.session.add(item)
+
+            return item
+
+        accessory = find_or_add(Accessory, accessory_listing, accessory_img_url)
+        top = find_or_add(Top, top_listing, top_img_url)
+        bottom = find_or_add(Bottom, bottom_listing, bottom_img_url)
+        shoe = find_or_add(Shoe, shoe_listing, shoe_img_url)
+        bag = find_or_add(Bag, bag_listing, bag_img_url)
+        dress = find_or_add(Dress, dress_listing, dress_img_url)
+
+        db.session.commit()
+
+        new_ensemble = Ensemble(accessory_id=accessory.id,
+                            top_id=top.id,
+                            bottom_id=bottom.id,
+                            shoe_id=shoe.id,
+                            bag_id=bag.id,
+                            dress_id=dress.id,
                             movie_id=movie_id,
-                            accessory_img_url=accessory_img_url,
-                            top_img_url=top_img_url,
-                            bottom_img_url=bottom_img_url,
-                            bag_img_url=bag_img_url,
-                            shoe_img_url=shoe_img_url,
-                            dress_img_url=dress_img_url
                             )
 
         new_ensemble.users.append(user)
@@ -235,11 +242,11 @@ def shuffle_item():
 
     # Get image url of each category.
     t_img_url = result[2]['top'][1]
-    bo_img_url = result[2]['top'][1]
-    a_img_url = result[2]['top'][1]
-    b_img_url = result[2]['top'][1]
-    s_img_url = result[2]['top'][1]
-    d_img_url = result[2]['top'][1]
+    bo_img_url = result[2]['bottom'][1]
+    a_img_url = result[2]['accessory'][1]
+    b_img_url = result[2]['bag'][1]
+    s_img_url = result[2]['shoe'][1]
+    d_img_url = result[2]['dress'][1]
 
     #Colors
     colors = result[0]

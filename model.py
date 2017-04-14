@@ -20,7 +20,7 @@ class Movie(db.Model):
         return "<Movie id={} name={}>".format(self.id, self.name)
 
     ensembles = db.relationship('Ensemble',
-                                backref="movie")
+                                backref="movies")
 
 class User(db.Model):
     """User info"""
@@ -78,7 +78,7 @@ class Ensemble(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
     top_id = db.Column(db.Integer, db.ForeignKey('tops.id'))
     bottom_id = db.Column(db.Integer, db.ForeignKey('bottoms.id'))
-    accesssory_id = db.Column(db.Integer, db.ForeignKey('accessories.id'))
+    accessory_id = db.Column(db.Integer, db.ForeignKey('accessories.id'))
     shoe_id = db.Column(db.Integer, db.ForeignKey('shoes.id'))
     bag_id = db.Column(db.Integer, db.ForeignKey('bags.id'))
     dress_id = db.Column(db.Integer, db.ForeignKey('dresses.id'))
