@@ -89,42 +89,6 @@ movies = [
     }
   },
 
-
-  {
-    'name': 'Castello Cavalcanti', # 2
-    'colors': [
-		'02401B',
-		'81A88D',
-		'972D15',
-		'A2A475',
-		'D8B70A',
-    ],
-    'top_data': {
-        'listing_url':'https://www.etsy.com/listing/201266870/sore-today-stronger-tommorow?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img0.etsystatic.com/044/2/5469323/il_570xN.645234118_rhm6.jpg'
-    },
-    'bottom_data': {
-        'listing_url':'https://www.etsy.com/listing/483414711/vintage-70s-jogging-short-shorts-orange?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img1.etsystatic.com/101/0/5236909/il_570xN.1102698321_qexp.jpg'
-    },
-    'accessory_data': {
-        'listing_url':'https://www.etsy.com/listing/277573522/sparkly-led-wings-led-130-lights-red?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img0.etsystatic.com/115/0/11207815/il_570xN.963306108_fw15.jpg'
-    },
-    'shoe_data': {
-        'listing_url':'https://www.etsy.com/listing/495696501/shoe-tree-stretchers?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img1.etsystatic.com/152/1/8650422/il_570xN.1142410023_4tys.jpg'
-    },
-    'bag_data': {
-        'listing_url':'https://www.etsy.com/listing/510009372/embroidery-bag-beach-bag-tote-beach-bag?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img1.etsystatic.com/177/0/11317459/il_570xN.1224722073_8cow.jpg'
-    },
-    'dress_data': {
-        'listing_url':'https://www.etsy.com/listing/494707834/handmade-ballgown-sequined-beaded-shaped?utm_source=wesworld&utm_medium=api&utm_campaign=api',
-        'img_url':'https://img1.etsystatic.com/146/1/6909998/il_570xN.1216962651_egch.jpg'
-    }
-  },
-
   {
     'name': 'Fantastic Mr. Fox', # 3
     'colors': [
