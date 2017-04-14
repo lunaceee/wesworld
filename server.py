@@ -288,6 +288,7 @@ def search_helper():
         session['movie'] = movie.name
 
     else:
+        print 'RANDOMLY PICKING A MOVIE'
         movie = random.choice(Movie.query.all())
 
     color_list = get_colors_from_movie(movie)
