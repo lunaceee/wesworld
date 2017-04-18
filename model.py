@@ -20,7 +20,7 @@ class Movie(db.Model):
         return "<Movie id={} name={}>".format(self.id, self.name)
 
     ensembles = db.relationship('Ensemble',
-                                backref="movies")
+                                backref="movie")
 
 class User(db.Model):
     """User info"""

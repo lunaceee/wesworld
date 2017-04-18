@@ -4,7 +4,7 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Movie, Color, Ensemble, connect_to_db, db
+from model import User, Movie, Color, Ensemble, Top, Bottom, Accessory, Shoe, Dress, Bag, connect_to_db, db
 
 from passlib.hash import sha256_crypt
 
@@ -24,6 +24,17 @@ app.secret_key = "ABC"
 # error.
 app.jinja_env.undefined = StrictUndefined
 
+@app.route('/')
+def show_home_page():
+    """Show home page."""
+    return render_template('homepage.html')
+
+@app.route('/nav')
+def nav_bar():
+    """testing purpose"""
+    return render_template('nav.html', 
+                            user_id=session.get('logged_in'),
+                            logged_in=bool(session.get('logged_in')))
 
 @app.route('/register', methods=["GET", "POST"])
 def register_page():
@@ -155,12 +166,32 @@ def save_ensemble():
     user_id = session['logged_in']
     user = User.query.filter(User.id == user_id).one()
 
-    ensemble = Ensemble.query.filter(Ensemble.top.listing_url == top_listing,
-                                     Ensemble.bottom.listing_url == bottom_listing,
-                                     Ensemble.accessory.listing_url == accessory_listing,
-                                     Ensemble.shoe.listing_url == shoe_listing,
-                                     Ensemble.bag.listing_url == bag_listing,
-                                     Ensemble.dress.listing_url == dress_listing,
+
+    def find_or_add(itemClass, l_url, img_url):
+            item = itemClass.query.filter(itemClass.listing_url == l_url).first()
+            if not item:
+                item = itemClass(listing_url=l_url,
+                        img_url=img_url)
+                db.session.add(item)
+
+            return item
+
+
+    top = find_or_add(Top, top_listing, top_img_url)
+    accessory = find_or_add(Accessory, accessory_listing, accessory_img_url)
+    bottom = find_or_add(Bottom, bottom_listing, bottom_img_url)
+    shoe = find_or_add(Shoe, shoe_listing, shoe_img_url)
+    bag = find_or_add(Bag, bag_listing, bag_img_url)
+    dress = find_or_add(Dress, dress_listing, dress_img_url)
+
+    db.session.commit()
+
+    ensemble = Ensemble.query.filter(Ensemble.top_id == top.id,
+                                     Ensemble.bottom_id == bottom.id,
+                                     Ensemble.accessory_id == accessory.id,
+                                     Ensemble.shoe_id == shoe.id,
+                                     Ensemble.bag_id == bag.id,
+                                     Ensemble.dress_id == dress.id,
                                      ).first()
 
     if ensemble:
@@ -176,24 +207,6 @@ def save_ensemble():
         db.session.commit()
         print "added new User-Ensemble relationship"
     else:
-
-        def find_or_add(itemClass, l_url, img_url):
-            item = itemClass.query.filter(itemClass.listing_url == l_url).first()
-            if not item:
-                item = itemClass(listing_url=l_url,
-                        img_url=img_url)
-                db.session.add(item)
-
-            return item
-
-        accessory = find_or_add(Accessory, accessory_listing, accessory_img_url)
-        top = find_or_add(Top, top_listing, top_img_url)
-        bottom = find_or_add(Bottom, bottom_listing, bottom_img_url)
-        shoe = find_or_add(Shoe, shoe_listing, shoe_img_url)
-        bag = find_or_add(Bag, bag_listing, bag_img_url)
-        dress = find_or_add(Dress, dress_listing, dress_img_url)
-
-        db.session.commit()
 
         new_ensemble = Ensemble(accessory_id=accessory.id,
                             top_id=top.id,
@@ -334,7 +347,8 @@ def search():
     (colors, movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = search_helper()
 
-    return render_template('homepage.html',
+    return render_template('search.html',
+                                user_id=session.get('logged_in'),
                                 logged_in=bool(session.get('logged_in')),
                                 chosen_movie=session.get('movie'),
                                 movie_names=movie_names,

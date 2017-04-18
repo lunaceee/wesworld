@@ -26,22 +26,22 @@
                     <div><h2>{{ movie }}</h2></div>
                     {% for ensemble in ensembles %}
                         <div class="card w-50">
-                            <a href="{{ ensemble.accessory_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.accessory.img_url }}"></a>
+                            <a href="{{ ensemble.accessory.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.accessory.img_url }}"></a>
                         </div>
                         <div class="card w-50">
-                            <a href="{{ ensemble.top_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.top_img_url }}"></a>
+                            <a href="{{ ensemble.top.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.top.img_url }}"></a>
                         </div>
                         <div class="card w-50">
-                            <a href="{{ ensemble.bottom_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bottom_img_url }}"></a>
+                            <a href="{{ ensemble.bottom.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bottom.img_url }}"></a>
                         </div>
                         <div class="card w-50">
-                            <a href="{{ ensemble.shoe_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.shoe_img_url }}"></a>
+                            <a href="{{ ensemble.shoe.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.shoe.img_url }}"></a>
                         </div>
                         <div class="card w-50">
-                            <a href="{{ ensemble.dress_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.dress_img_url }}"></a>
+                            <a href="{{ ensemble.dress.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.dress.img_url }}"></a>
                         </div>
                         <div class="card w-50">
-                            <a href="{{ ensemble.bag_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bag_img_url }}"></a>
+                            <a href="{{ ensemble.bag.listing_url }}"><img class="img-fluid img-rounded" src="{{ ensemble.bag.img_url }}"></a>
                         </div>
                         <br>
                     {% endfor %}
