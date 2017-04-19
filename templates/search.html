@@ -3,6 +3,14 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- modal windows for all listings -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <img id="modal1_img" src="" alt="img">
+    </div>
+</div>
+
 	<!-- Display all movie names via dropdown menu. -->
 	<div class="row">
 		<form action="/search">
@@ -28,7 +36,7 @@
 		<div class="row">
             <div class="col s6 m4">
                 <div class="card s_fix_height">
-                    <div class="card-image" >
+                    <div class="card-image">
                         <a id="dress_listing" href="{{ dress_listing }}">
                             <img id="d_img" src="{{ d_img_url }}" alt="dress">
                             <span class="card-title">Dress</span>
@@ -43,20 +51,23 @@
             </div>
 			<div class="col s6 m4">
 				<div class="card s_fix_height">
-					<div class="card-image" >
-						<a id="top_listing" href="{{ top_listing }}">
-							<img id="t_img" src="{{ t_img_url }}" alt="top">
-                            <!-- sharing button -->
-							
+                    <div class="card-image" >
+                        <a class="modal_trigger" href="#modal" data-img-url="{{ t_img_url }}">
+                            <img src="{{ t_img_url }}" alt="top">
                         </a>
-                        <!-- Materialize icon -->
+                        <!-- <a id="top_listing" href="{{ top_listing }}"> -->
+                    
+
+                        <!-- </a> -->
+                        
+                    <!-- Materialize icon -->
                         <div class="share btn-floating halfway-fab waves-effect waves-light red">
-                            <!-- <i class="material-icons">add</i> -->
-                              <div class="fab no"></div>
-                              <div class="fab no"></div>
-                              <div class="fab no"></div>
+                        <!-- <i class="material-icons">add</i> -->
+                            <div class="fab no"></div>
+                            <div class="fab no"></div>
+                            <div class="fab no"></div>
                         </div>
-					</div>
+                    </div>
 					<div class="card-content">
 						<span class="card-title">Top</span>
 						<a class="right" href=""><i class="material-icons">open_in_new</i></a>
