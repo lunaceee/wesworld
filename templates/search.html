@@ -5,11 +5,11 @@
 {% block content %}
 
 <!-- modal windows for all listings -->
-<div id="modal1" class="modal">
+<!-- <div id="modal1" class="modal">
     <div class="modal-content">
         <img id="modal1_img" src="" alt="img">
     </div>
-</div>
+</div> -->
 
 	<!-- Display all movie names via dropdown menu. -->
 	<div class="row">
@@ -34,114 +34,142 @@
 	<!-- Display ensemble. -->
 	<div id="ensemble">
 		<div class="row">
-            <div class="col s6 m4">
-                <div class="card s_fix_height">
-                    <div class="card-image">
-                        <a id="dress_listing" href="{{ dress_listing }}">
-                            <img id="d_img" src="{{ d_img_url }}" alt="dress">
+            <div class="col m2"></div>
+            <div class="col s12 m8 l8">
+                <!-- Dress -->
+                <div class="col s6 m4">
+                    <div class="card hoverable s_fix_height">
+                        <div class="card-image" >
+                            <a id="dress_listing" href="#">
+                                <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+                        <div class="card-content">
                             <span class="card-title">Dress</span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <button id="dress_category">shuffle</button>
-                        <div id="dress_color" style="width:60px;height:20px;background-color: #{{ dress_color }};"> {{ dress_color }} </div>
-                    </div>
-                </div>
-            </div>
-			<div class="col s6 m4">
-				<div class="card s_fix_height">
-                    <div class="card-image" >
-                        <a class="modal_trigger" href="#modal" data-img-url="{{ t_img_url }}">
-                            <img src="{{ t_img_url }}" alt="top">
-                        </a>
-                        <!-- <a id="top_listing" href="{{ top_listing }}"> -->
-                    
-
-                        <!-- </a> -->
-                        
-                    <!-- Materialize icon -->
-                        <div class="share btn-floating halfway-fab waves-effect waves-light red">
-                        <!-- <i class="material-icons">add</i> -->
-                            <div class="fab no"></div>
-                            <div class="fab no"></div>
-                            <div class="fab no"></div>
+                            <a class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                            <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
+                            <a class="chip" id="dress_color" style="width:60px;height:25px" background-color: "#{{ dress_color }};"></a>
                         </div>
                     </div>
-					<div class="card-content">
-						<span class="card-title">Top</span>
-						<a class="right" href=""><i class="material-icons">open_in_new</i></a>
-						<a class="right" href=""><i class="material-icons">library_add</i></a></a>
-						<a class="left" id="top_category" href=""><i class="material-icons">shuffle</i></a>
-	      				<a class="center" id="top_color" style="width:60px;height:20px;background-color: #{{ top_color }};"> {{ top_color }} </a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col s6 m4 l4">
-				<div class="card s_fix_height">
-					<div class="">
-						<a class="card-image" id="bottom_listing" href="{{ bottom_listing }}">
-							<img id="bo_img" src="{{ bo_img_url }}" alt="bottom">
-							<span class="card-title">Bottom</span>
-							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-						</a>
-					</div>
-					<div class="card-content">
-						<button id="bottom_category">shuffle</button>
-	      				<div id="bottom_color" style="width:60px;height:20px;background-color: #{{ bottom_color }};"> {{ bottom_color }} </div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col s6 m4 l4">
-				<div class="card s_fix_height">
-					<div class="card-image">
-						<a id="accessory_listing" href="{{ accessory_listing }}">
-							<img id="a_img" src="{{ a_img_url }}" alt="accessory">
-							<span class="card-title">Accessory</span>
-							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-						</a>
-					</div>
-					<div class="card-content">
-						<button id="accessory_category">shuffle</button>
-	      				<div id="accessory_color" style="width:60px;height:20px;background-color: #{{ accessory_color }};"> {{ accessory_color }} </div>
-					</div>
-				</div>
-			</div>
-	
-			<div class="col s6 m4 l4">
-				<div class="card s_fix_height">
-					<div class="card-image">
-						<a id="shoe_listing" href="{{ shoe_listing }}">
-							<img id="s_img" src="{{ s_img_url }}" alt="shoe">
-							<span class="card-title">Shoe</span>
-							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-						</a>
-					</div>
-					<div class="card-content">
-						<button id="shoe_category">shuffle</button>
-	      				<div id="shoe_color" style="width:60px;height:20px;background-color: #{{ shoe_color }};"> {{ shoe_color }} </div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col s6 m4 l4">
-				<div class="card s_fix_height">
-					<div class="card-image">
-						<a id="bag_listing" href="{{ bag_listing }}">
-							<img id="b_img" src="{{ b_img_url }}" alt="bag">
-							<span class="card-title">Bag</span>
-							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-						</a>
-					</div>
-					<div class="card-content">
-						<button id="bag_category">shuffle</button>
-	      				<div id="bag_color" style="width:60px;height:20px;background-color: #{{ bag_color }};"> {{ bag_color }} </div>
-					</div>
-				</div>
-			</div>
-            
+                </div>
+                <!-- Top -->
+    			<div class="col s6 m4">
+    				<div class="card hoverable s_fix_height">
+                        <div class="card-image" >
+                            <a id="top_listing" href="#">
+                                <img id="t_img" class="materialboxed" src="{{ t_img_url }}" alt="top">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+    					<div class="card-content">
+    						<span class="card-title">Top</span>
+    						<a class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+    						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+    						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
+    	      				<a class="chip" id="top_color" style="width:60px;height:25px" background-color: "#{{ top_color }};"></a>
+    					</div>
+    				</div>
+    			</div>
+                <!-- Bottom -->
+    			<div class="col s6 m4 l4">
+    				<div class="card hoverable s_fix_height">
+    					<div class="card-image" >
+                            <a id="bottom_listing" href="#">
+                                <img id="bo_img" class="materialboxed" src="{{ bo_img_url }}" alt="bottom">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+    					<div class="card-content">
+                            <span class="card-title">Bottom</span>
+                            <a class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                            <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
+                            <a class="chip" id="bottom_color" style="width:60px;height:25px" background-color: "#{{ bottom_color }};"></a>
+                        </div>
+    				</div>
+    			</div>
+                <!-- Accessory -->
+    			<div class="col s6 m4 l4">
+    				<div class="card hoverable s_fix_height">
+    					<div class="card-image" >
+                            <a id="accessory_listing" href="#">
+                                <img id="a_img" class="materialboxed" src="{{ a_img_url }}" alt="accessory">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+    					<div class="card-content">
+                            <span class="card-title">Accessory</span>
+                            <a class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                            <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
+                            <a class="chip" id="accessory_color" style="width:60px;height:25px" background-color: "#{{ accessory_color }};"></a>
+                        </div>
+    				</div>
+    			</div>
+    	       <!-- Shoe -->
+    			<div class="col s6 m4 l4">
+    				<div class="card hoverable s_fix_height">
+    					<div class="card-image">
+                            <a id="shoe_listing" href="#">
+                                <img id="s_img" class="materialboxed" src="{{ s_img_url }}" alt="shoe">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+    					<div class="card-content">
+                            <span class="card-title">Shoe</span>
+                            <a class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                            <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
+                            <a class="chip" id="shoe_color" style="width:60px;height:25px" background-color: "#{{ shoe_color }};"></a>
+                        </div>
+    				</div>
+    			</div>
+                <!-- Bag -->
+    			<div class="col s6 m4 l4">
+    				<div class="card hoverable s_fix_height">
+    					<div class="card-image" >
+                            <a id="bag_listing" href="#">
+                                <img id="b_listing" class="materialboxed" src="{{ b_img_url }}" alt="bag">
+                            </a>
+                            <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                                <div class="fab no"></div>
+                            </div>
+                        </div>
+    					<div class="card-content">
+                            <span class="card-title">Bag</span>
+                            <a class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                            <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
+                            <a class="chip" id="bag_color" style="width:60px;height:25px" background-color: "#{{ bag_color }};"></a>
+                        </div>
+    				</div>
+    			</div>
+            </div>
+            <div class="col m2"></div>
 		</div>
 	</div>
 	<br>
