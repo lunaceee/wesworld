@@ -1,9 +1,5 @@
 /* sharing button */
-body {
-  /*background: #62BFF5;
-  overflow: hidden;
-  height: 100vh;*/
-  /*margin: 0;*/
+#ensemble {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,13 +10,12 @@ body {
   width: 40px;
   border-radius: 50%;
   position: absolute;
-/*  right:24px;
-  bottom:15px;*/
   cursor: pointer;
 }
 
 .share {
   position: relative;
+  overflow: visible !important;
 }
 
 .share:before, .share:after {
@@ -29,10 +24,9 @@ body {
 }
 
 .share:before {
-  background: url(http://localhost:5000/static/css/images/Plus-Light-Blue.svg) center/28px no-repeat;
+  background: url(http://localhost:5000/static/css/images/Plus-Light-Blue.svg) center/20px no-repeat;
   z-index: 5;
-/*  right:24px;
-  bottom:15px;*/
+  position: absolute;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
@@ -67,29 +61,21 @@ body {
           animation: 0.3s down forwards;
   opacity: 0;
   will-change: animation;
-  /*position:absolute;
-  right:24px;
-  bottom:15px;*/
 }
 
 .fab:nth-child(1) {
   background: #1DA1F2 url(http://goo.gl/TsaqFB) center/28px no-repeat;
-  top: -110px;
-  right:24px;
-  bottom:15px;
+  top: -100px;
 }
 
 .fab:nth-child(2) {
   background: #46629E url(http://goo.gl/4g3NlE) center/25px no-repeat;
-  top: -60px;
-  right:24px;
-  bottom:15px;
+  top: -52px;
 }
 
 .fab:nth-child(3) {
   background: #DB4437 url(http://goo.gl/rFa6zA) center/28px no-repeat;
-  right:24px;
-  bottom:15px;
+  top: -5px;
 }
 
 .fab.active {
@@ -103,6 +89,11 @@ body {
 }
 
 .fab.active:nth-child(2) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+.fab.active:nth-child(3) {
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s;
 }
@@ -161,3 +152,14 @@ body {
     top: 0;
   }
 }
+
+
+/* materilize css */
+.usr_small {
+  height:150px !important;
+  overflow: hidden !important;
+}
+
+/*.s_fix_height {
+  height: 200px !important;
+}*/

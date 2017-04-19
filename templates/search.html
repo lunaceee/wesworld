@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block d3css %}
+{% endblock %}
+
+{% block content %}
+	<!-- Display all movie names via dropdown menu. -->
+	<div class="row">
+		<form action="/search">
+			<div class="input-field col s12">
+				<select class="browser-default" multiple id="selected_movie" name="movie_name">
+					<option value="" disabled selected>Choose a movie</option>
+					{% for movie_name in movie_names %}
+                       <option value="{{ movie_name }}"
+                       	{% if chosen_movie == movie_name %}
+                     		selected="selected"
+		    			{% endif %}
+                       >{{ movie_name }}</option>
+		    		{% endfor %}
+		  		</select>
+		  		<input class="waves-effect waves-light btn" type="submit" value="Change">
+			</div>
+		</form>
+	</div>
+	
+	<br>
+	<!-- Display ensemble. -->
+	<div id="ensemble">
+		<div class="row">
+            <div class="col s6 m4">
+                <div class="card s_fix_height">
+                    <div class="card-image" >
+                        <a id="dress_listing" href="{{ dress_listing }}">
+                            <img id="d_img" src="{{ d_img_url }}" alt="dress">
+                            <span class="card-title">Dress</span>
+                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <button id="dress_category">shuffle</button>
+                        <div id="dress_color" style="width:60px;height:20px;background-color: #{{ dress_color }};"> {{ dress_color }} </div>
+                    </div>
+                </div>
+            </div>
+			<div class="col s6 m4">
+				<div class="card s_fix_height">
+					<div class="card-image" >
+						<a id="top_listing" href="{{ top_listing }}">
+							<img id="t_img" src="{{ t_img_url }}" alt="top">
+                            <!-- sharing button -->
+							
+                        </a>
+                        <!-- Materialize icon -->
+                        <div class="share btn-floating halfway-fab waves-effect waves-light red">
+                            <!-- <i class="material-icons">add</i> -->
+                              <div class="fab no"></div>
+                              <div class="fab no"></div>
+                              <div class="fab no"></div>
+                        </div>
+					</div>
+					<div class="card-content">
+						<span class="card-title">Top</span>
+						<a class="right" href=""><i class="material-icons">open_in_new</i></a>
+						<a class="right" href=""><i class="material-icons">library_add</i></a></a>
+						<a class="left" id="top_category" href=""><i class="material-icons">shuffle</i></a>
+	      				<a class="center" id="top_color" style="width:60px;height:20px;background-color: #{{ top_color }};"> {{ top_color }} </a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col s6 m4 l4">
+				<div class="card s_fix_height">
+					<div class="">
+						<a class="card-image" id="bottom_listing" href="{{ bottom_listing }}">
+							<img id="bo_img" src="{{ bo_img_url }}" alt="bottom">
+							<span class="card-title">Bottom</span>
+							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+						</a>
+					</div>
+					<div class="card-content">
+						<button id="bottom_category">shuffle</button>
+	      				<div id="bottom_color" style="width:60px;height:20px;background-color: #{{ bottom_color }};"> {{ bottom_color }} </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col s6 m4 l4">
+				<div class="card s_fix_height">
+					<div class="card-image">
+						<a id="accessory_listing" href="{{ accessory_listing }}">
+							<img id="a_img" src="{{ a_img_url }}" alt="accessory">
+							<span class="card-title">Accessory</span>
+							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+						</a>
+					</div>
+					<div class="card-content">
+						<button id="accessory_category">shuffle</button>
+	      				<div id="accessory_color" style="width:60px;height:20px;background-color: #{{ accessory_color }};"> {{ accessory_color }} </div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col s6 m4 l4">
+				<div class="card s_fix_height">
+					<div class="card-image">
+						<a id="shoe_listing" href="{{ shoe_listing }}">
+							<img id="s_img" src="{{ s_img_url }}" alt="shoe">
+							<span class="card-title">Shoe</span>
+							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+						</a>
+					</div>
+					<div class="card-content">
+						<button id="shoe_category">shuffle</button>
+	      				<div id="shoe_color" style="width:60px;height:20px;background-color: #{{ shoe_color }};"> {{ shoe_color }} </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col s6 m4 l4">
+				<div class="card s_fix_height">
+					<div class="card-image">
+						<a id="bag_listing" href="{{ bag_listing }}">
+							<img id="b_img" src="{{ b_img_url }}" alt="bag">
+							<span class="card-title">Bag</span>
+							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+						</a>
+					</div>
+					<div class="card-content">
+						<button id="bag_category">shuffle</button>
+	      				<div id="bag_color" style="width:60px;height:20px;background-color: #{{ bag_color }};"> {{ bag_color }} </div>
+					</div>
+				</div>
+			</div>
+            
+		</div>
+	</div>
+	<br>
+{% endblock %}
+
+{% block button %}
+	<!-- Save to profile button. -->
+	<div class="row">
+		<div class="col s12 m5 l5"></div>
+			<div class="col s12 m10">
+				<form id="save_ensemble" action="/ensembles" method="post">
+					{% if logged_in %}
+						<input class="btn btn-secondary" type="submit" value="Save">
+						
+						<!-- Your facebook share button code -->
+					  <div class="fb-share-button" 
+					    data-href="http://localhost:5000/search.html" 
+					    data-layout="button_count">
+					  </div>
+
+					{% else %}
+						<input class="btn btn-secondary" type="submit" value="Save" disabled title="log in to save.">
+					{% endif %}
+					<input type="hidden" name="movie_id" value="{{ movie_id }}" >
+					<input type="hidden" name="top_listing" value="{{ top_listing }}">
+					<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
+					<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
+					<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
+					<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
+					<input type="hidden" name="dress_listing" value="{{ dress_listing }}">
+					<input type="hidden" name="t_img_url" value="{{ t_img_url }}">							
+					<input type="hidden" name="a_img_url" value="{{ a_img_url }}">							
+					<input type="hidden" name="bo_img_url" value="{{ bo_img_url }}">							
+					<input type="hidden" name="b_img_url" value="{{ b_img_url }}">							
+					<input type="hidden" name="s_img_url" value="{{ s_img_url }}">
+					<input type="hidden" name="d_img_url" value="{{ d_img_url }}">				
+				</form>
+			</div>
+		<div class="col s12 m5 l5"></div>
+	</div>
+	<br>
+	<br>
+
+{% endblock %}
+
