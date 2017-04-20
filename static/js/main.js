@@ -1,16 +1,18 @@
 "use strict";
 
 $(document).ready(function(){
+  // Modal windows for listing images
   $('.modal').modal();
 
   $('.modal_trigger').click(function(e){
       $('#modal1_img').attr('src', $(this).attr('data-img-url'));
       console.log($('#modal1'));
       $('#modal1').modal('open');
-
-    console.log(this)
-    console.log($(this).attr('data-img-url'));
   });
+
+  // Lightbox effect for images
+  $('.materialboxed').materialbox();
+
 
   $(".button-collapse").sideNav();
 
@@ -156,7 +158,7 @@ $(document).ready(function(){
     $("#bag_category").click(function(){
     // console.log("to change movie")
       debugger;
-      console.log("shuffle top item");
+      console.log("shuffle bag item");
       var postData = {
         "category_name": 'bag',
         "movie_name": $("#selected_movie").val(),
@@ -181,7 +183,7 @@ $(document).ready(function(){
     $("#dress_category").click(function(){
     // console.log("to change movie")
       debugger;
-      console.log("shuffle top item");
+      console.log("shuffle dress item");
       var postData = {
         "category_name": 'dress',
         "movie_name": $("#selected_movie").val(),
@@ -206,7 +208,7 @@ $(document).ready(function(){
     $("#shoe_category").click(function(){
     // console.log("to change movie")
     debugger;
-    console.log("shuffle top item");
+    console.log("shuffle shoe item");
     var postData = {
         "category_name": 'shoe',
         "movie_name": $("#selected_movie").val(),
@@ -232,9 +234,9 @@ $(document).ready(function(){
 //share button
 
 $(".share").on('click', function(e) {
-  $(".fab").removeClass("no");
-  if(e.target != this) return;
-  $('.share, .fab').toggleClass("active");
+  var el = $(e.target);
+  el.find(".fab").removeClass("no");
+  el.find('.share, .fab').toggleClass("active");
 });
 
 
