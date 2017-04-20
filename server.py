@@ -114,9 +114,10 @@ def logout():
 @app.route('/users/<user_id>')
 def show_user_profile(user_id):
     """Show user profile page."""
-
+    print user_id
     user = User.query.filter(User.id == user_id).one()
     email = user.email
+    pic = user.pic
     username = user.username
 
     ensembles = user.ensembles
@@ -137,6 +138,7 @@ def show_user_profile(user_id):
             movie_ensemble[ensemble.movie.name].append(ensemble)
 
     return render_template('user_profile.html',
+                            pic=pic,
                             email=email,
                             username=username,
                             ensembles=ensembles,

@@ -16,7 +16,7 @@
 		<form action="/search">
 			<div class="input-field col s12">
 				<select class="browser-default" multiple id="selected_movie" name="movie_name">
-					<option value="" disabled selected>Choose a movie</option>
+					<option value="" disabled>Choose a movie</option>
 					{% for movie_name in movie_names %}
                        <option value="{{ movie_name }}"
                        	{% if chosen_movie == movie_name %}
