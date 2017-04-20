@@ -28,6 +28,7 @@ class User(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String)
     email = db.Column(db.String)
+    # pic = db.Column(db.String)
     password = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime)
@@ -37,7 +38,8 @@ class User(db.Model):
 
         return "<User id={} name={} email={} password={}>".format(self.id, 
                                                                   self.username, 
-                                                                  self.email, 
+                                                                  self.email,
+                                                                  # self.pic,
                                                                   self.password)
 
 
@@ -68,6 +70,7 @@ class EnsembleUser(db.Model):
     points = db.Column(db.Integer, default=0)
 
     user = db.relationship("User", backref=db.backref("ensemble_associations"))
+    ensemble = db.relationship("Ensemble", backref=db.backref("ensemble_associations"))
 
 
 class Ensemble(db.Model):

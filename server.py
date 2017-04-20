@@ -117,14 +117,18 @@ def show_user_profile(user_id):
     print user_id
     user = User.query.filter(User.id == user_id).one()
     email = user.email
-    pic = user.pic
+    # pic = user.pic
     username = user.username
 
     ensembles = user.ensembles
-    points = 0
 
+    points_per_ensemble ={}
+    points = 0
     for ea in user.ensemble_associations:
         points += ea.points
+        points_per_ensemble[ea.ensemble] = ea.points
+
+
 
     if points:
         flash("You got a point!")
@@ -132,13 +136,17 @@ def show_user_profile(user_id):
 
     movie_ensemble = {}
     for ensemble in ensembles:
-        if ensemble.movie.name not in movie_ensemble: 
-            movie_ensemble[ensemble.movie.name] = [ensemble]
+        ensemble_points_pair = (points_per_ensemble.get(ensemble, 0), ensemble)
+        if ensemble.movie.name not in movie_ensemble:
+            movie_ensemble[ensemble.movie.name] = [ensemble_points_pair]
         else:
-            movie_ensemble[ensemble.movie.name].append(ensemble)
+            movie_ensemble[ensemble.movie.name].append(ensemble_points_pair)
+
+    for pair_lst in movie_ensemble.values():
+        pair_lst.sort(reverse=True)
 
     return render_template('user_profile.html',
-                            pic=pic,
+                            # pic=pic,
                             email=email,
                             username=username,
                             ensembles=ensembles,

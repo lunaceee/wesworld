@@ -8,13 +8,14 @@
 {% block content %}
 
 <div class="container-fluid">
-
+    <div>
+    </div>
     <div class="row">
         <div class="col s12 m4">
             <br>
             <div class="col s12 m10">
                 <div class="col s12 m4 l3"></div>
-                <img class='circle responsive-img' src="../static/css/images/profile_pic/gustav.jpg">
+                <img class='circle responsive-img' src="">
                 <p>Your Name: {{ username }}</p>
                 <p>Your Email: {{ email }}</p>
             </div>
@@ -35,9 +36,10 @@
 
         <div class="row">
             <div id="saved_ensemble" class="col s12 m6">
-                {% for movie, ensembles in movie_ensemble.items() %}
+                {% for movie, pair_lst in movie_ensemble.items() %}
                     <div><p>{{ movie }}</p></div>
-                    {% for ensemble in ensembles %}
+                    {% for point, ensemble in pair_lst[:1] %}
+                        <div>{{ point }}</div>
                         <div class="col m4">
                             <div class="card usr_small">
                                 <a class="card-image" href="{{ ensemble.accessory.listing_url }}">
