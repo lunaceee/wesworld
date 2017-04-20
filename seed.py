@@ -330,12 +330,13 @@ def load_users():
     # Read user_data file and insert data
     for row in open("seed_data/user_data.txt"):
         row = row.rstrip()
-        user_id, username, email, password = row.split("|")
+        user_id, username, email, password, pic = row.split("|")
 
         user = User(
                     username=username,
                     email=email,
-                    password=password
+                    password=password,
+                    pic=pic
                     )
 
         # We need to add to the session or it won't ever be stored

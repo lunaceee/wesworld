@@ -117,7 +117,7 @@ def show_user_profile(user_id):
     print user_id
     user = User.query.filter(User.id == user_id).one()
     email = user.email
-    # pic = user.pic
+    pic = user.pic
     username = user.username
 
     ensembles = user.ensembles
@@ -146,7 +146,7 @@ def show_user_profile(user_id):
         pair_lst.sort(reverse=True)
 
     return render_template('user_profile.html',
-                            # pic=pic,
+                            pic=pic,
                             email=email,
                             username=username,
                             ensembles=ensembles,
