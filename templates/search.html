@@ -39,175 +39,210 @@
 	<!-- Display ensemble. -->
 	<div id="ensemble">
 		<div class="row">
-            <div class="col s12 m6 l6 yellow">
-                <div class="col s3 v-poster red">
-
+            <div class="row"> 
+                <div class="col s1 m1 l1"></div>
+                <div id="wall" class="col s12 m6 l6 grey">
+                  <div class="">
+                    <div id="m1" class="col s3 customized-margin responsive-img">
+                    </div>
+                    <div class="col s3 customized-margin">
+                        <div id="m2" class="circle responsive-img row">
+                        </div>
+                         <div id="m3" class="row orange">
+                        </div>
+                    </div>
+                    <div id="m4" class="col s3 responsive-img customized-margin">
+                    </div>
+                     <div id="m5" class="col s3 responsive-img customized-margin">
+                    </div>
+                    <div id="m6" class="col s3 responsive-img customized-margin">
+                    </div>
+                  </div>
                 </div>
-                <div class="col s3">
+                <div id="wardrobe" class="col s12 m4 l4 yellow">
+                    <!-- Ensemble -->
                     <div class="row">
-                        <img class="responsive-img" src="
-                        ../static/css/images/posters/moonrise_4.jpg">
-                    </div>
-                     <div class="row">
-                        <img class="responsive-img" src="
-                        ../static/css/images/posters/moonrise_5.jpg">
-                    </div>
-                </div>
-                <div class="col s3">
-                    <img class="responsive-img" src="../static/css/images/posters/moonrise_2.jpg">
-                </div>
-                 <div class="col s3">
-                    <img class="responsive-img" src="../static/css/images/posters/moonrise_3.jpg">
-                </div>
-                
-            </div>
-            <!-- <div class="col m2"></div> -->
-            <div class="col s12 m6">
-                <!-- Dress -->
-                <div class="col s6 m4">
-                    <div class="card hoverable small" id="dress_height">
-                        <div class="card-image" >
-                            <a id="dress_listing" href="#">
-                                <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
-                            </a>
-                            
-                        </div>
-                        <div class="card-content">
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
+                        <!-- Dress -->
+                        <div class="col s6 m4">
+                            <div class="card hoverable small" id="dress_height">
+                                <div class="card-image" >
+                                    <a id="dress_listing" href="#">
+                                        <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
+                                    </a>
+                                    
+                                </div>
+                                <div class="card-content">
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+                                    <span class="card-title">Dress</span>
+                                    <a class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                    <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                    <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
+                                    <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};"></a>
+                                    
+                                    {% if user_id == 1 %}
+                                        <form action="/blacklist" method='post'>
+                                            <input type="hidden" name="key" value="{{ dress_listing }}">
+                                            <input type="submit" name="bl" value="blacklist">
+                                        </form>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <span class="card-title">Dress</span>
-                            <a class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                            <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
-                            <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};"></a>
-                            
-                            {% if user_id == 1 %}
-                                <form action="/blacklist" method='post'>
-                                    <input type="hidden" name="key" value="{{ dress_listing }}">
-                                    <input type="submit" name="bl" value="blacklist">
+                        </div>
+                        <!-- Top -->
+            			<div class="col s6 m4">
+            				<div class="card hoverable small">
+                                <div class="card-image" >
+                                    <a id="top_listing" href="#">
+                                        <img id="t_img" class="materialboxed" src="{{ t_img_url }}" alt="top">
+                                    </a>
+                                </div>
+            					<div class="card-content">
+            						<!-- <span class="card-title">Top</span> -->
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+            						<a class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+            						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+            						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
+            	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};"></a>
+            					</div>
+            				</div>
+            			</div>
+                        <!-- Bottom -->
+            			<div class="col s6 m4">
+            				<div class="card hoverable small">
+            					<div class="card-image" >
+                                    <a id="bottom_listing" href="#">
+                                        <img id="bo_img" class="materialboxed" src="{{ bo_img_url }}" alt="bottom">
+                                    </a>
+                                </div>
+            					<div class="card-content">
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+                                    <span class="card-title">Bottom</span>
+                                    <a class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                    <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                    <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
+                                    <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};"></a>
+                                </div>
+            				</div>
+            			</div>
+                        <!-- Accessory -->
+            			<div class="col s6 m4">
+            				<div class="card hoverable small">
+            					<div class="card-image" >
+                                    <a id="accessory_listing" href="#">
+                                        <img id="a_img" class="materialboxed" src="{{ a_img_url }}" alt="accessory">
+                                    </a>
+                                   
+                                </div>
+            					<div class="card-content">
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+                                    <span class="card-title">Accessory</span>
+                                    <a class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                    <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                    <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
+                                    <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};"></a>
+                                </div>
+            				</div>
+            			</div>
+            	       <!-- Shoe -->
+            			<div class="col s6 m4">
+            				<div class="card hoverable small">
+            					<div class="card-image">
+                                    <a id="shoe_listing" href="#">
+                                        <img id="s_img" class="materialboxed" src="{{ s_img_url }}" alt="shoe">
+                                    </a>
+                                    
+                                </div>
+            					<div class="card-content">
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+                                    <span class="card-title">Shoe</span>
+                                    <a class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                    <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                    <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
+                                    <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};"></a>
+                                </div>
+            				</div>
+            			</div>
+                        <!-- Bag -->
+            			<div class="col s6 m4">
+            				<div class="card hoverable small">
+            					<div class="card-image" >
+                                    <a id="bag_listing" href="#">
+                                        <img id="b_img" class="materialboxed" src="{{ b_img_url }}" alt="bag">
+                                    </a>
+                                    
+                                </div>
+            					<div class="card-content">
+                                    <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                        <div class="fab no"></div>
+                                    </div>
+                                    <span class="card-title">Bag</span>
+                                    <a class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                    <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                    <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
+                                    <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};"></a>
+                                </div>
+            				</div>
+            			</div>
+                    </div>
+                    <!-- Save button -->
+                    <div class="row">
+                        <div class="col s12 m5 l5"></div>
+                            <div class="col s12 m10">
+                                <form id="save_ensemble" action="/ensembles" method="post">
+                                    {% if logged_in %}
+                                        <input class="btn btn-secondary" type="submit" value="Save">
+                                        
+                                        <!-- Your facebook share button code -->
+                                      <div class="fb-share-button" 
+                                        data-href="http://localhost:5000/search.html" 
+                                        data-layout="button_count">
+                                      </div>
+
+                                    {% else %}
+                                        <input class="btn btn-secondary" type="submit" value="Save" disabled title="log in to save.">
+                                    {% endif %}
+                                    <input type="hidden" name="movie_id" value="{{ movie_id }}" >
+                                    <input type="hidden" name="top_listing" value="{{ top_listing }}">
+                                    <input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
+                                    <input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
+                                    <input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
+                                    <input type="hidden" name="bag_listing" value="{{ bag_listing }}">
+                                    <input type="hidden" name="dress_listing" value="{{ dress_listing }}">
+                                    <input type="hidden" name="t_img_url" value="{{ t_img_url }}">                          
+                                    <input type="hidden" name="a_img_url" value="{{ a_img_url }}">                          
+                                    <input type="hidden" name="bo_img_url" value="{{ bo_img_url }}">                            
+                                    <input type="hidden" name="b_img_url" value="{{ b_img_url }}">                          
+                                    <input type="hidden" name="s_img_url" value="{{ s_img_url }}">
+                                    <input type="hidden" name="d_img_url" value="{{ d_img_url }}">              
                                 </form>
-                            {% endif %}
-                        </div>
+                            </div>
+                        <div class="col s12 m5 l5"></div>
                     </div>
                 </div>
-                <!-- Top -->
-    			<div class="col s6 m4">
-    				<div class="card hoverable small">
-                        <div class="card-image" >
-                            <a id="top_listing" href="#">
-                                <img id="t_img" class="materialboxed" src="{{ t_img_url }}" alt="top">
-                            </a>
-                        </div>
-    					<div class="card-content">
-    						<!-- <span class="card-title">Top</span> -->
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                            </div>
-    						<a class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-    						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-    						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
-    	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};"></a>
-    					</div>
-    				</div>
-    			</div>
-                <!-- Bottom -->
-    			<div class="col s6 m4">
-    				<div class="card hoverable small">
-    					<div class="card-image" >
-                            <a id="bottom_listing" href="#">
-                                <img id="bo_img" class="materialboxed" src="{{ bo_img_url }}" alt="bottom">
-                            </a>
-                        </div>
-    					<div class="card-content">
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                            </div>
-                            <span class="card-title">Bottom</span>
-                            <a class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                            <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
-                            <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};"></a>
-                        </div>
-    				</div>
-    			</div>
-                <!-- Accessory -->
-    			<div class="col s6 m4">
-    				<div class="card hoverable small">
-    					<div class="card-image" >
-                            <a id="accessory_listing" href="#">
-                                <img id="a_img" class="materialboxed" src="{{ a_img_url }}" alt="accessory">
-                            </a>
-                           
-                        </div>
-    					<div class="card-content">
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                            </div>
-                            <span class="card-title">Accessory</span>
-                            <a class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                            <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
-                            <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};"></a>
-                        </div>
-    				</div>
-    			</div>
-    	       <!-- Shoe -->
-    			<div class="col s6 m4">
-    				<div class="card hoverable small">
-    					<div class="card-image">
-                            <a id="shoe_listing" href="#">
-                                <img id="s_img" class="materialboxed" src="{{ s_img_url }}" alt="shoe">
-                            </a>
-                            
-                        </div>
-    					<div class="card-content">
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                            </div>
-                            <span class="card-title">Shoe</span>
-                            <a class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                            <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
-                            <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};"></a>
-                        </div>
-    				</div>
-    			</div>
-                <!-- Bag -->
-    			<div class="col s6 m4">
-    				<div class="card hoverable small">
-    					<div class="card-image" >
-                            <a id="bag_listing" href="#">
-                                <img id="b_img" class="materialboxed" src="{{ b_img_url }}" alt="bag">
-                            </a>
-                            
-                        </div>
-    					<div class="card-content">
-                            <div class="share btn-floating halfway-fab waves-effect waves-light red btn-position">
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                                <div class="fab no"></div>
-                            </div>
-                            <span class="card-title">Bag</span>
-                            <a class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                            <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                            <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
-                            <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};"></a>
-                        </div>
-    				</div>
-    			</div>
-            </div>
-            <!-- <div class="col m2"></div> -->
+                <div class="col s2 m2 l2"></div>
+
 		</div>
 	</div>
 	<br>
@@ -215,39 +250,7 @@
 
 {% block button %}
 	<!-- Save to profile button. -->
-	<div class="row">
-		<div class="col s12 m5 l5"></div>
-			<div class="col s12 m10">
-				<form id="save_ensemble" action="/ensembles" method="post">
-					{% if logged_in %}
-						<input class="btn btn-secondary" type="submit" value="Save">
-						
-						<!-- Your facebook share button code -->
-					  <div class="fb-share-button" 
-					    data-href="http://localhost:5000/search.html" 
-					    data-layout="button_count">
-					  </div>
-
-					{% else %}
-						<input class="btn btn-secondary" type="submit" value="Save" disabled title="log in to save.">
-					{% endif %}
-					<input type="hidden" name="movie_id" value="{{ movie_id }}" >
-					<input type="hidden" name="top_listing" value="{{ top_listing }}">
-					<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
-					<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
-					<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
-					<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
-					<input type="hidden" name="dress_listing" value="{{ dress_listing }}">
-					<input type="hidden" name="t_img_url" value="{{ t_img_url }}">							
-					<input type="hidden" name="a_img_url" value="{{ a_img_url }}">							
-					<input type="hidden" name="bo_img_url" value="{{ bo_img_url }}">							
-					<input type="hidden" name="b_img_url" value="{{ b_img_url }}">							
-					<input type="hidden" name="s_img_url" value="{{ s_img_url }}">
-					<input type="hidden" name="d_img_url" value="{{ d_img_url }}">				
-				</form>
-			</div>
-		<div class="col s12 m5 l5"></div>
-	</div>
+	
 	<br>
 	<br>
 
