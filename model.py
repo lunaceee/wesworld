@@ -110,6 +110,7 @@ class Accessory(db.Model):
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
     color = db.Column(db.Integer, db.ForeignKey('colors.id'))
+    # blacklisted = db.Column(db.Boolean)
 
     def __repr__(self):
         """Show info about accessories."""
@@ -129,12 +130,15 @@ class UserAccessory(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
 
 
+
 class Top(db.Model):
     """Top info"""
     __tablename__ = "tops"
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
+    # blacklisted = db.Column(db.Boolean)
+
 
     def __repr__(self):
         """Show info about tops."""
@@ -157,6 +161,7 @@ class Bottom(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
+    # blacklisted = db.Column(db.Boolean)
 
     def __repr__(self):
         """Show info about bottoms."""
@@ -179,6 +184,7 @@ class Bag(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
+    # blacklisted = db.Column(db.Boolean)
 
     def __repr__(self):
         """Show info about bags."""
@@ -202,6 +208,7 @@ class Dress(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
+    # blacklisted = db.Column(db.Boolean)
 
     def __repr__(self):
         """Show info about dresses."""
@@ -224,6 +231,7 @@ class Shoe(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     listing_url = db.Column(db.String)
     img_url = db.Column(db.String)
+    # blacklisted = db.Column(db.Boolean)
 
     def __repr__(self):
         """Show info about shoes."""
@@ -244,10 +252,12 @@ class UserShoe(db.Model):
 
 class Cache(db.Model):
     """Cache objects."""
+    # __tablename__ = "cached_results"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     key = db.Column(db.String, index=True)
     value = db.Column(db.Text)
+    blacklisted = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
