@@ -1,157 +1,103 @@
 {% extends 'base.html' %}
+
+{% block materialize %}
+{% endblock %}
+{% block nav %}
+{% endblock %}
 {% block content %}
 
-	<!-- Nav bar. -->
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	      <a class="navbar-brand" href="#">Brand</a>
 
-		{% if logged_in %}
-			<a class="btn btn-secondary" href="/logout">Log out</a>
-		{% else %}
-			<a class="btn btn-secondary" href="/login">Log in</a>
-	      	<a class="btn btn-secondary" href="/register">Register</a>
-		{% endif %}	  
-	      
-	  </div><!-- /.container-fluid -->
-	</nav>
+<style>
+    html, body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Helvetica, Calibri, Roboto, Open Sans, sans-serif
+        -webkit-backface-visibility: hidden;
+    }
+    * {
+        box-sizing: inherit;
+    }
+    h1 {
+        text-align: center;
+    }
+    svg {
+        margin:auto;
+        display:block;
+    }
+
+    .circle-overlay {
+        font-size: 16px;
+        border-radius: 50%;
+        position: absolute;
+        overflow: hidden;
+        /*it's buggy with the foreignObject background right now*/
+        /*background-color: rgba(255,255,255,0.5);*/
+    }
+    .circle-overlay__inner {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .hidden {
+        display: none;
+    }
+    .node-icon--faded {
+        opacity: 0.5;
+    }
+    .legend-size circle {
+        fill: rgb(31, 119, 180);
+    }
+
+    .tech-stack-container {
+        padding: 1rem 2rem;
+        position: relative;
+    }
+
+    @media screen and (min-width: 992px) {
+        .tech-stack-container {
+            padding: 1rem 5rem;
+        }
+    }
+
+    .tech-stack-title {
+        margin: 0;
+    }
+
+</style>
+
+<div class="tech-stack-container">
+    <svg id="teck-stack-svg" width="100%" height="600" font-family="sans-serif" font-size="10" text-anchor="middle"/>
+    <p>Click on a circle to view details or drag them around. Have fun ;)</p>
+</div>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+<script src="../static/js/techstack-main.js"></script>
 
 
-	<!-- Display all movie names via dropdown menu. -->
-	<div class="row justify-content-center">
-		<div class="col-md-auto">
-			<form action="/search">
-				<select id="selected_movie" class="custom-select" name="movie_name">
-					<option>Choose a movie</option>
-					{% for movie_name in movie_names %}
-                       <option value="{{ movie_name }}"
-                       	{% if chosen_movie == movie_name %}
-                     		selected="selected"
-		    			{% endif %}
-                       >{{ movie_name }}</option>
-		    		{% endfor %}
-		  		</select>
-		  		<input class="btn btn-secondary" type="submit" value="Change">
-			</form>
-		</div>
-	</div>
-	
-	<br>
-	<!-- Display ensemble. -->
-	<div id="ensemble" class='row justify-content-center'>
-		<div class="card-columns col-lg-12">
-			<div class="card">
-				<a id="top_listing" href="{{ top_listing }}">
-					<img id="t_img" class="img-fluid" src="{{ t_img_url }}" alt="top">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Top</h4>
-	      			<p class="card-text">card description</p>
-	      			<button id="top_category">shuffle</button>
-	      			<div id="top_color" style="width:60px;height:20px;background-color: #{{ top_color }};"> {{ top_color }} </div>
-	    		</div>
-			</div>
+<ul class="js-indicator indicator hidden-xs hidden-sm"></ul>
 
-			<div class="card">
-				<a id="bottom_listing" href="{{ bottom_listing }}">
-					<img id="bo_img" class="img-fluid" src="{{ bo_img_url }}" alt="bottom">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Bottom</h4>
-	      			<p class="card-text">card description</p>
-					<button id="bottom_category">shuffle</button>
-	      			<div id="bottom_color" style="width:60px;height:20px;background-color: #{{ bottom_color }};"> {{ bottom_color }} </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/CSSPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/ScrollToPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/AttrPlugin.min.js"></script>
 
-	    		</div>
-			</div>
+<script src="../static/js/plugins.js"></script>
+<script src="../static/js/site/utils.js"></script>
+<script src="../static/js/site/Indicator.js"></script>
 
-			<div class="card">
-				<a id="accessory_listing" href="{{ accessory_listing }}">
-					<img id="a_img" class="img-fluid" src="{{ a_img_url }}" alt="accessory">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Accessory</h4>
-	      			<p class="card-text">card description</p>
-	      			<button id="accessory_category">shuffle</button>
-	      			<div id="accessory_color" style="width:60px;height:20px;background-color: #{{ accessory_color }};"> {{ accessory_color }} </div>
-	    		</div>
-			</div>
+<script type="../static/js/d3_chart.js"></script>
+<!-- <script src="/js/site/animations/HeroBannerAnimation.js"></script>
+<script src="/js/site/animations/FooterInfoAnimation.js"></script>
+<script src="/js/site/animations/GoodReadAnimation.js"></script>
+<script src="/js/site/animations/FooterLetHaveCoffeeAnimation.js"></script>
+<script src="/js/site/animations/GetInTouchAnimation.js"></script>
+<script src="/js/site/HeroBanner.js"></script>
+<script src="/js/site/NavBarToggleWithBackground.js"></script>
+<script src="/js/site/App.js"></script> -->
 
-			<div class="card">
-				<a id="shoe_listing" href="{{ shoe_listing }}">
-					<img id="s_img" class="img-fluid" src="{{ s_img_url }}" alt="shoe">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Shoe</h4>
-	      			<p class="card-text">card description</p>
-	      			<button id="shoe_category">shuffle</button>
-	      			<div id="shoe_color" style="width:60px;height:20px;background-color: #{{ shoe_color }};"> {{ shoe_color }} </div>
-	    		</div>
-			</div>
-
-			<div class="card">
-				<a id="bag_listing" href="{{ bag_listing }}">
-					<img id="b_img" class="img-fluid" src="{{ b_img_url }}" alt="bag">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Bag</h4>
-	      			<p class="card-text">card description</p>
-	      			<button id="bag_category">shuffle</button>
-	      			<div id="bag_color" style="width:60px;height:20px;background-color: #{{ bag_color }};"> {{ bag_color }} </div>
-	    		</div>
-			</div>
-
-			<div class="card">
-				<a id="dress_listing" href="{{ dress_listing }}">
-					<img id="d_img" class="img-fluid" src="{{ d_img_url }}" alt="dress">
-				</a>
-				<div class="card-block">
-	      			<h4 class="card-title">Dress</h4>
-	      			<p class="card-text">card description</p>
-	      			<button id="dress_category">shuffle</button>
-	      			<div id="dress_color" style="width:60px;height:20px;background-color: #{{ dress_color }};"> {{ dress_color }} </div>
-	    		</div>
-			</div>
-			
-		</div>
-	</div>
-	<br>
-	<!-- Display change set button and save to wishlist button. -->
-	<div class="row justify-content-md-center">
-		<div class="col col-lg-2"></div>
-			<div class="col-12 col-md-auto">
-				<form action="" method="post">
-					<button type="button" class="btn btn-secondary">Change</button>
-				</form>
-			</div>
-			<div class="col-12 col-md-auto">
-				<form id="save_ensemble" action="/ensembles" method="post">
-					{% if logged_in %}
-						<input class="btn btn-secondary" type="submit" value="Save">
-					{% else %}
-						<input class="btn btn-secondary" type="submit" value="Save" disabled title="log in to save.">
-					{% endif %}
-					<input type="hidden" name="movie_id" value="{{ movie_id }}" >
-					<input type="hidden" name="top_listing" value="{{ top_listing }}">
-					<input type="hidden" name="bottom_listing" value="{{ bottom_listing }}">
-					<input type="hidden" name="accessory_listing" value="{{ accessory_listing }}">
-					<input type="hidden" name="shoe_listing" value="{{ shoe_listing }}">
-					<input type="hidden" name="bag_listing" value="{{ bag_listing }}">
-					<input type="hidden" name="dress_listing" value="{{ dress_listing }}">
-					<input type="hidden" name="t_img_url" value="{{ t_img_url }}">							
-					<input type="hidden" name="a_img_url" value="{{ a_img_url }}">							
-					<input type="hidden" name="bo_img_url" value="{{ bo_img_url }}">							
-					<input type="hidden" name="b_img_url" value="{{ b_img_url }}">							
-					<input type="hidden" name="s_img_url" value="{{ s_img_url }}">
-					<input type="hidden" name="d_img_url" value="{{ d_img_url }}">				
-				</form>
-			</div>
-		<div class="col col-lg-2"></div>
-	</div>
-	<br>
-	<br>
 
 {% endblock %}
-
-
