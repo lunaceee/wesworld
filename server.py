@@ -4,7 +4,7 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Movie, Color, Ensemble, Top, Bottom, Accessory, Shoe, Dress, Bag, connect_to_db, db
+from model import User, Movie, Color, Ensemble, Top, Bottom, Accessory, Shoe, Dress, Bag, Cache, connect_to_db, db
 
 from passlib.hash import sha256_crypt
 
@@ -383,6 +383,28 @@ def search():
                                 bag_color=colors[4]
                             )
 
+@app.route('/blacklist', methods=['POST'])
+def blacklist():
+    # get form url
+    # update value to blacklisted
+    # query db for cached table, key, listing id, compare w form url
+    blacklisted = request.form.get('key')
+    print blacklisted
+
+    find_ld = re.search(r"listing/(\d+)/", blacklisted)
+
+    listing_id = find_ld.groups()[0]
+
+    blacklisted_url = "https://openapi.etsy.com/v2/listings/{}/images?api_key=w4kl15san4n93vl9sc0b01m8".format(listing_id)
+
+    cached_result = Cache.query.filter(Cache.key == blacklisted_url).first()
+
+    if not cached_result:
+        return None
+    cached_result.blacklisted = True
+    db.session.commit()
+
+    return redirect('/search')
 
 
 if __name__ == "__main__":
