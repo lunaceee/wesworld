@@ -20,6 +20,9 @@ etsy_api_key = os.environ["API_KEY"]
 
 app = Flask(__name__)
 
+DEBUG = False
+
+
 class BlacklistedException(Exception):
     pass
 
@@ -28,6 +31,152 @@ def get_from_cache(key):
     '''
 
     '''
+    if DEBUG:
+        if 'listings/active' in key:
+            return '''
+            {
+              "count": 40, 
+              "type": "Listing", 
+              "pagination": {
+                "effective_limit": 10, 
+                "effective_page": 1, 
+                "next_page": 2, 
+                "effective_offset": 0, 
+                "next_offset": 10
+              }, 
+              "params": {
+                "category": "clothing/shirt", 
+                "min_price": null, 
+                "lat": null, 
+                "translate_keywords": "false", 
+                "accepts_gift_cards": "false", 
+                "tags": null, 
+                "color": "5B1A18", 
+                "region": null, 
+                "sort_on": "score", 
+                "lon": null, 
+                "max_price": null, 
+                "color_accuracy": "10", 
+                "sort_order": "down", 
+                "limit": "10", 
+                "location": null, 
+                "offset": 0, 
+                "keywords": null, 
+                "page": null, 
+                "geo_level": "city"
+              }, 
+              "results": [
+                {
+                  "num_favorers": 7, 
+                  "creation_tsz": 1492661415, 
+                  "taxonomy_id": 482, 
+                  "style": null, 
+                  "item_length": "13", 
+                  "has_variations": true, 
+                  "original_creation_tsz": 1448168571, 
+                  "shop_section_id": 16456044, 
+                  "used_manufacturer": false, 
+                  "listing_id": 257398834, 
+                  "user_id": 52137148, 
+                  "processing_min": 3, 
+                  "title": "Firefighter Dad T-shirt", 
+                  "processing_max": 5, 
+                  "taxonomy_path": [
+                    "Clothing", 
+                    "Unisex Adult Clothing", 
+                    "Tops & Tees", 
+                    "T-shirts"
+                  ], 
+                  "views": 84, 
+                  "last_modified_tsz": 1492661415, 
+                  "state": "active", 
+                  "is_digital": false, 
+                  "shipping_template_id": 19480236723, 
+                  "is_customizable": true, 
+                  "item_height": "2", 
+                  "state_tsz": 1475804494, 
+                  "description": "foo", 
+                  "tags": [
+                    "firefighter", 
+                    "daughter", 
+                    "fire", 
+                    "Tshirt", 
+                    "shirt", 
+                    "custom", 
+                    "personalized", 
+                    "hero", 
+                    "D", 
+                    "Dad"
+                  ], 
+                  "price": "17.50", 
+                  "item_weight": "12", 
+                  "item_width": "10", 
+                  "who_made": "i_did", 
+                  "category_path_ids": [
+                    69150353, 
+                    68889876
+                  ], 
+                  "file_data": "", 
+                  "recipient": "unisex_adults", 
+                  "is_private": false, 
+                  "category_path": [
+                    "Clothing", 
+                    "Shirt"
+                  ], 
+                  "non_taxable": false, 
+                  "ending_tsz": 1503202215, 
+                  "is_supply": "false", 
+                  "language": "en-US", 
+                  "url": "https://www.etsy.com/listing/257398834/firefighter-dad-t-shirt?utm_source=wesworld&utm_medium=api&utm_campaign=api", 
+                  "when_made": "made_to_order", 
+                  "materials": [], 
+                  "item_dimensions_unit": "in", 
+                  "currency_code": "USD", 
+                  "occasion": null, 
+                  "category_id": 68889876, 
+                  "item_weight_units": null, 
+                  "featured_rank": null, 
+                  "quantity": 64
+                }
+              ]
+            }
+
+            '''
+        elif '/images' in key:
+            return '''
+                {
+                  "count": 1, 
+                  "type": "ListingImage", 
+                  "pagination": {}, 
+                  "params": {
+                    "listing_id": "512396261"
+                  }, 
+                  "results": [
+                    {
+                      "blue": 29, 
+                      "hue": 30, 
+                      "saturation": 74, 
+                      "full_width": 640, 
+                      "creation_tsz": 1487174941, 
+                      "brightness": 43, 
+                      "url_75x75": "https://img0.etsystatic.com/142/0/14632618/il_75x75.1143639922_ep7m.jpg", 
+                      "full_height": 640, 
+                      "listing_id": 512396261, 
+                      "rank": 1, 
+                      "hex_code": "70471D", 
+                      "green": 71, 
+                      "listing_image_id": 1143639922, 
+                      "url_170x135": "https://img0.etsystatic.com/142/0/14632618/il_170x135.1143639922_ep7m.jpg", 
+                      "is_black_and_white": false, 
+                      "url_570xN": "https://img0.etsystatic.com/142/0/14632618/il_570xN.1143639922_ep7m.jpg", 
+                      "red": 112, 
+                      "url_fullxfull": "https://img0.etsystatic.com/142/0/14632618/il_fullxfull.1143639922_ep7m.jpg"
+                    }
+                  ]
+                }
+
+            '''
+
 
     cache_result = Cache.query.filter(Cache.key == key).first()
     if cache_result is None:
@@ -325,14 +474,10 @@ if __name__ == '__main__':
 
     connect_to_db(app)
 
-    '''
     result_dict = get_listing_items(["F1BB7B", "FD6467", "5B1A18", 
         "D67236", "E6A0C4", "C93312", "FAEFD1", "DC863B", "798E87", "C27D38", "CCC591"])
 
     x = get_image_urls(result_dict, 5)
-    print "\n".join(x.keys())
 
     y = get_listing_urls(x)
-    print "\n".join(y)
-'''
 
