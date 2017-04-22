@@ -15,8 +15,7 @@
 
 /* wall picture frame */
 .customized-margin {
-  margin-top:20px !important;
-  margin-left: 20px !important;
+  margin:15px 0 0 15px !important;
 }
 
 #wall {
@@ -30,22 +29,24 @@
 #m1 {
   border-radius: 10px;
   height:340px;
-  width:260px;
   background-image: url('images/posters/moonrise_1.jpg');
   background-size: cover;
 }
 
 #m2 {
-  height: 140px;
-  background-image: url('images/posters/moonrise_4.jpg');
+  border-radius: 10px;
+  height: 150px;
+  width: 120px;
+  background-image: url('images/posters/moonrise_3.jpg');
   background-size: cover;
   background-position: center;
 }
 
 #m3 {
   border-radius: 10px;
-  height: 180px;
-  background-image: url('images/posters/moonrise_5.jpg');
+  height: 150px;
+  width: 130px;
+  background-image: url('images/posters/moonrise_6.jpg');
   background-size: cover;
   background-position: bottom;
 
@@ -53,18 +54,16 @@
 
 #m4 {
   border-radius: 10px;
-  height:160px;
-  width: 110px;
-  background-image: url('images/posters/moonrise_2.jpg');
-  background-size: 110%;
+  height:140px;
+  width: 280px;
+  background-image: url('images/posters/moonrise_7.jpg');
+  background-size: cover;
   background-position: center;
 }
 
 #m5 {
-  border-radius: 10px;
-  height:160px;
-  width: 110px;
-  background-image: url('images/posters/moonrise_6.jpg');
+  height:200px;
+  background-image: url('images/posters/moonrise_4.jpg');
   background-size: 110%;
   background-position: center;
 }
@@ -72,28 +71,72 @@
 
 #m6 {
   border-radius: 10px;
-  height: 160px;
-  width: 240px;
-  background-image: url('images/posters/moonrise_7.jpg');
+  height: 280px;
+  background-image: url('images/posters/moonrise_8.jpg');
   background-size: cover;
   background-position: bottom;
 }
 
-@media only screen and (max-width: 1280px) and (min-width:1000px) {
+#m7 {
+  border-radius: 10px;
+  height: 160px;
+  width: 240px;
+  background-image: url('images/posters/moonrise_5.jpg');
+  background-size: cover;
+  background-position: bottom;
+}
+
+
+#save-btn, #change-btn {
+  margin:1em;
+  width: 8em;
+}
+
+#door-overlay {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+#door {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    bottom: 0;
+    border: solid black 3px;
+}
+
+#left-door {
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:50%;
+  z-index: 10;
+  opacity: .8;
+  border: solid white 5px;
+}
+
+#right-door {
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index: 3;
+  opacity: .8;
+  border: solid orange 5px;
+}
+
+
+
+
+@media only screen and (max-width: 1000px) and (min-width:768) {
   #m6 {
     display: none;
   }
-
-}
-
-@media only screen and (max-width: 780px) and (min-width:480px) {
-    #wall {
-      width: 100%;
-    }
-
-    #m1 {
-      display: none;
-    }
 
 }
 
