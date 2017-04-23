@@ -18,12 +18,8 @@
   margin:15px 0 0 15px !important;
 }
 
-#wall {
-  height:400px;
-}
-
-#wardrobe {
-  /*width:600px;*/
+.carousel-item {
+  
 }
 
 #m1 {
@@ -92,7 +88,7 @@
   width: 8em;
 }
 
-#door-overlay {
+#wardrobe {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -100,10 +96,9 @@
 
 #door {
     z-index: 2;
-    position: absolute;
     top: 0;
-    left: 25%;
-    right: 25%;
+    left: 0;
+    right: 0;
     bottom: 0;
     border: solid black 3px;
 }
@@ -115,8 +110,8 @@
   left:0;
   right:50%;
   z-index: 10;
-  opacity: .8;
-  border: solid white 5px;
+  opacity: 1;
+  border: solid black 5px;
 }
 
 #right-door {
@@ -126,27 +121,30 @@
   left:0;
   right:0;
   z-index: 3;
-  opacity: .8;
+  opacity: 1;
   border: solid orange 5px;
 }
 
-
+.loader {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index: 3;
+  text-align: center;
+  padding: 50% 0 50% 0;
+  color: white;
+  display: none;
+}
 
 
 @media only screen and (max-width: 1000px) and (min-width:768) {
-  #m6 {
-    display: none;
-  }
 
 }
 
 
 @media only screen and (max-width: 480px) {
-    #wall {
-      width:100%;
-    }
-    #m1 {
-      display: none;
-    }
+    
 }
 
