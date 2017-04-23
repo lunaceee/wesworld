@@ -9,7 +9,8 @@ var movieBtnClick = function(e){
     };
 
     // set all loading icons to visible
-    $(".loader").css('display', 'block');
+    $("#ensemble-loader").css('display', 'block');
+    console.log("loading??")
 
     $.ajax({
       type: 'get',
@@ -18,22 +19,21 @@ var movieBtnClick = function(e){
       success:function(results){
 
         // set all loading icons to invisible
-        $(".loader").css('display', 'none');
-
+        $("#ensemble-loader").css('display', 'none');
 
         $("#a_img").attr('src', results['a_img_url']);
         $("#a_listing").attr('href', results['accessory_listing']);
-        $("#accessory_color").css('background-color', "#" + results['colors'][0]);
+        $("#accessory_color").css('background-color', "#" + results['colors'][2]);
         $("#accessory_link").attr('href', results['accessory_listing']);
 
         $("#b_img").attr('src', results['b_img_url']);
         $("#b_listing").attr('href', results['bag_listing']);
-        $("#bag_color").css('background-color', "#" + results['colors'][0]);
+        $("#bag_color").css('background-color', "#" + results['colors'][4]);
         $("#bag_link").attr('href', results['bag_listing']);
 
         $("#bo_img").attr('src', results['bo_img_url']);
         $("#bo_listing").attr('href', results['bottom_listing']);
-        $("#bottom_color").css('background-color', "#" + results['colors'][0]);
+        $("#bottom_color").css('background-color', "#" + results['colors'][1]);
         $("#bottom_link").attr('href', results['bottom_listing']);
 
         $("#d_img").attr('src', results['d_img_url']);
@@ -44,12 +44,12 @@ var movieBtnClick = function(e){
 
         $("#s_img").attr('src', results['s_img_url']);
         $("#s_listing").attr('href', results['shoe_listing']);
-        $("#shoe_color").css('background-color', "#" + results['colors'][0]);
+        $("#shoe_color").css('background-color', "#" + results['colors'][3]);
         $("#shoe_link").attr('href', results['shoe_listing']);
 
         $("#t_img").attr('src', results['t_img_url']);
         $("#t_listing").attr('href', results['top_listing']);
-        $("#top_color").css('background-color', "#" + results['colors'][0]);
+        $("#top_color").css('background-color', "#" + results['colors'][4]);
         $("#top_link").attr('href', results['top_listing']);
 
         console.log("changed movie", results);
@@ -59,7 +59,9 @@ var movieBtnClick = function(e){
 
 $(document).ready(function(){
   // Initialize Carousel.
-  $('.carousel').carousel();
+  $('.carousel').carousel({
+          dist: 0
+  });
 
   // Modal windows for listing images.
   $('.modal').modal();
@@ -75,7 +77,14 @@ $(document).ready(function(){
   // Movile Nav bar.
   $(".button-collapse").sideNav();
 
-  //
+  // Hide movie title and colors by default
+  $(".wes-initial-item").click(function(e){
+    $("#btn-holder").empty();
+  });
+
+  // Background animation when clicking on carousel items
+
+  // Show movie title and colors on click
   $(".wes-carousel-item").click(function(e){
         console.log(e);
 
@@ -93,6 +102,19 @@ $(document).ready(function(){
       newBtn
       );
 
+
+    $("#btn-holder button").css({
+      "font-size":"20px",
+      "margin":"auto",
+      "display":"block",
+      "height":"4em",
+      "margin-top":"-2em",
+      "margin-bottom":"2em",
+      "font-family": "'Dancing Script', cursive"
+      // "font-family": "'Pacifico', cursive"
+      // "font-family": "'Lobster', cursive"
+      // "font-family": "'Satisfy', cursive"
+    });
   });
 
   // Save ensemble function.
@@ -226,7 +248,6 @@ $(document).ready(function(){
 
     $("#dress_category").click(function(){
     // console.log("to change movie")
-      debugger;
       console.log("shuffle dress item");
       var postData = {
         "category_name": 'dress',
@@ -235,6 +256,7 @@ $(document).ready(function(){
 
       // set all loading icons to invisible
       $("#dress-loader").css('display', 'block');
+      console.log("loading icon");
 
       $.ajax({
         type: 'get',

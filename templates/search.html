@@ -81,7 +81,7 @@
     <!-- movie names -->
 
   <div class="carousel">
-    <a class="carousel-item" href="#">
+    <a class="carousel-item wes-initial-item" href="#">
       <img class="circle responsive-img" src="../static/css/images/profile_pic/m_wesanderson.jpg">
     </a>
 
@@ -92,34 +92,43 @@
     {% endfor %}
   </div>
 
-  <div id="btn-holder"></div>
-  <div id="btn-hider" style="display:none">
-  {% for movie in movie_list %}
-      <button id="movie-{{ movie.id }}" style="width: 500px;height:100px" class="btn movie-btn" data-movie-name="{{ movie.name }}">
-          <span id="center-btn-text">{{ movie.name }}</span>
-          <div class="row">
-              {% for color in color_dict[ movie.name ] %}
-                   <div class="chip" style="background-color: #{{color}}">
-                   </div>
-              {% endfor %}        
-          </div>
-      </button>
-  {% endfor %}
+  <div class="row">
+      <div class="col m4 l4"></div>
+      <div class="col s12 m4 l4" id="btn-holder">
+      </div>
+      <div class="col m4 l4"></div>
+  </div>
+  <div class="row">
+    <div class="col m4 l4"></div>
+    <div class="col s12 m4 l4" id="btn-hider" style="display:none">
+      <div class="col m2 l2"></div>
+      <div class="col m8 l8">
+    {% for movie in movie_list %}
+        <button id="movie-{{ movie.id }}" class="waves-effect waves-teal btn-flat movie-btn" data-movie-name="{{ movie.name }}">
+            <span id="center-btn-text">{{ movie.name }}</span>
+            <div class="row">
+                {% for color in color_dict[ movie.name ] %}
+                     <div class="chip" style="background-color: #{{color}}">
+                     </div>
+                {% endfor %}        
+            </div>
+        </button>
+    {% endfor %}
+      </div>
+      <div class="col m2 l2"></div>
+    </div>
+    <div class="col m4 l4"></div>
   </div>
 
-<!--   <div class="row">
-    {% for movie_name in movie_names %}
-    <button class="btn movie-btn" data-movie-name="{{ movie_name }}">
-      {{ movie_name }}
-    </button>
-    {% endfor %}
+<!--   <div class="loader">
+    <img class="loading-icon" src="../static/css/images/binocular.svg">
   </div> -->
 
 	<!-- Display ensemble. -->
-	<div id="ensemble">
+	<div>
       <div class="row">
           <div class="col m1 l1"></div>
-            <div id="wardrobe" class="col s12 m10 l10 yellow">
+            <div id="wardrobe" class="col s12 m10 l10">
               <!-- <div id="door">
                 <div id="left-door" class="col s6 m6 amber">
                   <div class="row">
@@ -153,7 +162,11 @@
                 </div>
               </div> -->
               <!-- Ensemble -->
-              <div class="row">
+              <div id="ensemble" class="row">
+                <!-- preloading icon -->
+                  <div id="ensemble-loader" class="loader">
+                    <img id="ensemble-loader-icon" class="loading-icon" src="../static/css/images/binocular.svg">
+                  </div>
                   <!-- Dress -->
                   <div class="col s4 m2">
                       <div class="card hoverable small">
@@ -162,8 +175,10 @@
                                   <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
                               </a>
                               <div id="dress-loader" class="loader">
-                                loading
+                                <img class="loading-icon" src="../static/css/images/binocular.svg">
                               </div>
+
+                              
                               
                           </div>
                           <div class="card-content">
@@ -171,7 +186,7 @@
                               <a id="dress_link" class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                               <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                               <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
-                              <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};"></a>
+                              <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};">{{ dress_color }}</a>
                               
                               {% if user_id == 1 %}
                                   {{ dress_color }}
@@ -196,7 +211,7 @@
               						<a id="top_link" class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
               						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
               						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
-              	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};"></a>
+              	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};">{{ top_color }}</a>
               					</div>
             				</div>
             			</div>
@@ -213,7 +228,7 @@
                                     <a id="bottom_link" class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                     <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                     <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
-                                    <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};"></a>
+                                    <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};">{{ bottom_color }}</a>
                                 </div>
             				</div>
       			      </div>
@@ -230,7 +245,7 @@
                                     <a id="accessory_link" class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                     <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                     <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
-                                    <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};"></a>
+                                    <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};">{{ accessory_color }}</a>
                                 </div>
             				</div>
             			</div>
@@ -248,7 +263,7 @@
                                     <a id="shoe_link" class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                     <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                     <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
-                                    <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};"></a>
+                                    <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};">{{ shoe_color }}</a>
                                 </div>
             				</div>
             			</div>
@@ -266,7 +281,7 @@
                                     <a id="bag_link" class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                     <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                     <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
-                                    <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};"></a>
+                                    <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};">{{ bag_color }}</a>
                                 </div>
             				</div>
             			</div>
