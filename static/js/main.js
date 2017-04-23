@@ -1,22 +1,101 @@
 "use strict";
 
+var movieBtnClick = function(e){
+    console.log(e);
+    console.log($(e.target).attr('data-movie-name'));
+
+    var selectedMovie = {
+      "movie_name": $(e.target).attr('data-movie-name')
+    };
+
+    // set all loading icons to visible
+    $(".loader").css('display', 'block');
+
+    $.ajax({
+      type: 'get',
+      url: '/search_json',
+      data: selectedMovie,
+      success:function(results){
+
+        // set all loading icons to invisible
+        $(".loader").css('display', 'none');
+
+
+        $("#a_img").attr('src', results['a_img_url']);
+        $("#a_listing").attr('href', results['accessory_listing']);
+        $("#accessory_color").css('background-color', "#" + results['colors'][0]);
+        $("#accessory_link").attr('href', results['accessory_listing']);
+
+        $("#b_img").attr('src', results['b_img_url']);
+        $("#b_listing").attr('href', results['bag_listing']);
+        $("#bag_color").css('background-color', "#" + results['colors'][0]);
+        $("#bag_link").attr('href', results['bag_listing']);
+
+        $("#bo_img").attr('src', results['bo_img_url']);
+        $("#bo_listing").attr('href', results['bottom_listing']);
+        $("#bottom_color").css('background-color', "#" + results['colors'][0]);
+        $("#bottom_link").attr('href', results['bottom_listing']);
+
+        $("#d_img").attr('src', results['d_img_url']);
+        $("#d_listing").attr('href', results['dress_listing']);
+        $("#dress_color").css('background-color', "#" + results['colors'][0]);
+        $("#dress_link").attr('href', results['dress_listing']);
+        console.log(results['colors'][0]);
+
+        $("#s_img").attr('src', results['s_img_url']);
+        $("#s_listing").attr('href', results['shoe_listing']);
+        $("#shoe_color").css('background-color', "#" + results['colors'][0]);
+        $("#shoe_link").attr('href', results['shoe_listing']);
+
+        $("#t_img").attr('src', results['t_img_url']);
+        $("#t_listing").attr('href', results['top_listing']);
+        $("#top_color").css('background-color', "#" + results['colors'][0]);
+        $("#top_link").attr('href', results['top_listing']);
+
+        console.log("changed movie", results);
+      }
+    });
+  }
+
 $(document).ready(function(){
-  // Modal windows for listing images
+  // Initialize Carousel.
+  $('.carousel').carousel();
+
+  // Modal windows for listing images.
   $('.modal').modal();
 
   $('.modal_trigger').click(function(e){
-      $('#modal1_img').attr('src', $(this).attr('data-img-url'));
-      console.log($('#modal1'));
-      $('#modal1').modal('open');
+    $('#login').modal('open');
+    $('#register').modal('open');
   });
 
-  // Lightbox effect for images
+  // Lightbox effect for images.
   $('.materialboxed').materialbox();
 
-
+  // Movile Nav bar.
   $(".button-collapse").sideNav();
 
+  //
+  $(".wes-carousel-item").click(function(e){
+        console.log(e);
 
+    var desiredID = $(e.currentTarget).attr('data-movie-id');
+
+
+    console.log(desiredID);
+
+    var y = $("#btn-hider #movie-" + desiredID);
+    var newBtn = y.clone();
+
+    newBtn.click(movieBtnClick);
+    $("#btn-holder").empty();
+    $("#btn-holder").append(
+      newBtn
+      );
+
+  });
+
+  // Save ensemble function.
   function update_user_profile(evt){
     evt.preventDefault();
 
@@ -35,7 +114,6 @@ $(document).ready(function(){
       data: formData,
       success:function(results){
         $('#saved_ensemble').html(results)
-        console.log("success!!!!!" + results)
       }
     }); 
 
@@ -43,48 +121,14 @@ $(document).ready(function(){
   
   }
 
-  $(document).on("change", "#selected_movie", function(){
-    // console.log("to change movie")
-    debugger;
-    var selectedMovie = {
-      "movie_name": $("#selected_movie").val()
-    };
-
-    $.ajax({
-      type: 'get',
-      url: '/search_json',
-      data: selectedMovie,
-      success:function(results){
-        $("#a_img").attr('src', results['a_img_url']);
-        $("#a_listing").attr('href', results['accessory_listing']);
-
-        $("#b_img").attr('src', results['b_img_url']);
-        $("#b_listing").attr('href', results['bag_listing']);
-
-        $("#bo_img").attr('src', results['bo_img_url']);
-        $("#bo_listing").attr('href', results['bottom_listing']);
-
-        $("#d_img").attr('src', results['d_img_url']);
-        $("#d_listing").attr('href', results['dress_listing']);
-
-        $("#s_img").attr('src', results['s_img_url']);
-        $("#s_listing").attr('href', results['shoe_listing']);
-
-        $("#t_img").attr('src', results['t_img_url']);
-        $("#t_listing").attr('href', results['top_listing']);
-
-        console.log("changed movie", results);
-      }
-    });
-  });
-
-
     $("#top_category").click(function(){
       // console.log("to change movie")
         debugger;
         var selectedCategory = {
           "category_name": $("#top_category").val()
         };
+
+        
 
       $.ajax({
         type: 'get',
@@ -189,11 +233,15 @@ $(document).ready(function(){
         "movie_name": $("#selected_movie").val(),
       };
 
+      // set all loading icons to invisible
+      $("#dress-loader").css('display', 'block');
+
       $.ajax({
         type: 'get',
         url: '/shuffle_item',
         data: postData,
         success:function(results){
+          $("#dress-loader").css('display', 'none');
           $("#d_img").attr('src', results['d_img_url']);
           $("#dress_listing").attr('href', results['dress_listing']);
           $("#dress_color").css('background-color', '#'+results['dress_color']);
@@ -232,27 +280,11 @@ $(document).ready(function(){
 
 
 //share button
-
-$(".share").on('click', function(e) {
-  var el = $(e.target);
-  el.find(".fab").removeClass("no");
-  el.find('.share, .fab').toggleClass("active");
-});
-
-
-// function openCity(evt, ensemble) {
-//     var i, x, tablinks;
-//     x = document.getElementsByClassName("city");
-//     for (i = 0; i < x.length; i++) {
-//         x[i].style.display = "none";
-//     }
-//     tablinks = document.getElementsByClassName("tablink");
-//     for (i = 0; i < x.length; i++) {
-//         tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
-//     }
-//     document.getElementById(cityName).style.display = "block";
-//     evt.currentTarget.className += " w3-red";
-// }
+// $(".share").on('click', function(e) {
+//   var el = $(e.target);
+//   el.find(".fab").removeClass("no");
+//   el.find('.share, .fab').toggleClass("active");
+// });
 
 
 

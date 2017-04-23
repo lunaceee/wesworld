@@ -333,7 +333,9 @@ def search_json():
         shoe_listing, bag_listing) = search_helper()
 
     # return JSON
-    return jsonify(dict(t_img_url=best_dict['top'][1],
+    return jsonify(dict(
+            colors=colors,
+            t_img_url=best_dict['top'][1],
             bo_img_url=best_dict['bottom'][1],
             s_img_url=best_dict['shoe'][1],
             a_img_url=best_dict['accessory'][1],
@@ -352,12 +354,20 @@ def search():
 
     movie_list = Movie.query.all()
 
+    color_dict = {}
+    for movie in movie_list:
+        color_dict[movie.name] = get_colors_from_movie(movie)
+
     movie_names = [m.name for m in movie_list]
 
     (colors, movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = search_helper()
 
+    print "COLORS", colors
+
     return render_template('search.html',
+                                movie_list=movie_list,
+                                color_dict=color_dict,
                                 user_id=session.get('logged_in'),
                                 logged_in=bool(session.get('logged_in')),
                                 chosen_movie=session.get('movie'),
