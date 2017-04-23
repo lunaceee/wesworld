@@ -363,6 +363,19 @@ def search():
     (colors, movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = search_helper()
 
+    top_color = colors[4]
+    print "TOP COLOR", top_color
+    bottom_color = colors[1]
+    print "BOTTOM COLOR", bottom_color
+    dress_color = colors[0]
+    print "DRESS COLOR", dress_color
+    accessory_color = colors[2]
+    print "ACCESSORY COLOR", accessory_color
+    shoe_color = colors[3]
+    print "SHOE COLOR", shoe_color
+    bag_color = colors[4]
+    print "BAG COLOR", bag_color
+
     print "COLORS", colors
 
     return render_template('search.html',
@@ -385,12 +398,12 @@ def search():
                                 bag_listing=bag_listing,
                                 dress_listing=dress_listing,
                                 movie_id=movie.id,
-                                top_color=colors[0],
-                                dress_color=colors[0],
-                                bottom_color=colors[1],
-                                accessory_color=colors[2],
-                                shoe_color=colors[3],
-                                bag_color=colors[4]
+                                top_color=top_color,
+                                dress_color=dress_color,
+                                bottom_color=bottom_color,
+                                accessory_color=accessory_color,
+                                shoe_color=shoe_color,
+                                bag_color=bag_color
                             )
 
 @app.route('/blacklist', methods=['POST'])
