@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-<nav class="#42a5f5 blue lighten-1 z-depth-0">
+<nav class="white lighten-1 z-depth-0">
   <div class="nav-wrapper">
-    <a href="#" class="brand-logo center">Logo</a>
+    <a href="#" class="brand-logo center">
+      <img id="logo-size" src="../static/css/images/binocular.svg">
+    </a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
           <!-- Modal trigger for log in form. -->
           <li>
+            <form action="/logout">
+                <a class="waves-effect waves-teal btn-flat" type="submit">Log Out</a>
+            </form>
+          </li>
+          <li>
+            <form action="/search">
+                <button class="waves-effect waves-teal btn-flat" type="submit">Home</button>
+            </form>
+          </li>
+          <li>
+            <div id="points-btn" class="btn pink lighten-4 center-align">
+                <a class="">points {{ points }}</a>    
+            </div>
+          </li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li>
             <form action="/logout">
                 <a class="waves-effect waves-teal btn-flat" type="submit">Log Out</a>
             </form>
@@ -118,7 +137,7 @@
 
 </div>
 
+{% endblock %}
 
-
-
+{% block flash %}
 {% endblock %}

@@ -1,6 +1,16 @@
 /* materilize css */
-body {
-  font-family: 'Dancing Script', cursive;
+* {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+}
+
+#nav-bar a{
+  color:black;
+}
+
+#logo-size {
+  width:3em;
+  height:3em;
 }
 
 #ensemble{
@@ -30,6 +40,15 @@ body {
 #points-btn {
   border-radius: 10px;
 }
+
+#center-btn-text {
+  color: black;
+}
+
+/*#btn-holder button {
+  border: 5px black solid;
+  border-radius: 8px;
+}*/
 
 #m1 {
   border-radius: 10px;

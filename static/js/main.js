@@ -106,7 +106,6 @@ $(document).ready(function(){
     $("#display-ensemble").css('display','none');
   });
 
-  // Background animation when clicking on carousel items
 
   // Show movie title and colors on click
   $(".wes-carousel-item").click(function(e){
@@ -131,10 +130,12 @@ $(document).ready(function(){
       "font-size":"20px",
       "margin":"auto",
       "display":"block",
-      "height":"4em",
+      "height":"5em",
       "margin-top":"-2em",
       "margin-bottom":"2em",
-      "font-family": "'Dancing Script', cursive"
+      "font-family": "'Dancing Script', cursive",
+      "border": "5px black solid",
+      "border-radius": "8px"
       // "font-family": "'Pacifico', cursive"
       // "font-family": "'Lobster', cursive"
       // "font-family": "'Satisfy', cursive"
@@ -176,34 +177,7 @@ $(document).ready(function(){
 
   };
 
-
-  // function update_user_profile(evt){
-  //   evt.preventDefault();
-
-  //   var formData = {
-  //     "top_listing": top_listing,
-  //     "accessory_listing": accessory_listing,
-  //     "bottom_listing": bottom_listing,
-  //     "dress_listing": dress_listing,
-  //     "bag_listing": bag_listing,
-  //     "shoe_listing": shoe_listing
-  //   };
-
-  //   $.ajax({
-  //     type: 'post',
-  //     url: '/ensembles',
-  //     data: formData,
-  //     success: function(results){
-  //       console.log('foo');
-  //     }
-  //   }); 
-  
-  // }
-
   $('#save_ensemble').on('click', update_user_profile);
-
-
-
 
     $("#top_category").click(function(){
       // console.log("to change movie")
@@ -376,17 +350,6 @@ $(document).ready(function(){
         }
       });
     });
-
-
-//share button
-// $(".share").on('click', function(e) {
-//   var el = $(e.target);
-//   el.find(".fab").removeClass("no");
-//   el.find('.share, .fab').toggleClass("active");
-// });
-
-
-
 
 });
 

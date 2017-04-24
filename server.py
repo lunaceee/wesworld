@@ -128,8 +128,8 @@ def show_user_profile(user_id):
         points += ea.points
         points_per_ensemble[ea.ensemble] = ea.points
 
-    if points:
-        flash("You got a point!")
+    # if points:
+    #     flash("You got a point!")
 
 
     movie_ensemble = {}
