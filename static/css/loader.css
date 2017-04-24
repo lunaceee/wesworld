@@ -22,15 +22,17 @@
   bottom:0;
   left:0;
   right:0;
+  animation: rotate 2s cubic-bezier(.24,.93,.08,1) infinite;
 
 }
 
 .loading-icon {
-  position: relative;
-  width: 80%;
-  height: 80%;
+  margin:auto;
+  width: 70% !important;
+  height: 70% !important;
   animation: rotate 2s cubic-bezier(.24,.93,.08,1) infinite;
 }
+
 
 @keyframes rotate {
   0% {

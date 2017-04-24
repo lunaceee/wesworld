@@ -11,11 +11,25 @@ body {
   overflow: hidden !important;
 }
 
+#display-ensemble {
+  display:none;
+}
 /* wall picture frame */
 .customized-margin {
   margin:15px 0 0 15px !important;
 }
 
+#tabs-swipe-demo {
+  height: 100%;
+}
+
+#usr_info li{
+  display: inline-block;
+}
+
+#points-btn {
+  border-radius: 10px;
+}
 
 #m1 {
   border-radius: 10px;
@@ -76,49 +90,6 @@ body {
   background-size: cover;
   background-position: bottom;
 }
-
-
-#save-btn, #change-btn {
-  margin:1em;
-  width: 8em;
-}
-
-/*#wardrobe {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-}
-
-#door {
-    z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: solid black 3px;
-}
-
-#left-door {
-  position: absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:50%;
-  z-index: 10;
-  opacity: 1;
-  border: solid black 5px;
-}
-
-#right-door {
-  position: absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index: 3;
-  opacity: 1;
-  border: solid orange 5px;
-}*/
 
 
 @media only screen and (max-width: 1000px) and (min-width:768) {
