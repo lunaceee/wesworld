@@ -339,7 +339,11 @@ def get_best_result(results, color=None):
 
         num_imgs = len(url_dict['results'])
 
-        if num_imgs > 1:
+        if num_imgs > 1 and len(url_dict['results'][0]) > 0:
+
+            print 'type for urldict-results', type(url_dict['results'])
+            print 'result 0', url_dict['results'][0]
+
             return result, url_dict['results'][0]["url_570xN"] # TypeError: list indices must be integers, not str
         else:
             print "rejecting bad images.", url

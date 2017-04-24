@@ -128,8 +128,6 @@ def show_user_profile(user_id):
         points += ea.points
         points_per_ensemble[ea.ensemble] = ea.points
 
-
-
     if points:
         flash("You got a point!")
 
@@ -137,10 +135,10 @@ def show_user_profile(user_id):
     movie_ensemble = {}
     for ensemble in ensembles:
         ensemble_points_pair = (points_per_ensemble.get(ensemble, 0), ensemble)
-        if ensemble.movie.name not in movie_ensemble:
-            movie_ensemble[ensemble.movie.name] = [ensemble_points_pair]
+        if ensemble.movie not in movie_ensemble:
+            movie_ensemble[ensemble.movie] = [ensemble_points_pair]
         else:
-            movie_ensemble[ensemble.movie.name].append(ensemble_points_pair)
+            movie_ensemble[ensemble.movie].append(ensemble_points_pair)
 
     for pair_lst in movie_ensemble.values():
         pair_lst.sort(reverse=True)
@@ -217,7 +215,9 @@ def save_ensemble():
         db.session.commit()
         print "added new User-Ensemble relationship"
     else:
-
+        print "movie ID", movie_id
+        print "dress ID", dress.id
+        print "movie Name", Movie.query.filter(Movie.id == movie_id).first().name
         new_ensemble = Ensemble(accessory_id=accessory.id,
                             top_id=top.id,
                             bottom_id=bottom.id,
