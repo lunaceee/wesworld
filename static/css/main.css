@@ -1,4 +1,3 @@
-/* materilize css */
 * {
   font-family: 'Roboto', sans-serif;
   color: black;
@@ -11,6 +10,33 @@
 #logo-size {
   width:3em;
   height:3em;
+}
+
+#ww-slogan-page {
+  height:100vh;
+}
+
+#ww-slogan {
+  position: relative;
+  padding: 2em;
+  top:10em;
+}
+
+
+/* slogan animation */
+svg .path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 7s linear alternate infinite;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 #ensemble{
