@@ -32,12 +32,14 @@
 </head>
 
 <body>
-{% block nav %}
-  add or delete nav bar
-{% endblock %}
+
 
 {% block content %}
-  change content
+    {% block landing %}
+    {% endblock %}
+    {% block nav %}
+    add or delete nav bar
+    {% endblock %}
 {% endblock %}
 
 {% block flash %}
