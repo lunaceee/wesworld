@@ -9,12 +9,12 @@
 
 {% block content %}
 
-  <div class="pushpin-demo-nav pin-top" id="main-display">
+  <div id="main-display">
     {% block nav %}
-    <nav class="white lighten-1 z-depth-0">
+    <nav class="lighten-1 z-depth-0">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo center">
-          <img id="logo-size" src="../static/css/images/binocular.svg">
+          <img id="logo-size" src="../static/css/images/binocular-big.svg">
         </a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
@@ -98,7 +98,63 @@
       <div class="row">
         <div id="overlay-parent" class="row">
           <div class="col s12 m1 l1"></div>
-          <div id="overlay" class="col s12 m10 l10 offset-s2 blue">
+          <div id="overlay" class="col s12 m10 l10 offset-s2">
+            <!-- Dress -->
+                    <div class="col s4 m2">
+                        <div class="card hoverable">
+                            <div class="card-image" >
+                                <a href="#">
+                                    <img class="materialboxed" src="../static/css/images/characters/zissou_steve_zissou.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Top -->
+                    <div class="col s4 m2">
+                      <div class="card hoverable">
+                          <div class="card-image" >
+                              <a href="#">
+                                  <img class="materialboxed" src="../static/css/images/characters/hotel_ivan.png">
+                              </a>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col s4 m2">
+                      <div class="card">
+                          <div class="card-image" >
+                              <a href="#">
+                                  <img class="materialboxed" src="../static/css/images/characters/rushmore_max_fischer.png">
+                              </a>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col s4 m2">
+                      <div class="card">
+                          <div class="card-image" >
+                              <a href="#">
+                                  <img class="materialboxed" src="../static/css/images/characters/darjeeling_peter_whitman.png">
+                              </a>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col s4 m2">
+                      <div class="card">
+                          <div class="card-image" >
+                              <a href="#">
+                                  <img class="materialboxed" src="../static/css/images/characters/fox_linda_otter.png">
+                              </a>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col s4 m2">
+                      <div class="card">
+                          <div class="card-image" >
+                              <a href="#">
+                                  <img class="materialboxed" src="../static/css/images/characters/zissou_eleanor_zissou.png">
+                              </a>
+                          </div>
+                      </div>
+                    </div>
           </div>
           <div class="col s12 m1 l1"></div>
         </div>
@@ -117,10 +173,11 @@
               <button id="movie-{{ movie.id }}" class="waves-effect waves-teal btn movie-btn white" data-movie-name="{{ movie.name }}">
                   <span id="center-btn-text">{{ movie.name }}</span>
                   <div class="row">
+
                       {% for color in color_dict[ movie.name ] %}
                            <div class="chip" style="background-color: #{{color}}">
                            </div>
-                      {% endfor %}        
+                      {% endfor %}       
                   </div>
               </button>
           {% endfor %}
@@ -132,7 +189,7 @@
 
         <!-- preloading icon -->
         <div id="ensemble-loader" class="loader">
-          <img id="ensemble-loader-icon" src="../static/css/images/binocular.svg">
+          <img id="ensemble-loader-icon" src="../static/css/images/binocular-big.svg">
         </div>
 
       	<!-- Display ensemble. -->
@@ -149,23 +206,23 @@
                                     <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
                                 </a>
                                 <div id="dress-loader" class="loader">
-                                  <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                  <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                                 </div>
                             </div>
                             <div class="card-content">
                                 <span class="card-title">Dress</span>
-                                <a id="dress_link" class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                                <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
-                                <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
-                                <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};">{{ dress_color }}</a>
-                                
+
                                 {% if user_id == 1 %}
-                                    {{ dress_color }}
                                     <form action="/blacklist" method='post'>
                                         <input type="hidden" name="key" value="{{ dress_listing }}">
                                         <input type="submit" name="bl" value="blacklist">
                                     </form>
                                 {% endif %}
+                                <a id="dress_link" class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
+                                <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
+                                <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};"></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -177,15 +234,21 @@
                                   <img id="t_img" class="materialboxed" src="{{ t_img_url }}" alt="top">
                               </a>
                               <div id="top-loader" class="loader">
-                                  <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                  <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                               </div>
                           </div>
                 					<div class="card-content">
                 						<span class="card-title">Top</span>
+                            {% if user_id == 1 %}
+                                <form action="/blacklist" method='post'>
+                                    <input type="hidden" name="key" value="{{ top_listing }}">
+                                    <input type="submit" name="bl" value="blacklist">
+                                </form>
+                            {% endif %}
                 						<a id="top_link" class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                 						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                 						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
-                	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};">{{ top_color }}</a>
+                	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};"></a>
                 					</div>
               				</div>
               			</div>
@@ -197,15 +260,21 @@
                                           <img id="bo_img" class="materialboxed" src="{{ bo_img_url }}" alt="bottom">
                                       </a>
                                       <div id="bottom-loader" class="loader">
-                                          <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                          <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                                       </div>
                                   </div>
               					<div class="card-content">
+                          {% if user_id == 1 %}
+                                    <form action="/blacklist" method='post'>
+                                        <input type="hidden" name="key" value="{{ bottom_listing }}">
+                                        <input type="submit" name="bl" value="blacklist">
+                                    </form>
+                                {% endif %}
                                       <span class="card-title">Bottom</span>
                                       <a id="bottom_link" class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};">{{ bottom_color }}</a>
+                                      <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};"></a>
                                   </div>
               				</div>
         			      </div>
@@ -217,15 +286,21 @@
                                           <img id="a_img" class="materialboxed" src="{{ a_img_url }}" alt="accessory">
                                       </a>
                                       <div id="accessory-loader" class="loader">
-                                          <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                          <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                                       </div>
                                   </div>
               					<div class="card-content">
+                          {% if user_id == 1 %}
+                                    <form action="/blacklist" method='post'>
+                                        <input type="hidden" name="key" value="{{ accessory_listing }}">
+                                        <input type="submit" name="bl" value="blacklist">
+                                    </form>
+                                {% endif %}
                                       <span class="card-title">Accessory</span>
                                       <a id="accessory_link" class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};">{{ accessory_color }}</a>
+                                      <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};"></a>
                                   </div>
               				</div>
               			</div>
@@ -237,15 +312,21 @@
                                           <img id="s_img" class="materialboxed" src="{{ s_img_url }}" alt="shoe">
                                       </a>
                                       <div id="shoe-loader" class="loader">
-                                          <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                          <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                                       </div>
                                   </div>
               					<div class="card-content">
+                          {% if user_id == 1 %}
+                                    <form action="/blacklist" method='post'>
+                                        <input type="hidden" name="key" value="{{ shoe_listing }}">
+                                        <input type="submit" name="bl" value="blacklist">
+                                    </form>
+                                {% endif %}
                                       <span class="card-title">Shoe</span>
                                       <a id="shoe_link" class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};">{{ shoe_color }}</a>
+                                      <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};"></a>
                                   </div>
               				</div>
               			</div>
@@ -257,15 +338,21 @@
                                           <img id="b_img" class="materialboxed" src="{{ b_img_url }}" alt="bag">
                                       </a>
                                       <div id="bag-loader" class="loader">
-                                          <img class="loading-icon" src="../static/css/images/binocular.svg">
+                                          <img class="loading-icon" src="../static/css/images/binocular-big.svg">
                                       </div>
                                   </div>
               					<div class="card-content">
+                          {% if user_id == 1 %}
+                                    <form action="/blacklist" method='post'>
+                                        <input type="hidden" name="key" value="{{ bag_listing }}">
+                                        <input type="submit" name="bl" value="blacklist">
+                                    </form>
+                                {% endif %}
                                       <span class="card-title">Bag</span>
                                       <a id="bag_link" class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};">{{ bag_color }}</a>
+                                      <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};"></a>
                                   </div>
               				</div>
               			</div>
@@ -299,12 +386,6 @@
                   </div>
                   <div class="col m4"></div>
 
-                  <!-- Change button -->
-                  <!-- <div class="col s12 m6">
-                    <form action="/search">
-                        <input class="waves-effect waves-light btn indigo lighten-1" type="submit" value="Change">
-                    </form>
-                  </div> -->
               </div>
             </div>
             <div class="col m1 l1"></div>
