@@ -8,13 +8,14 @@
 }
 
 #logo-size {
-  width:3em;
-  height:3em;
+  width:2em;
+  height:2em;
 }
 
 #ww-slogan-page {
   height:100vh;
-  background-color: pink;
+  background-color: #009688;
+  background-size: cover;
 }
 
 #ww-slogan {
@@ -23,25 +24,6 @@
   top:10em;
 }
 
-/*#main-display {
-  height:100vh;
-}*/
-
-/* pushpin */
-/*Class for when element is above threshold*/
-  .pin-top {
-    position: relative;
-  }
-
-/*Class for when element is below threshold*/
-  .pin-bottom {
-    position: relative;
-  }
-
-/*Class for when element is pinned*/
-  .pinned {
-    position: fixed !important;
-  }
 
 /* ensemble overlay when no movie selected */
 #overlay-parent {
@@ -61,12 +43,12 @@
 svg .path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: dash 7s linear alternate infinite;
+  animation: dash 4s linear normal infinite;
 }
 
 @keyframes dash {
   from {
-    stroke-dashoffset: 1000;
+    stroke-dashoffset: 2000;
   }
   to {
     stroke-dashoffset: 0;
@@ -89,9 +71,6 @@ svg .path {
   margin:15px 0 0 15px !important;
 }
 
-#tabs-swipe-demo {
-  height: 100%;
-}
 
 #usr_info li{
   display: inline-block;
@@ -105,12 +84,8 @@ svg .path {
   color: black;
 }
 
-/*#btn-holder button {
-  border: 5px black solid;
-  border-radius: 8px;
-}*/
 
-#m1 {
+/*#m1 {
   border-radius: 10px;
   height:340px;
   background-image: url('images/posters/moonrise_1.jpg');
@@ -168,7 +143,7 @@ svg .path {
   background-image: url('images/posters/moonrise_5.jpg');
   background-size: cover;
   background-position: bottom;
-}
+}*/
 
 
 @media only screen and (max-width: 1000px) and (min-width:768) {
