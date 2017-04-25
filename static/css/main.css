@@ -58,9 +58,14 @@ svg .path {
 #ensemble{
   margin-top:-4em;
 }
+
 .usr_small {
   height:150px !important;
   overflow: hidden !important;
+}
+
+#usr-ensemble {
+  border-bottom: none;
 }
 
 #display-ensemble {
