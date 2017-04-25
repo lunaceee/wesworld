@@ -14,6 +14,7 @@
 
 #ww-slogan-page {
   height:100vh;
+  background-color: pink;
 }
 
 #ww-slogan {
@@ -22,6 +23,39 @@
   top:10em;
 }
 
+/*#main-display {
+  height:100vh;
+}*/
+
+/* pushpin */
+/*Class for when element is above threshold*/
+  .pin-top {
+    position: relative;
+  }
+
+/*Class for when element is below threshold*/
+  .pin-bottom {
+    position: relative;
+  }
+
+/*Class for when element is pinned*/
+  .pinned {
+    position: fixed !important;
+  }
+
+/* ensemble overlay when no movie selected */
+#overlay-parent {
+  display:inline-block;
+  position:absolute;
+  height:30em;
+  width:100%;
+}
+
+#overlay {
+  display:inline-block;
+  position:absolute;
+  height:100%;
+}
 
 /* slogan animation */
 svg .path {

@@ -111,7 +111,6 @@ $(document).ready(function(){
   $(".wes-carousel-item").click(function(e){
         console.log(e);
 
-
     desiredID = $(e.currentTarget).attr('data-movie-id');
 
     console.log(desiredID);
@@ -125,6 +124,7 @@ $(document).ready(function(){
       newBtn
       );
 
+    $("#overlay-parent").css('display','none');
 
     $("#btn-holder button").css({
       "font-size":"20px",
@@ -350,6 +350,7 @@ $(document).ready(function(){
         }
       });
     });
+
 
 });
 
