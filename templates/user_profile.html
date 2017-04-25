@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
+
+
+{% block content %}
+
 {% block nav %}
-<nav class="white lighten-1 z-depth-0">
+<nav class="lighten-1 z-depth-0">
   <div class="nav-wrapper">
     <a href="#" class="brand-logo center">
-      <img id="logo-size" src="../static/css/images/binocular.svg">
+      <img id="logo-size" src="../static/css/images/binocular-big.svg">
     </a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
@@ -20,7 +24,7 @@
             </form>
           </li>
           <li>
-            <div id="points-btn" class="btn pink lighten-4 center-align">
+            <div id="points-btn" class="btn teal lighten-3 center-align">
                 <a class="">points {{ points }}</a>    
             </div>
           </li>
@@ -45,8 +49,6 @@
   </div>
 </nav>
 {% endblock %}
-
-{% block content %}
 
 <div class="container-fluid">
     <div class="section">
@@ -73,17 +75,64 @@
         </div>
         <div class="col m2 l2"></div>
     </div>
-    <div class="row">
-        <div class="col m2 l2"></div>
-        <div class="col m8 l8">
-            <div class="divider"></div>
-        </div>
-        <div class="col m2 l2"></div>    
-    </div>
 
     <div id="saved_ensemble" class="row">
+
+        <ul class="collapsible" data-collapsible="accordion">
+            {% for movie, pair_lst in movie_ensemble.items() %}
+                {% for point, ensemble in pair_lst[:1] %}
+                <li>
+                  <div class="collapsible-header">
+                    <i class="material-icons">loyalty</i>
+                    {{ movie.name }}
+                  </div>
+                  <div class="collapsible-body">
+                        <div class="col m12" id="m-{{ movie.id }}">
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.accessory.listing_url }}">
+                                    <img src="{{ ensemble.accessory.img_url }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.top.listing_url }}">
+                                    <img src="{{ ensemble.top.img_url }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.bottom.listing_url }}"><img src="{{ ensemble.bottom.img_url }}"></a>
+                            </div>
+                        </div>
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.shoe.listing_url }}"><img src="{{ ensemble.shoe.img_url }}"></a>
+                            </div>
+                        </div>
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.dress.listing_url }}">
+                                    <img src="{{ ensemble.dress.img_url }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col m2">
+                            <div class="card usr_small">
+                                <a class="card-image" href="{{ ensemble.bag.listing_url }}"><img src="{{ ensemble.bag.img_url }}"></a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
         <!-- Materialize tabs. -->
-        <div class="col s12 m12 l12">
+ <!--        <div class="col s12 m12 l12">
             <ul id="tabs-swipe-demo" class="tabs l8">
                 {% for movie, pair_lst in movie_ensemble.items() %}
                     <li class="tab col s3"><a href="#m-{{ movie.id }}">{{ movie.name }}</a></li>
@@ -132,7 +181,7 @@
                 </div>
 
                 {% endfor %}
-            {% endfor %}
+            {% endfor %} -->
     </div>
 
 </div>
