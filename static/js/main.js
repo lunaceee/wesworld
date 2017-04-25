@@ -10,6 +10,7 @@ var movieBtnClick = function(e){
     };
 
     $("#display-ensemble").css('display','block');
+    $("#overlay-parent").css('display','none');
 
 
     // set all loading icons to visible
@@ -51,6 +52,7 @@ var movieBtnClick = function(e){
         $("#d_img").attr('src', results['d_img_url']);
         $("#d_listing").attr('href', results['dress_listing']);
         $("#dress_color").css('background-color', "#" + results['colors'][0]);
+        
         $("#dress_link").attr('href', results['dress_listing']);
         $("#save-btn-dress-id").attr('value', results['dress_listing']);
         $("#save-btn-d-img-id").attr('value', results['d_img_url']);
@@ -103,7 +105,17 @@ $(document).ready(function(){
   // Hide movie title and colors by default
   $(".wes-initial-item").click(function(e){
     $("#btn-holder").empty();
-    $("#display-ensemble").css('display','none');
+    $("#display-ensemble").css(
+      {'display':'none',
+        'transition':'.2s',
+        'transition-timing-function': 'ease-in-out'});
+    $("#overlay-parent").css({
+      'display':'block',
+      'margin-top':'0',
+      'transition-timing-function': 'ease-in-out',
+      'transition':'.3s'
+    });
+
   });
 
 
@@ -124,7 +136,8 @@ $(document).ready(function(){
       newBtn
       );
 
-    $("#overlay-parent").css('display','none');
+    $("#overlay-parent").css('margin-top','5em');
+
 
     $("#btn-holder button").css({
       "font-size":"20px",
@@ -134,8 +147,10 @@ $(document).ready(function(){
       "margin-top":"-2em",
       "margin-bottom":"2em",
       "font-family": "'Dancing Script', cursive",
-      "border": "5px black solid",
-      "border-radius": "8px"
+      "border": "2px black solid",
+      "border-radius": "8px",
+      "transition-timing-function": "ease-in-out",
+
       // "font-family": "'Pacifico', cursive"
       // "font-family": "'Lobster', cursive"
       // "font-family": "'Satisfy', cursive"
