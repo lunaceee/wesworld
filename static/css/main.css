@@ -31,7 +31,7 @@
 }
 
 #overlay {
-  display:inline-block;
+  display:block;
   position:absolute;
   height:100%;
 }
