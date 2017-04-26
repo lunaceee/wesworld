@@ -182,6 +182,7 @@ def get_from_cache(key):
     if cache_result is None:
         return None
     if cache_result.blacklisted is True:
+        print "BLACKLISTED EXCEPTION"
         raise BlacklistedException()
     return cache_result.value
 
@@ -193,13 +194,47 @@ def cache(key, value):
     db.session.commit()
 
 
-def cached_get(url):
+def cached_get(url, force_no_blacklist=False):
     """Get cached results."""
 
     try:
         value = get_from_cache(url)
     except BlacklistedException:
-        return None, 400
+        if force_no_blacklist:
+            print "FORCING NO BLACKLIST", url
+            return (
+                json.loads('''{
+                  "count": 1, 
+                  "type": "ListingImage", 
+                  "pagination": {}, 
+                  "params": {
+                    "listing_id": "512396261"
+                  }, 
+                  "results": [
+                    {
+                      "full_width": 640,
+                      "full_height": 640, 
+                      "listing_id": 512396261,
+                      "listing_image_id": 1143639922,
+                      "url_570xN": "/static/css/images/profile_pic/m_8.jpg"
+                    },
+                    {
+                      "full_width": 640, 
+                      "full_height": 640, 
+                      "listing_id": 512396261, 
+                      "hex_code": "70471D", 
+                      "listing_image_id": 1143639922,
+                      "url_570xN": "/static/css/images/profile_pic/m_8.jpg"
+                    }
+                  ]
+                }
+
+            ''')
+                , 200
+              )
+        else:
+            print "BLACKLISTED URL", url
+            return None, 400
     
     if value:
         return json.loads(value), 200
@@ -319,7 +354,7 @@ def get_search_results(result_dict):
             shoe_results)
 
 
-def get_best_result(results, color=None):
+def get_best_result(results, color=None, force_no_blacklist=False):
     """
     Ruling out irrelevant listing images.
     Input:
@@ -331,7 +366,7 @@ def get_best_result(results, color=None):
         listing_id = result["listing_id"]
         image_url_template = "https://openapi.etsy.com/v2/listings/{}/images?api_key=" + etsy_api_key
         url = image_url_template.format(listing_id)
-        url_dict, status_code = cached_get(url)
+        url_dict, status_code = cached_get(url, force_no_blacklist)
         
         # TODO Handle status code != 200
         if status_code != 200:
@@ -342,7 +377,7 @@ def get_best_result(results, color=None):
         if num_imgs > 1 and len(url_dict['results'][0]) > 0:
 
             print 'type for urldict-results', type(url_dict['results'])
-            print 'result 0', url_dict['results'][0]
+            print 'result 0', str(url_dict['results'][0])[:50]
 
             return result, url_dict['results'][0]["url_570xN"] # TypeError: list indices must be integers, not str
         else:
@@ -394,7 +429,7 @@ def fix_missing_listings(url_type, results, movie_id):
         'url': url,
     }
 
-    result, img_url = get_best_result([listing_dict])
+    result, img_url = get_best_result([listing_dict], force_no_blacklist=True)
 
     return result, img_url
 
@@ -416,7 +451,7 @@ def get_image_urls(result_dict, movie_id):
         best_results_and_img_urls['accessory'] = (a_result, a_img_url)
         
         d_result, d_img_url = fix_missing_listings('dress_url', dress_results, movie_id)
-        print "dress result, dress image", (d_result, d_img_url)
+        #print "dress result, dress image", (d_result, d_img_url)
 
         best_results_and_img_urls['dress'] = (d_result, d_img_url)
 

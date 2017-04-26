@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
 
 {% block nav %}
 <nav class="lighten-1 z-depth-0">
   <div class="nav-wrapper">
-    <a href="#" class="brand-logo center">
+    <a href="/search" class="brand-logo center">
       <img id="logo-size" src="../static/css/images/binocular-big.svg">
     </a>
-    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons white">menu</i></a>
     <ul class="right hide-on-med-and-down">
-          <!-- Modal trigger for log in form. -->
-          <li>
-            <form action="/logout">
-                <a class="waves-effect waves-teal btn-flat" type="submit">Log Out</a>
-            </form>
-          </li>
-          <li>
-            <form action="/search">
-                <button class="waves-effect waves-teal btn-flat" type="submit">Home</button>
-            </form>
-          </li>
-          <li>
-            <div id="points-btn" class="btn teal lighten-3 center-align">
-                <a class="">points {{ points }}</a>    
-            </div>
-          </li>
+        <li>
+        <div  class="chip chips-initial teal lighten-3">
+            <a class="">points {{ points }}</a>    
+        </div>
+        </li>
+        <li>
+        <a class="waves-effect waves-teal" href="/">
+            Home
+        </a>    
+        </li>
+        <li>
+        <form action="/logout">
+            <a class="waves-effect waves-teal" href="/logout" type="submit">Log Out</a>
+        </form>
+        </li>
+
     </ul>
     <ul class="side-nav" id="mobile-demo">
-      <li>
-            <form action="/logout">
-                <a class="waves-effect waves-teal btn-flat" type="submit">Log Out</a>
-            </form>
-          </li>
-          <li>
-            <form action="/search">
-                <button class="waves-effect waves-teal btn-flat" type="submit">Home</button>
-            </form>
-          </li>
-          <li>
-            <div id="points-btn" class="btn pink lighten-4 center-align">
+        <li>
+            <div  class="chip chips-initial teal lighten-3">
                 <a class="">points {{ points }}</a>    
             </div>
-          </li>
+        </li>
+        <li>
+            <a class="waves-effect waves-teal" href="/">
+                Home
+            </a>    
+        </li>
+        <li>
+            <form action="/logout">
+                <a class="waves-effect waves-teal" href="/logout" type="submit">Log Out</a>
+            </form>
+        </li>
     </ul>
   </div>
 </nav>

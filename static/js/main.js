@@ -3,10 +3,10 @@
 var desiredID;
 var movieBtnClick = function(e){
     console.log(e);
-    console.log($(e.target).attr('data-movie-name'));
+    console.log('movie name', $(e.currentTarget).data('movieName'));
 
     var selectedMovie = {
-      "movie_name": $(e.target).attr('data-movie-name')
+      "movie_name": $(e.currentTarget).data('movieName')
     };
 
     $("#display-ensemble").css('display','block');
@@ -130,6 +130,8 @@ $(document).ready(function(){
     var y = $("#btn-hider #movie-" + desiredID);
     var newBtn = y.clone();
 
+    console.log('new button data', newBtn.data())
+
     newBtn.click(movieBtnClick);
     $("#btn-holder").empty();
     $("#btn-holder").append(
@@ -214,7 +216,7 @@ $(document).ready(function(){
           $("#t_img").attr('src', results['t_img_url']);
           $("#top_listing").attr('href', results['top_listing']);
           $("#top_color").css('background-color', '#'+results['top_color']);
-          $("#top_color").text(results['top_color']);
+          // $("#top_color").text(results['top_color']);
           
           console.log(results['top_color']);
           console.log("change top listing");
@@ -244,7 +246,7 @@ $(document).ready(function(){
           $("#bo_img").attr('src', results['bo_img_url']);
           $("#bottom_listing").attr('href', results['bottom_listing']);
           $("#bottom_color").css('background-color', '#'+results['bottom_color']);
-          $("#bottom_color").text(results['bottom_color']);
+          // $("#bottom_color").text(results['bottom_color']);
 
           console.log(results['bottom_color']);
           console.log("change bottom listing");
@@ -273,7 +275,7 @@ $(document).ready(function(){
           $("#a_img").attr('src', results['a_img_url']);
           $("#accessory_listing").attr('href', results['accessory_listing']);
           $("#accessory_color").css('background-color', '#'+results['accessory_color']);
-          $("#accessory_color").text(results['accessory_color']);
+          // $("#accessory_color").text(results['accessory_color']);
 
           console.log(results['accessory_color']);
           console.log("change accessory listing");
@@ -300,7 +302,7 @@ $(document).ready(function(){
           $("#b_img").attr('src', results['b_img_url']);
           $("#bag_listing").attr('href', results['bag_listing']);
           $("#bag_color").css('background-color', '#'+results['bag_color']);
-          $("#bag_color").text(results['bag_color']);
+          // $("#bag_color").text(results['bag_color']);
 
           console.log(results['bag_color']);
           console.log("change bag listing");
@@ -331,7 +333,7 @@ $(document).ready(function(){
           $("#d_img").attr('src', results['d_img_url']);
           $("#dress_listing").attr('href', results['dress_listing']);
           $("#dress_color").css('background-color', '#'+results['dress_color']);
-          $("#dress_color").text(results['dress_color']);
+          // $("#dress_color").text(results['dress_color']);
 
           console.log(results['dress_color']);
           console.log("change dress listing");
@@ -358,7 +360,7 @@ $(document).ready(function(){
           $("#s_img").attr('src', results['s_img_url']);
           $("#shoe_listing").attr('href', results['shoe_listing']);
           $("#shoe_color").css('background-color', '#'+results['shoe_color']);
-          $("#shoe_color").text(results['shoe_color']);
+          // $("#shoe_color").text(results['shoe_color']);
 
           console.log(results['shoe_color']);
           console.log("change shoe listing");

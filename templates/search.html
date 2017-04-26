@@ -2,8 +2,6 @@
 {% block d3css %}
 {% endblock %}
 {% block scroll %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
 {% endblock %}
 
 
@@ -13,7 +11,7 @@
     {% block nav %}
     <nav class="lighten-1 z-depth-0">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">
+        <a href="/search" class="brand-logo center">
           <img id="logo-size" src="../static/css/images/binocular-big.svg">
         </a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -63,6 +61,11 @@
                 </div>
               </li>
           {% endif %}
+          <li>
+              <a class="waves-effect waves-teal" href="/">
+                  Home
+              </a>    
+              </li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           {% if logged_in %}
@@ -76,6 +79,11 @@
               <li><a href="/login">Log in</a></li>
               <li><a href="/register">Register</a></li>
           {% endif %}
+          <li>
+              <a class="waves-effect waves-teal" href="/">
+                  Home
+              </a>    
+          </li>
         </ul>
       </div>
     </nav>

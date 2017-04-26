@@ -104,9 +104,11 @@ def process_form():
 @app.route('/logout')
 def logout():
     """Log out user."""
-    del session['logged_in']
-    del session['movie']
-    flash("You have been logged out.", "success")
+    if 'logged_in' in session:
+        del session['logged_in']
+    if 'movie' in session:
+        del session['movie']
+    # flash("You have been logged out.", "success")
 
     return redirect("/search")
 
@@ -315,14 +317,18 @@ def search_helper():
         movie = random.choice(Movie.query.all())
 
     color_list = get_colors_from_movie(movie)
+    print 'Originally got colors %s from Movie %s' % (sorted(color_list), movie.name)
 
     result_dict = etsy.get_listing_items(color_list)
+
+    print 'Colors returned       %s'  % (sorted(result_dict['colors']))
     
     best_dict = etsy.get_image_urls(result_dict, movie.id)
     
     (top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing) = etsy.get_listing_urls(best_dict)
 
+    print 'returning ' , result_dict['colors']
     return (result_dict['colors'], movie, best_dict, top_listing, bottom_listing, accessory_listing, dress_listing,
         shoe_listing, bag_listing)
 
@@ -419,10 +425,12 @@ def blacklist():
     listing_id = find_ld.groups()[0]
 
     blacklisted_url = "https://openapi.etsy.com/v2/listings/{}/images?api_key=w4kl15san4n93vl9sc0b01m8".format(listing_id)
-
+    print "BLACKLISTED URL", blacklisted_url
     cached_result = Cache.query.filter(Cache.key == blacklisted_url).first()
 
     if not cached_result:
+        print "couldn't be found"
+
         return None
     cached_result.blacklisted = True
     db.session.commit()
@@ -439,7 +447,7 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     
     app.run(port=5000, host='0.0.0.0')
