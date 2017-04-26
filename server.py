@@ -49,17 +49,17 @@ def register_page():
 
         if not username_re:
             flash("Username can not contain '@' sign.")
-            return render_template('register.html')
+            return rediect("/search")
 
         if not email_re:
             flash("Please use legal email format.")
-            return render_template('register.html')
+            return rediect("/search")
 
         if User.query.filter(User.username == username).first():
             flash("That username is already taken, please choose another.")
-            return render_template('register.html')
+            return rediect("/search")
    
-        flash("Thanks for registering!")
+        # flash("Thanks for registering!")
         new_user = User(username=username, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
@@ -68,7 +68,7 @@ def register_page():
         return redirect('/search')
 
     else:
-        return render_template("register.html")
+        return rediect("/search")
 
 
 @app.route('/login')

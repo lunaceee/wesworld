@@ -452,7 +452,6 @@ def get_image_urls(result_dict, movie_id):
         
         d_result, d_img_url = fix_missing_listings('dress_url', dress_results, movie_id)
         #print "dress result, dress image", (d_result, d_img_url)
-
         best_results_and_img_urls['dress'] = (d_result, d_img_url)
 
         t_result, t_img_url = fix_missing_listings('top_url', top_results, movie_id)
