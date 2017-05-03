@@ -54,7 +54,8 @@
                           pattern="[^@]+"><br>
                           <input name="email" type="text" required="" placeholder="Email" 
                           pattern=".+@.+\..+"><br>
-                          <input name="password" type="password" required="" placeholder="Create a password"><br><br>
+                          <input name="password" type="password" required="" placeholder="Create your password">
+                          <input name="password" type="password" required="" placeholder="Repeat your password"><br><br>
                           <input class="btn blue lighten-2" type="submit" value="Register">
                         </form>
                     </div>
@@ -202,10 +203,10 @@
         <div class="row" id="display-ensemble">
               <div class="col s12 m12 l12">
                 <!-- Ensemble -->
-                <div id="ensemble" class="row">
+                <div class="row">
                     <!-- Dress -->
-                    <div class="col s12 m2 l2">
-                        <div class="card hoverable small">
+                    <div id="ensemble" class="col s12 m2">
+                        <div class="card hoverable ">
                             <div class="card-image" >
                                 <a id="dress_listing" href="#">
                                     <img id="d_img" class="materialboxed" src="{{ d_img_url }}" alt="dress">
@@ -226,14 +227,14 @@
                                 <a id="dress_link" class="right" href="{{ dress_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                 <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                 <a class="right" id="dress_category" href="#"><i class="material-icons">shuffle</i></a>
-                                <a class="chip" id="dress_color" style="width:60px;height:25px;background-color: #{{ dress_color }};"></a>
+                                <a class="chip" id="dress_color" style="width:25px;height:25px;background-color: #{{ dress_color }};"></a>
                                 
                             </div>
                         </div>
                     </div>
                     <!-- Top -->
-              			<div class="col s12 m2 l2">
-              				<div class="card hoverable small">
+              			<div class="col s12 m2">
+              				<div class="card hoverable ">
                           <div class="card-image" >
                               <a id="top_listing" href="#">
                                   <img id="t_img" class="materialboxed" src="{{ t_img_url }}" alt="top">
@@ -253,13 +254,13 @@
                 						<a id="top_link" class="right" href="{{ top_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                 						<a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                 						<a class="right" id="top_category" href="#"><i class="material-icons">shuffle</i></a>
-                	      				<a class="chip" id="top_color" style="width:60px;height:25px;background-color: #{{ top_color }};"></a>
+                	      				<a class="chip" id="top_color" style="width:25px;height:25px;background-color: #{{ top_color }};"></a>
                 					</div>
               				</div>
               			</div>
                     <!-- Bottom -->
-              			<div class="col s12 m2 l2">
-              				<div class="card hoverable small">
+              			<div class="col s12 m2">
+              				<div class="card hoverable ">
               					<div class="card-image" >
                                       <a id="bottom_listing" href="#">
                                           <img id="bo_img" class="materialboxed" src="{{ bo_img_url }}" alt="bottom">
@@ -279,13 +280,13 @@
                                       <a id="bottom_link" class="right" href="{{ bottom_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="bottom_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="bottom_color" style="width:60px;height:25px;background-color: #{{ bottom_color }};"></a>
+                                      <a class="chip" id="bottom_color" style="width:25px;height:25px;background-color: #{{ bottom_color }};"></a>
                                   </div>
               				</div>
         			      </div>
                     <!-- Accessory -->
-              			<div class="col s12 m2 l2">
-              				<div class="card hoverable small">
+              			<div class="col s12 m2">
+              				<div class="card hoverable ">
               					<div class="card-image" >
                                       <a id="accessory_listing" href="#">
                                           <img id="a_img" class="materialboxed" src="{{ a_img_url }}" alt="accessory">
@@ -305,13 +306,13 @@
                                       <a id="accessory_link" class="right" href="{{ accessory_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="accessory_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="accessory_color" style="width:60px;height:25px;background-color: #{{ accessory_color }};"></a>
+                                      <a class="chip" id="accessory_color" style="width:25px;height:25px;background-color: #{{ accessory_color }};"></a>
                                   </div>
               				</div>
               			</div>
         	          <!-- Shoe -->
-              			<div class="col s12 m2 l2">
-              				<div class="card hoverable small">
+              			<div class="col s12 m2">
+              				<div class="card hoverable ">
               					<div class="card-image">
                                       <a id="shoe_listing" href="#">
                                           <img id="s_img" class="materialboxed" src="{{ s_img_url }}" alt="shoe">
@@ -331,13 +332,13 @@
                                       <a id="shoe_link" class="right" href="{{ shoe_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="shoe_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="shoe_color" style="width:60px;height:25px;background-color: #{{ shoe_color }};"></a>
+                                      <a class="chip" id="shoe_color" style="width:25px;height:25px;background-color: #{{ shoe_color }};"></a>
                                   </div>
               				</div>
               			</div>
                     <!-- Bag -->
-              			<div class="col s12 m2 l2">
-              				<div class="card hoverable small">
+              			<div class="col s12 m2">
+              				<div class="card hoverable ">
               					<div class="card-image" >
                                       <a id="bag_listing" href="#">
                                           <img id="b_img" class="materialboxed" src="{{ b_img_url }}" alt="bag">
@@ -357,7 +358,7 @@
                                       <a id="bag_link" class="right" href="{{ bag_listing }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                       <a class="right" href="#"><i class="material-icons">loyalty</i></a></a>
                                       <a class="right" id="bag_category" href="#"><i class="material-icons">shuffle</i></a>
-                                      <a class="chip" id="bag_color" style="width:60px;height:25px;background-color: #{{ bag_color }};"></a>
+                                      <a class="chip" id="bag_color" style="width:25px;height:25px;background-color: #{{ bag_color }};"></a>
                                   </div>
               				</div>
               			</div>

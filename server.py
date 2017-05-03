@@ -4,7 +4,7 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Movie, Color, Ensemble, Top, Bottom, Accessory, Shoe, Dress, Bag, Cache, connect_to_db, db
+from model import (User, Movie, Color, Ensemble, Top, Bottom, Accessory, Shoe, Dress, Bag, Cache, connect_to_db, db)
 
 from passlib.hash import sha256_crypt
 
@@ -40,10 +40,40 @@ def nav_bar():
 def register_page():
     """Register user."""
 
+    profile_pic = ["/static/css/images/profile_pic/gustav.jpg",
+                    "/static/css/images/profile_pic/zero.jpg",
+                    "/static/css/images/profile_pic/mrjean.jpg",
+                    "/static/css/images/profile_pic/agatha.jpg",
+                    "/static/css/images/profile_pic/henckels.jpg",
+                    "/static/css/images/profile_pic/dmitri.jpg",
+                    "/static/css/images/profile_pic/sam.jpg",
+                    "/static/css/images/profile_pic/suzy.jpg",
+                    "/static/css/images/profile_pic/walt.jpg",
+                    "/static/css/images/profile_pic/ben.jpg",
+                    "/static/css/images/profile_pic/francis.jpg",
+                    "/static/css/images/profile_pic/peter.jpg",
+                    "/static/css/images/profile_pic/jack.jpg",
+                    "/static/css/images/profile_pic/margot.jpg",
+                    "/static/css/images/profile_pic/richard.jpg",
+                    "/static/css/images/profile_pic/elicash.jpg",
+                    "/static/css/images/profile_pic/royal.jpg",
+                    "/static/css/images/profile_pic/etheline.jpg",
+                    "/static/css/images/profile_pic/chas.jpg",
+                    "/static/css/images/profile_pic/henry.jpg",
+                    "/static/css/images/profile_pic/pagoda.jpg",
+                    "/static/css/images/profile_pic/stevezissue.jpg",
+                    "/static/css/images/profile_pic/ned.jpg",
+                    "/static/css/images/profile_pic/klaus.jpg",
+                    "/static/css/images/profile_pic/eleanor.jpg",
+                    "/static/css/images/profile_pic/max.jpg",
+                    "/static/css/images/profile_pic/dignan.jpg"]
+
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
         password = sha256_crypt.encrypt((str(request.form.get("password"))))
+        pic = random.choice(profile_pic)
+        print "pic_url", pic
         email_re = re.search(r".+@.+\..+", email)  # email validation
         username_re = re.search(r"[^@]+", username)
 
@@ -56,11 +86,11 @@ def register_page():
             return rediect("/search")
 
         if User.query.filter(User.username == username).first():
-            flash("That username is already taken, please choose another.")
+            flash("That username is already taken, please choose another one.")
             return rediect("/search")
    
         # flash("Thanks for registering!")
-        new_user = User(username=username, email=email, password=password)
+        new_user = User(username=username, email=email, password=password, pic=pic)
         db.session.add(new_user)
         db.session.commit()
         session['logged_in'] = new_user.id

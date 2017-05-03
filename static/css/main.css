@@ -18,7 +18,7 @@
 #ww-slogan {
   position: relative;
   padding: 2em;
-  top:10em;
+  top: 10em;
 }
 
 
@@ -68,11 +68,6 @@ svg .path {
 #display-ensemble {
   display:none;
 }
-/* wall picture frame */
-.customized-margin {
-  margin:15px 0 0 15px !important;
-}
-
 
 #usr_info li{
   display: inline-block;
@@ -88,73 +83,4 @@ svg .path {
 }
 
 
-/*#m1 {
-  border-radius: 10px;
-  height:340px;
-  background-image: url('images/posters/moonrise_1.jpg');
-  background-size: cover;
-}
-
-#m2 {
-  border-radius: 10px;
-  height: 150px;
-  width: 120px;
-  background-image: url('images/posters/moonrise_3.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-#m3 {
-  border-radius: 10px;
-  height: 150px;
-  width: 130px;
-  background-image: url('images/posters/moonrise_6.jpg');
-  background-size: cover;
-  background-position: bottom;
-
-}
-
-#m4 {
-  border-radius: 10px;
-  height:140px;
-  width: 280px;
-  background-image: url('images/posters/moonrise_7.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-#m5 {
-  height:200px;
-  background-image: url('images/posters/moonrise_4.jpg');
-  background-size: 110%;
-  background-position: center;
-}
-
-
-#m6 {
-  border-radius: 10px;
-  height: 280px;
-  background-image: url('images/posters/moonrise_8.jpg');
-  background-size: cover;
-  background-position: bottom;
-}
-
-#m7 {
-  border-radius: 10px;
-  height: 160px;
-  width: 240px;
-  background-image: url('images/posters/moonrise_5.jpg');
-  background-size: cover;
-  background-position: bottom;
-}*/
-
-
-@media only screen and (max-width: 1000px) and (min-width:768) {
-
-}
-
-
-@media only screen and (max-width: 480px) {
-    
-}
 
