@@ -1,6 +1,5 @@
-# Wes World
-# <img src="static/css/images/binocular-big.png">
-
+# Wes World <img src="static/css/images/binocular-big.png">
+ 
 Descriptions
 
 
