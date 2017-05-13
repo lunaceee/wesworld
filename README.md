@@ -76,7 +76,7 @@ $ python -i model.py
 ```
 
 ## <a name="future"></a>Wes World 3.0
-* 
+* Figure out scalable solution for high traffic
 * 
 * 
 * 

@@ -6,12 +6,62 @@
 
 
 {% block content %}
-
   <div id="main-display">
+    <!-- Modal content for register form. -->
+    <div id="register" class="modal">
+        <div class="modal-content">
+            <form action="/register" method="post" class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="icon_username_prefix" name="username" type="text" class="validate">
+                  <label for="icon_username_prefix">Username</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">email</i>
+                  <input id="icon_email_prefix" name="email" type="text" class="validate">
+                  <label for="icon_email_prefix">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">lock_outline</i>
+                  <input id="icon_npw_prefix" name="password" type="password" class="validate">
+                  <label for="icon_npw_prefix">Create your password</label>
+                </div>
+              </div>
+              <input class="btn red accent-2" type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+    <!-- Modal content for log in form. -->
+    <div id="login" class="modal">
+        <div class="modal-content">
+            <form action="/login" method="post" class="">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="icon_userlogin_prefix" type="text" name="login">
+                    <label for="icon_userlogin_prefix">Login</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input id="icon_pw_prefix" type="password" name="password">
+                    <label for="icon_pw_prefix">Password</label>
+                  </div>
+                </div>
+                <input type="submit" class="btn red accent-2" value="Submit">
+            </form>
+        </div>
+    </div>
     {% block nav %}
     <nav class="lighten-1 z-depth-0">
       <div class="nav-wrapper">
-        <a href="/search" class="brand-logo center">
+        <a href="/" class="brand-logo center">
           <img id="logo-size" src="../static/css/images/binocular-big.svg">
         </a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -19,7 +69,9 @@
           {% if logged_in %}
               <li>
                   <a href="/users/{{ user_id }}">
-                      <i class="material-icons">perm_identity</i>
+                      <i class="material-icons">
+                        <img src="../static/css/images/account.png">
+                      </i>
                   </a>
               </li>
               <li id="nav-bar"><a href="/logout">Log out</a></li>
@@ -28,45 +80,11 @@
               <li>
                 <a class="model-trigger" href="#login">Log in</a>
               </li>
-              <!-- Modal content for log in form. -->
-              <div id="login" class="modal">
-                  <div class="modal-content">
-                      <form action="/login" method="post" class="">
-                          <div class="form-group">
-                            <input type="text" name="login" placeholder="Username or e-mail">
-                            <input name="password" placeholder="Password" title="" type="password" required="">
-                          </div>
-                          <input type="submit" class="btn blue lighten-2" value="Submit">
-                      </form>
-                  </div>
-              </div>
-
               <li>
                 <!-- Modal trigger for register form. -->
                 <a class="modal-trigger" href="#register">Register</a>
               </li>
-                <!-- Modal content for register form. -->
-              <li>  
-                <div id="register" class="modal">
-                    <div class="modal-content">
-                        <form action="/register" method="post">
-                          <input name="username" type="text" required="" placeholder="Username" 
-                          pattern="[^@]+"><br>
-                          <input name="email" type="text" required="" placeholder="Email" 
-                          pattern=".+@.+\..+"><br>
-                          <input name="password" type="password" required="" placeholder="Create your password">
-                          <input name="password" type="password" required="" placeholder="Repeat your password"><br><br>
-                          <input class="btn blue lighten-2" type="submit" value="Register">
-                        </form>
-                    </div>
-                </div>
-              </li>
           {% endif %}
-          <li>
-              <a class="waves-effect waves-teal" href="/">
-                  Home
-              </a>    
-              </li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           {% if logged_in %}
