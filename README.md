@@ -1,20 +1,29 @@
-# Wes World <img src="static/css/images/binocular-big.png">
+# <img src="static/css/images/binocular-big.png">
  
-Descriptions
+# Wes World 
+## Descriptions
+Welcome to Wes World - the unbearable awesomeness of clours. 
+Wes World aims to create a simple and fun online shopping experience based on curated color palettes from Wes Anderson movies. 🎨 It funnels active Etsy listings into a view of an ensemble of clothing items via Etsy API. A user can click on a movie button to view a randomly chosen set of clothing items. User can also save the ensemble by creating a user account. 
 
+Credits to the following artists for the incredible design elements:
+Lea Lafleur
+Alejandro Giraldo
+Hexagonall
 
 ## Table of Contents
 
 * [Tech Stack](#tech-stack)
 * [Features](#features)
 * [Setup/Installation](#installation)
-* [To-Do](#future)
+* [Wes World 3.0](#future)
 
 ## <a name="tech-stack"></a>Tech Stack
-__Frontend:__ HTML5, Javascript, jQuery, Materialize <br/>
+__Frontend:__ HTML5, CSS3, JavaScript, jQuery, Materialize (UI) <br/>
 __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy <br/>
 __APIs:__ Etsy <br/>
 
+#### About the Search Algorithm:
+I created a caching layer to improve speed performance and a blacklist to allow a superuser account to remove irelevant search results.
 
 ## <a name="features"></a>Features
 
@@ -27,7 +36,7 @@ __APIs:__ Etsy <br/>
 - Python 2.7
 - Etsy API key
 
-To have this app running on your local computer, please follow the below steps:
+You can run this app on your local computer via the following steps:
 
 Clone repository:
 ```
@@ -66,7 +75,7 @@ If you want to use SQLAlchemy to query the database, run in interactive mode
 $ python -i model.py
 ```
 
-## <a name="future"></a>TODO
+## <a name="future"></a>Wes World 3.0
 * 
 * 
 * 
