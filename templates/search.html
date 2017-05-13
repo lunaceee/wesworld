@@ -95,8 +95,14 @@
               </li>
               <li><a href="/logout">Log out</a></li>
           {% else %}
-              <li><a href="/login">Log in</a></li>
-              <li><a href="/register">Register</a></li>
+              <!-- Modal trigger for log in form. -->
+              <li>
+                <a class="model-trigger" href="#login">Log in</a>
+              </li>
+              <li>
+                <!-- Modal trigger for register form. -->
+                <a class="modal-trigger" href="#register">Register</a>
+              </li>
           {% endif %}
           <li>
               <a class="waves-effect waves-teal" href="/">

@@ -101,10 +101,10 @@ def register_page():
         return rediect("/search")
 
 
-@app.route('/login')
-def show_login_form():
-    """Show login form."""
-    return render_template('log_in.html')
+# @app.route('/login')
+# def show_login_form():
+#     """Show login form."""
+#     return render_template('log_in.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -119,11 +119,11 @@ def process_form():
     # if not user or if user is None:
     if not user:
         flash('Username or email not recognized, try again.')
-        return render_template('log_in.html')
+        return redirect('/search')
 
     elif user.password != password:
         flash('Password is wrong, please log in again')
-        return render_template('log_in.html')
+        return redirect('/search')
 
     else:
         session['logged_in'] = user.id
@@ -146,6 +146,10 @@ def logout():
 @app.route('/users/<user_id>')
 def show_user_profile(user_id):
     """Show user profile page."""
+    # check if the logged in user has permission to view the user profile page
+    if int(user_id) != session.get('logged_in'):
+        return redirect("/search")
+
     print user_id
     user = User.query.filter(User.id == user_id).one()
     email = user.email
@@ -162,7 +166,6 @@ def show_user_profile(user_id):
 
     # if points:
     #     flash("You got a point!")
-
 
     movie_ensemble = {}
     for ensemble in ensembles:
