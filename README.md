@@ -23,7 +23,8 @@ __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy <br/>
 __APIs:__ Etsy <br/>
 
 #### About the Search Algorithm:
-I created a caching layer to improve speed performance and a blacklist to allow a superuser account to remove irelevant search results.
+I created a caching layer to improve speed performance and a blacklist to allow a super user account to remove irelevant search results.
+I also added a caching validation engine to discriminate expired listing URLs.
 
 ## <a name="features"></a>Features
 
@@ -76,9 +77,5 @@ $ python -i model.py
 ```
 
 ## <a name="future"></a>Wes World 3.0
-* Figure out scalable solution for high traffic
-* 
-* 
-* 
-* 
+
 
