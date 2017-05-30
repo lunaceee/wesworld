@@ -1,0 +1,113 @@
+FROM python:2.7
+
+# =============================================================================
+#
+#Inspired by https://github.com/tiangolo/uwsgi-nginx-flask-docker
+#
+# =============================================================================
+
+RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor 
+
+RUN rm -rf /var/lib/apt/lists/*
+
+
+RUN pip install uwsgi
+RUN pip install flask
+RUN pip install psycopg2
+RUN pip install SQLAlchemy
+RUN pip install Flask-SQLAlchemy
+RUN pip install Jinja2==2.7.3
+RUN pip install MarkupSafe==0.23
+RUN pip install Werkzeug==0.10.4
+RUN pip install flask-wtf
+RUN pip install itsdangerous==0.24
+RUN pip install wheel==0.24.0
+RUN pip install requests
+RUN pip install blinker==1.3
+RUN pip install passlib
+RUN pip install Flask-DebugToolbar
+
+
+
+# =============================================================================
+# NGINX
+# =============================================================================
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
+# Make NGINX run on the foreground
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+# Remove default configuration from Nginx
+RUN rm /etc/nginx/sites-enabled/default
+
+# Set the modified Nginx conf
+RUN echo "\
+server {\n\
+    location / {\n\
+        try_files \$uri @app;\n\
+    }\n\
+    location @app {\n\
+        include uwsgi_params;\n\
+        uwsgi_pass unix:///tmp/uwsgi.sock;\n\
+    }\n\
+    location /static {\n\
+        alias /app/static;\n\
+    }\n\
+}\n\
+\n" > /etc/nginx/sites-enabled/uwsgi_flask_app.conf
+
+
+# =============================================================================
+# uWSGI
+# =============================================================================
+
+RUN mkdir -p /etc/uwsgi
+
+# Set the base uWSGI ini file to enable default dynamic uwsgi process number
+# NGINX runs as the www-data user, so it needs to be able to write to uwsgi's socket
+RUN echo "\
+[uwsgi]\n\
+socket = /tmp/uwsgi.sock\n\
+chown-socket = www-data:www-data\n\
+cheaper = 2\n\
+processes = 16\n\
+\n" > /etc/uwsgi/uwsgi.ini
+
+
+# =============================================================================
+# Supervisord
+# =============================================================================
+
+RUN echo "\
+[supervisord]\n\
+nodaemon=true\n\
+\n\
+[program:uwsgi]\n\
+command=/usr/local/bin/uwsgi --ini /etc/uwsgi/uwsgi.ini --ini /app/uwsgi.ini\n\
+stdout_logfile=/dev/stdout\n\
+stdout_logfile_maxbytes=0\n\
+stderr_logfile=/dev/stderr\n\
+stderr_logfile_maxbytes=0\n\
+\n\
+[program:nginx]\n\
+command=/usr/sbin/nginx\n\
+stdout_logfile=/dev/stdout\n\
+stdout_logfile_maxbytes=0\n\
+stderr_logfile=/dev/stderr\n\
+stderr_logfile_maxbytes=0\n\
+\n" > /etc/supervisor/conf.d/supervisord.conf
+
+
+COPY . /app
+WORKDIR /app
+
+ENV POSTGRES_DB wesworld
+
+EXPOSE 80 443
+CMD python /app/cron_job.py & python /app/seed.py & /usr/bin/supervisord
+

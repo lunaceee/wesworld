@@ -1,0 +1,19 @@
+flaskapp:
+    build: .
+    dockerfile: Dockerfile.flask
+    environment:
+        - API_KEY
+        - DATABASE_URL=postgresql://postgres@pg/wesworld
+
+    ports:
+        # HOST : CONTAINER
+        - "80:80"
+
+    links:
+        - pg
+
+pg:
+    build: .
+    dockerfile: Dockerfile.pg
+    environment:
+        - POSTGRES_PASSWORD

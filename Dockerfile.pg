@@ -1,0 +1,14 @@
+FROM postgres
+
+RUN apt-get update && apt-get install -y \
+    python-pip \
+    libpq-dev \
+    python-psycopg2 \
+    sudo \
+    vim
+
+RUN rm -rf /var/lib/apt/lists/*
+
+
+ENV POSTGRES_DB wesworld
+
