@@ -27,18 +27,22 @@ I created a caching layer to improve speed performance and a blacklist to allow 
 I also added a caching validation engine to discriminate expired listing URLs.
 
 ## <a name="features"></a>Features
-## Animation on Landing Page
+### Animation on Landing Page
 <img src="static/css/images/gifs/ww_landing_page.gif" />
-## Search Page
+
+### Search Page
 <img src="static/css/images/gifs/ww_search_page.gif" />
-## Log in window
+
+### Log in window
 <img src="static/css/images/gifs/ww_log_in_page.gif" />
-## Saving an Ensemble
+
+### Saving an Ensemble
 <img src="static/css/images/gifs/ww_save_ensemble.gif" />
-## User Profile Page
+
+### User Profile Page
 <img src="static/css/images/gifs/ww_user_profile.gif" />
 
-## <a name="installation"></a>Setup/Installation
+### <a name="installation"></a>Setup/Installation
 
 #### Requirements:
 
