@@ -90,5 +90,9 @@ $ python -i model.py
 ```
 
 ## <a name="future"></a>Wes World 3.0
+* Switch to React.js from jQuery
+* Integrate SASS and flexbox for CSS styling
+* Make it responsive to mobile devices
+
 
 
