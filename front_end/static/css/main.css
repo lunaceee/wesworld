@@ -1,0 +1,84 @@
+* {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+}
+
+
+#logo-size {
+  width:2em;
+  height:2em;
+}
+
+#ww-slogan-page {
+  height:100vh;
+  background-color: #e0e0e0;
+  background-size: cover;
+}
+
+#ww-slogan {
+  position: relative;
+  padding: 2em;
+  top: 10em;
+}
+
+
+/* ensemble overlay when no movie selected */
+#overlay-parent {
+  display:inline-block;
+  position:absolute;
+  height:30em;
+  width:100%;
+}
+
+#overlay {
+  display:block;
+  position:absolute;
+  height:100%;
+}
+
+/* slogan animation */
+svg .path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 4s linear normal infinite;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 2000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
+.usr_small {
+  height:150px !important;
+  overflow: hidden !important;
+}
+
+#usr-ensemble {
+  border-bottom: none;
+}
+
+#display-ensemble {
+  display:none;
+}
+
+#usr_info li{
+  display: inline-block;
+}
+
+#points-btn li {
+  padding:0;
+  border-radius: 10px;
+}
+
+#center-btn-text {
+  color: black;
+}
+
+
+

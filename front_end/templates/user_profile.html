@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% block nav %}
+<nav class="lighten-1 z-depth-0">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo center">
+      <img id="logo-size" src="../static/css/images/binocular-big.svg">
+    </a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons white">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+        <li>
+        <div  class="chip chips-initial teal lighten-3">
+            <a class="">points {{ points }}</a>    
+        </div>
+        </li>
+        <li>
+        <a class="waves-effect waves-teal" href="/search">
+            <i class="material-icons">
+                <img src="../static/css/images/explore.png">
+            </i>
+        </a>    
+        </li>
+        <li>
+        <form action="/logout">
+            <a class="waves-effect waves-teal" href="/logout" type="submit">Log Out</a>
+        </form>
+        </li>
+
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+        <li>
+            <div  class="chip chips-initial teal lighten-3">
+                <a class="">points {{ points }}</a>    
+            </div>
+        </li>
+        <li>
+            <a class="waves-effect waves-teal" href="/">
+                Home
+            </a>    
+        </li>
+        <li>
+            <form action="/logout">
+                <a class="waves-effect waves-teal" href="/logout" type="submit">Logout</a>
+            </form>
+        </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+<div class="container-fluid">
+    <div class="section">
+        <div class="row">
+            <div class="col s3 m5 l5"></div>
+            <div class="col s6 m2 l2">
+                <img class='circle responsive-img' src="{{ pic }}">
+            </div>
+            <div class="col s3 m5 l5"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col m2 l2"></div>
+        <div class="col s12 m8 l8 center">
+            <ul>
+                <li>
+                    <h5 class="">{{ username }}</h5>
+                </li>
+                <li>
+                    <h5>{{ email }}</h5>
+                </li>
+            </ul>
+        </div>
+        <div class="col m2 l2"></div>
+    </div>
+
+    <div id="saved_ensemble" class="row">
+        <div class="col m3 l3"></div>
+        <div class="col s12 m6 l6">
+            <ul class="collapsible" data-collapsible="accordion">
+                {% for movie, pair_lst in movie_ensemble.items() %}
+                    {% for point, ensemble in pair_lst[:1] %}
+                    <li>
+                      <div class="collapsible-header">
+                        <i class="material-icons">loyalty</i>
+                        {{ movie.name }}
+                      </div>
+                      <div id="usr-ensemble" class="collapsible-body">
+                            <div class="col m12" id="m-{{ movie.id }}">
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.accessory.listing_url }}">
+                                        <img src="{{ ensemble.accessory.img_url }}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.top.listing_url }}">
+                                        <img src="{{ ensemble.top.img_url }}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.bottom.listing_url }}"><img src="{{ ensemble.bottom.img_url }}"></a>
+                                </div>
+                            </div>
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.shoe.listing_url }}"><img src="{{ ensemble.shoe.img_url }}"></a>
+                                </div>
+                            </div>
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.dress.listing_url }}">
+                                        <img src="{{ ensemble.dress.img_url }}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col m2">
+                                <div class="card">
+                                    <a class="card-image" href="{{ ensemble.bag.listing_url }}"><img src="{{ ensemble.bag.img_url }}"></a>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col m3 l3"></div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block flash %}
+{% endblock %}
