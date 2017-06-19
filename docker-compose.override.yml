@@ -1,0 +1,19 @@
+flaskapp:
+    command: python /app/server.py
+    environment:
+        # When env vars are given without a value, they will be passed through
+        # from your host environment
+        - PGPASSWORD
+
+    volumes:
+        - .:/app
+
+    ports:
+        # HOST : CONTAINER
+        - "8877:5000"
+
+react:
+
+    volumes:
+        - ./front_end/src:/wesworld/src
+        - ./front_end/public:/wesworld/public
