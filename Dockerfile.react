@@ -1,0 +1,12 @@
+FROM node
+
+RUN mkdir /wesworld
+WORKDIR /wesworld
+
+COPY front_end/package.json /wesworld/package.json
+COPY front_end/src /wesworld/src
+COPY front_end/public /wesworld/public
+
+RUN npm install
+
+CMD npm start

@@ -1,6 +1,7 @@
 flaskapp:
     build: .
     dockerfile: Dockerfile.flask
+    hostname: flaskapp
     environment:
         - API_KEY
         - DATABASE_URL=postgresql://postgres@pg/wesworld
@@ -15,5 +16,21 @@ flaskapp:
 pg:
     build: .
     dockerfile: Dockerfile.pg
+    hostname: pg
     environment:
         - POSTGRES_PASSWORD
+
+react:
+
+    build: .
+    dockerfile: Dockerfile.react
+    hostname: react
+    ports:
+        # HOST : CONTAINER
+        - "3000:3000"
+
+    links:
+        - flaskapp
+
+    environment:
+        - VIRTUAL_HOST=wesworld.us
