@@ -103,7 +103,7 @@ stderr_logfile_maxbytes=0\n\
 \n" > /etc/supervisor/conf.d/supervisord.conf
 
 
-COPY ./back_end
+COPY ./back_end /app
 WORKDIR /app
 
 ENV POSTGRES_DB wesworld

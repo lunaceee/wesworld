@@ -6,7 +6,7 @@ flaskapp:
         - PGPASSWORD
 
     volumes:
-        - .:/app
+        - ./back_end /app
 
     ports:
         # HOST : CONTAINER
