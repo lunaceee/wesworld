@@ -1,7 +1,7 @@
 # <img src="static/css/images/binocular-big.png">
  
-# Wes World 
-## Descriptions
+# Wes World
+## Description
 Welcome to Wes World - the unbearable awesomeness of colors. 
 Wes World aims to create a simple and fun online shopping experience based on curated color palettes from Wes Anderson movies. 🎨 It funnels active Etsy listings into a view of an ensemble of clothing items via Etsy API. A user can click on a movie button to view a randomly chosen set of clothing items. User can also save the ensemble by creating a user account. 
 
