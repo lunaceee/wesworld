@@ -12,3 +12,8 @@ flaskapp:
         # HOST : CONTAINER
         - "8877:5000"
 
+react:
+
+    volumes:
+        - ./front_end/src:/wesworld/src
+        - ./front_end/public:/wesworld/public
