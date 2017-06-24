@@ -1,4 +1,4 @@
-# <img src="static/css/images/binocular-big.png">
+# <img src="front_end/src/static/css/images/binocular-big.png">
  
 # Wes World 
 ## Descriptions
@@ -28,19 +28,19 @@ I also added a caching validation engine to discriminate expired listing URLs.
 
 ## <a name="features"></a>Features
 ### Animation on Landing Page
-<img src="static/css/images/gifs/ww_landing_page.gif" />
+<img src="front_end/src/static/css/images/gifs/ww_landing_page.gif" />
 
 ### Search Page
-<img src="static/css/images/gifs/ww_search_page.gif" />
+<img src="front_end/src/static/css/images/gifs/ww_search_page.gif" />
 
 ### Log in window
-<img src="static/css/images/gifs/ww_log_in_page.gif" />
+<img src="front_end/src/static/css/images/gifs/ww_log_in_page.gif" />
 
 ### Saving an Ensemble
-<img src="static/css/images/gifs/ww_save_ensemble.gif" />
+<img src="front_end/src/static/css/images/gifs/ww_save_ensemble.gif" />
 
 ### User Profile Page
-<img src="static/css/images/gifs/ww_user_profile.gif" />
+<img src="front_end/src/static/css/images/gifs/ww_user_profile.gif" />
 
 ### <a name="installation"></a>Setup/Installation
 

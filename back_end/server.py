@@ -30,14 +30,16 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def show_home_page():
     """Show home page."""
-    return render_template('homepage.html')
+    logo_url = "../front_end/static/css/images/binocular-big.svg"
+    slogan_url = "../front_end/static/css/images/ww-slogan-2.svg"
+
+    return jsonify(
+        logo_url=logo_url,
+        slogan_url=slogan_url
+        )
 
 @app.route('/nav')
-def nav_bar():
-    """testing purpose"""
-    return render_template('nav.html', 
-                            user_id=session.get('logged_in'),
-                            logged_in=bool(session.get('logged_in')))
+
 
 @app.route('/register', methods=["GET", "POST"])
 def register_page():
@@ -76,21 +78,20 @@ def register_page():
         email = request.form.get("email")
         password = sha256_crypt.encrypt((str(request.form.get("password"))))
         pic = random.choice(profile_pic)
-        print "pic_url", pic
         email_re = re.search(r".+@.+\..+", email)  # email validation
         username_re = re.search(r"[^@]+", username)
 
         if not username_re:
             flash("Username can not contain '@' sign.")
-            return rediect("/search")
+            return redirect("/search")
 
         if not email_re:
             flash("Please use legal email format.")
-            return rediect("/search")
+            return redirect("/search")
 
         if User.query.filter(User.username == username).first():
             flash("That username is already taken, please choose another one.")
-            return rediect("/search")
+            return redirect("/search")
    
         # flash("Thanks for registering!")
         new_user = User(username=username, email=email, password=password, pic=pic)
@@ -103,11 +104,6 @@ def register_page():
     else:
         return rediect("/search")
 
-
-# @app.route('/login')
-# def show_login_form():
-#     """Show login form."""
-#     return render_template('log_in.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -181,7 +177,7 @@ def show_user_profile(user_id):
     for pair_lst in movie_ensemble.values():
         pair_lst.sort(reverse=True)
 
-    return render_template('user_profile.html',
+    return render_template('../front_end/templates/user_profile.html',
                             pic=pic,
                             email=email,
                             username=username,
@@ -420,33 +416,32 @@ def search():
 
     print "COLORS", colors
 
-    return render_template('search.html',
-                                movie_list=movie_list,
-                                color_dict=color_dict,
-                                user_id=session.get('logged_in'),
-                                logged_in=bool(session.get('logged_in')),
-                                chosen_movie=session.get('movie'),
-                                movie_names=movie_names,
-                                t_img_url=best_dict['top'][1],
-                                bo_img_url=best_dict['bottom'][1],
-                                s_img_url=best_dict['shoe'][1],
-                                a_img_url=best_dict['accessory'][1],
-                                b_img_url=best_dict['bag'][1],
-                                d_img_url=best_dict['dress'][1],
-                                top_listing=top_listing,
-                                bottom_listing=bottom_listing,
-                                accessory_listing=accessory_listing,
-                                shoe_listing=shoe_listing,
-                                bag_listing=bag_listing,
-                                dress_listing=dress_listing,
-                                movie_id=movie.id,
-                                top_color=top_color,
-                                dress_color=dress_color,
-                                bottom_color=bottom_color,
-                                accessory_color=accessory_color,
-                                shoe_color=shoe_color,
-                                bag_color=bag_color
-                            )
+    return jsonify(dict(movie_list=movie_list,
+                        color_dict=color_dict,
+                        user_id=session.get('logged_in'),
+                        logged_in=bool(session.get('logged_in')),
+                        chosen_movie=session.get('movie'),
+                        movie_names=movie_names,
+                        t_img_url=best_dict['top'][1],
+                        bo_img_url=best_dict['bottom'][1],
+                        s_img_url=best_dict['shoe'][1],
+                        a_img_url=best_dict['accessory'][1],
+                        b_img_url=best_dict['bag'][1],
+                        d_img_url=best_dict['dress'][1],
+                        top_listing=top_listing,
+                        bottom_listing=bottom_listing,
+                        accessory_listing=accessory_listing,
+                        shoe_listing=shoe_listing,
+                        bag_listing=bag_listing,
+                        dress_listing=dress_listing,
+                        movie_id=movie.id,
+                        top_color=top_color,
+                        dress_color=dress_color,
+                        bottom_color=bottom_color,
+                        accessory_color=accessory_color,
+                        shoe_color=shoe_color,
+                        bag_color=bag_color)
+                    )
 
 @app.route('/blacklist', methods=['POST'])
 def blacklist():

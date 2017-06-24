@@ -6,11 +6,11 @@ flaskapp:
         - PGPASSWORD
 
     volumes:
-        - ./back_end /app
+        - ./back_end:/app
 
     ports:
         # HOST : CONTAINER
-        - "8877:5000"
+        - "5000:5000"
 
 react:
 

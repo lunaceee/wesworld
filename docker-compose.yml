@@ -9,6 +9,7 @@ flaskapp:
     ports:
         # HOST : CONTAINER
         - "80:80"
+        - "5000:5000"
 
     links:
         - pg
@@ -29,8 +30,8 @@ react:
         # HOST : CONTAINER
         - "3000:3000"
 
-    links:
-        - flaskapp
+    #links:
+        #- flaskapp
 
     environment:
         - VIRTUAL_HOST=wesworld.us
