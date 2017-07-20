@@ -17,3 +17,4 @@ react:
     volumes:
         - ./front_end/src:/wesworld/src
         - ./front_end/public:/wesworld/public
+        - ./webpack.config.js:/wesworld/webpack.config.js

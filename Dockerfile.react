@@ -14,6 +14,11 @@ RUN npm install
 RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && apt-get install nodejs -y
 RUN npm install webpack -g
+RUN npm install babel-loader
+RUN npm install babel-core
+RUN npm install babel-preset-es2015
+RUN npm install babel-preset-react
 RUN npm install
+
 COPY webpack.config.js /wesworld
-CMD webpack --watch --watch-poll
+CMD webpack --watch --watch-poll & npm start
