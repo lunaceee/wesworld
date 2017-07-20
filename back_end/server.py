@@ -45,33 +45,33 @@ def show_home_page():
 def register_page():
     """Register user."""
 
-    profile_pic = ["/static/css/images/profile_pic/gustav.jpg",
-                    "/static/css/images/profile_pic/zero.jpg",
-                    "/static/css/images/profile_pic/mrjean.jpg",
-                    "/static/css/images/profile_pic/agatha.jpg",
-                    "/static/css/images/profile_pic/henckels.jpg",
-                    "/static/css/images/profile_pic/dmitri.jpg",
-                    "/static/css/images/profile_pic/sam.jpg",
-                    "/static/css/images/profile_pic/suzy.jpg",
-                    "/static/css/images/profile_pic/walt.jpg",
-                    "/static/css/images/profile_pic/ben.jpg",
-                    "/static/css/images/profile_pic/francis.jpg",
-                    "/static/css/images/profile_pic/peter.jpg",
-                    "/static/css/images/profile_pic/jack.jpg",
-                    "/static/css/images/profile_pic/margot.jpg",
-                    "/static/css/images/profile_pic/richard.jpg",
-                    "/static/css/images/profile_pic/elicash.jpg",
-                    "/static/css/images/profile_pic/royal.jpg",
-                    "/static/css/images/profile_pic/etheline.jpg",
-                    "/static/css/images/profile_pic/chas.jpg",
-                    "/static/css/images/profile_pic/henry.jpg",
-                    "/static/css/images/profile_pic/pagoda.jpg",
-                    "/static/css/images/profile_pic/stevezissue.jpg",
-                    "/static/css/images/profile_pic/ned.jpg",
-                    "/static/css/images/profile_pic/klaus.jpg",
-                    "/static/css/images/profile_pic/eleanor.jpg",
-                    "/static/css/images/profile_pic/max.jpg",
-                    "/static/css/images/profile_pic/dignan.jpg"]
+    profile_pic = ["../front_end/src/static/css/images/profile_pic/gustav.jpg",
+                    "../front_end/src/static/css/images/profile_pic/zero.jpg",
+                    "../front_end/src/static/css/images/profile_pic/mrjean.jpg",
+                    "../front_end/src/static/css/images/profile_pic/agatha.jpg",
+                    "../front_end/src/static/css/images/profile_pic/henckels.jpg",
+                    "../front_end/src/static/css/images/profile_pic/dmitri.jpg",
+                    "../front_end/src/static/css/images/profile_pic/sam.jpg",
+                    "../front_end/src/static/css/images/profile_pic/suzy.jpg",
+                    "../front_end/src/static/css/images/profile_pic/walt.jpg",
+                    "../front_end/src/static/css/images/profile_pic/ben.jpg",
+                    "../front_end/src/static/css/images/profile_pic/francis.jpg",
+                    "../front_end/src/static/css/images/profile_pic/peter.jpg",
+                    "../front_end/src/static/css/images/profile_pic/jack.jpg",
+                    "../front_end/src/static/css/images/profile_pic/margot.jpg",
+                    "../front_end/src/static/css/images/profile_pic/richard.jpg",
+                    "../front_end/src/static/css/images/profile_pic/elicash.jpg",
+                    "../front_end/src/static/css/images/profile_pic/royal.jpg",
+                    "../front_end/src/static/css/images/profile_pic/etheline.jpg",
+                    "../front_end/src/static/css/images/profile_pic/chas.jpg",
+                    "../front_end/src/static/css/images/profile_pic/henry.jpg",
+                    "../front_end/src/static/css/images/profile_pic/pagoda.jpg",
+                    "../front_end/src/static/css/images/profile_pic/stevezissue.jpg",
+                    "../front_end/src/static/css/images/profile_pic/ned.jpg",
+                    "../front_end/src/static/css/images/profile_pic/klaus.jpg",
+                    "../front_end/src/static/css/images/profile_pic/eleanor.jpg",
+                    "../front_end/src/static/css/images/profile_pic/max.jpg",
+                    "../front_end/src/static/css/images/profile_pic/dignan.jpg"]
 
     if request.method == "POST":
         username = request.form.get("username")
@@ -102,7 +102,7 @@ def register_page():
         return redirect('/search')
 
     else:
-        return rediect("/search")
+        return redirect("/search")
 
 
 
@@ -177,14 +177,21 @@ def show_user_profile(user_id):
     for pair_lst in movie_ensemble.values():
         pair_lst.sort(reverse=True)
 
-    return render_template('../front_end/templates/user_profile.html',
-                            pic=pic,
-                            email=email,
-                            username=username,
-                            ensembles=ensembles,
-                            movie_ensemble=movie_ensemble,
-                            points=points,
-                            )
+    # return render_template('../front_end/templates/user_profile.html',
+    #                         pic=pic,
+    #                         email=email,
+    #                         username=username,
+    #                         ensembles=ensembles,
+    #                         movie_ensemble=movie_ensemble,
+    #                         points=points,
+    #                         )
+
+    return jsonify(dict(pic=pic,
+                    email=email,
+                    username=username,
+                    ensembles=ensembles,
+                    movie_ensemble=movie_ensemble,
+                    points=points,))
 
 
 @app.route('/ensembles', methods=['POST'])
@@ -270,6 +277,7 @@ def save_ensemble():
 
     return redirect('/search')
 
+# Helper function.
 def get_colors_from_movie(movie):
     """Get all colors from movies."""
     
